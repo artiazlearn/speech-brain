@@ -1,0 +1,113 @@
+speech_id: jfk-1961-inaugural
+schema_version: 0.1.0
+vocabulary_version: 0.1.0
+
+sections:
+  - id: s01
+    paragraphs:
+      - p001
+      - p002
+    functions:
+      - opening
+      - reframe_occasion
+    rationale: >
+      The salutation establishes the speaker-audience relationship, after which
+      the inauguration is recast as a renewal of freedom rather than a partisan
+      victory.
+
+  - id: s02
+    paragraphs:
+      - p003
+      - p004
+      - p005
+      - p006
+    functions:
+      - establish_values
+      - define_stakes
+    rationale: >
+      These paragraphs connect inherited rights and revolutionary principles
+      to a dangerous modern world, then state the generation's commitment to
+      defend liberty at any cost.
+
+  - id: s03
+    paragraphs:
+      - p007
+      - p008
+      - p009
+      - p010
+      - p011
+    functions:
+      - address_audience_group
+    rationale: >
+      A sequence of tailored pledges addresses allied nations, new states,
+      impoverished peoples, neighboring republics, and the United Nations as
+      distinct international constituencies.
+
+  - id: s04
+    paragraphs:
+      - p012
+      - p013
+      - p014
+      - p015
+    functions:
+      - address_adversary
+      - define_stakes
+    rationale: >
+      The speech turns to adversarial powers, balances a request for renewed
+      negotiation with a warning against weakness, and identifies nuclear
+      destruction as the consequence of the current course.
+
+  - id: s05
+    paragraphs:
+      - p016
+      - p017
+      - p018
+      - p019
+      - p020
+      - p021
+    functions:
+      - address_adversary
+      - call_to_action
+    rationale: >
+      Repeated appeals to both sides set out a cooperative program spanning
+      arms control, science, human welfare, and international law, ending with
+      an acknowledgment that the work must begin despite its long horizon.
+
+  - id: s06
+    paragraphs:
+      - p022
+      - p023
+      - p024
+    functions:
+      - personalize_responsibility
+      - call_to_action
+    rationale: >
+      Responsibility shifts to citizens, who are summoned to a sustained
+      struggle against shared human enemies and asked to join a global effort.
+
+  - id: s07
+    paragraphs:
+      - p025
+      - p026
+      - p027
+    functions:
+      - personalize_responsibility
+      - climax
+      - call_to_action
+    rationale: >
+      The generational charge rises to the speech's high point, placing
+      responsibility first on Americans and then on citizens of the world
+      through direct, reciprocal appeals.
+
+  - id: s08
+    paragraphs:
+      - p028
+    functions:
+      - call_to_action
+      - closing
+    rationale: >
+      The final paragraph closes with a reciprocal standard of service and
+      sacrifice, then sends speaker and audience forward under moral and
+      historical judgment.
+
+candidate_section_functions: []

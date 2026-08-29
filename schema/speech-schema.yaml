@@ -1,0 +1,22 @@
+schema_version: 0.1.0
+
+# Core identifying and contextual information for a speech.
+speech:
+  id:
+  title:
+  speaker:
+  date:
+  country:
+  speech_type:
+
+# Structural divisions recorded within a speech.
+structure:
+  sections:
+
+# Analytical annotations that may be recorded for a speech.
+tags:
+  purposes:
+  themes:
+  tone:
+  rhetorical_devices:
+  writing_patterns:

@@ -1,0 +1,70 @@
+vocabulary_version: 0.1.0
+
+# Intended outcomes a speech may seek to achieve.
+purposes:
+  - inspire
+  - persuade
+  - reassure
+  - warn
+  - unify
+  - mobilize
+  - call_to_action
+  - establish_values
+  - define_stakes
+
+# Subjects and ideas a speech may address.
+themes:
+  - freedom
+  - civic_duty
+  - responsibility
+  - sacrifice
+  - peace
+  - national_unity
+  - international_cooperation
+
+# Qualities describing a speech's attitude or emotional character.
+tone:
+  - formal
+  - idealistic
+  - resolute
+  - challenging
+  - conciliatory
+  - sombre
+
+# Rhetorical techniques used within a speech.
+rhetorical_devices:
+  - antithesis
+  - anaphora
+  - parallelism
+  - repetition
+  - tricolon
+  - metaphor
+  - rhetorical_question
+  - imperative
+  - direct_address
+
+# Recurring compositional strategies in speech writing.
+writing_patterns:
+  - reframe_occasion
+  - establish_shared_values
+  - address_audience_groups
+  - contrast_alternatives
+  - raise_stakes
+  - personalize_responsibility
+  - build_to_climax
+  - transfer_responsibility_to_audience
+
+# Structural roles that a section of a speech may perform.
+section_functions:
+  - opening
+  - reframe_occasion
+  - establish_values
+  - address_audience_group
+  - address_adversary
+  - explain_problem
+  - define_stakes
+  - reframe_problem
+  - personalize_responsibility
+  - climax
+  - call_to_action
+  - closing
