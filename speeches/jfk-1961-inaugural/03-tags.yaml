@@ -1,0 +1,354 @@
+speech_id: jfk-1961-inaugural
+schema_version: 0.1.0
+vocabulary_version: 0.1.1
+
+speech_level:
+  purposes:
+    - tag: inspire
+      rationale: >
+        The address presents its generation as capable of defending freedom
+        and lighting the world through its energy, faith, and devotion
+        (p004, p025).
+      confidence: high
+    - tag: warn
+      rationale: >
+        It alerts adversaries and the wider audience to the dangers of
+        weakness, the arms race, and nuclear self-destruction (p012-p014).
+      confidence: medium
+    - tag: unify
+      rationale: >
+        It rejects partisan triumph at the outset and repeatedly seeks common
+        ground among citizens, nations, and opposing blocs (p002, p016, p024).
+      confidence: high
+    - tag: mobilize
+      rationale: >
+        Citizens and nations are summoned to sustained collective effort
+        against tyranny, poverty, disease, and war (p023-p024).
+      confidence: high
+    - tag: call_to_action
+      rationale: >
+        The speech repeatedly asks both sides, Americans, and citizens of the
+        world to undertake concrete and continuing action (p016-p021,
+        p026-p028).
+      confidence: high
+    - tag: establish_values
+      rationale: >
+        Rights, liberty, loyalty, responsibility, and sacrifice are presented
+        as standards governing the commitments that follow (p003-p005,
+        p025-p028).
+      confidence: high
+    - tag: define_stakes
+      rationale: >
+        The address frames the choices before its audiences in terms of the
+        survival of liberty and the possibility of human self-destruction
+        (p003, p005, p012-p014).
+      confidence: high
+
+  themes:
+    - tag: freedom
+      rationale: >
+        Freedom and human rights anchor the opening principles, the pledges to
+        international audiences, and the concluding appeals (p002-p005,
+        p007-p010, p025-p027).
+      confidence: high
+    - tag: civic_duty
+      rationale: >
+        The later movement of the speech defines what citizens owe their
+        country and the wider human community (p022-p028).
+      confidence: high
+    - tag: responsibility
+      rationale: >
+        Responsibility shifts from the new administration and its generation
+        to individual citizens and the global audience (p004, p022,
+        p025-p028).
+      confidence: high
+    - tag: sacrifice
+      rationale: >
+        The speech treats burdens, service, hardship, and sacrifice as costs
+        required to protect liberty and pursue common aims (p005, p023,
+        p025, p028).
+      confidence: high
+    - tag: peace
+      rationale: >
+        The central international appeal seeks to prevent destructive conflict
+        and replace the arms race with negotiation and durable peace
+        (p012-p021).
+      confidence: high
+    - tag: international_cooperation
+      rationale: >
+        The pledges to allies and institutions develop into a detailed program
+        of joint action between rival blocs (p007-p011, p016-p020, p024).
+      confidence: high
+    - tag: poverty
+      rationale: >
+        Material deprivation is a recurring concern: the speech contrasts the
+        power to end poverty with human destruction, pledges aid to poor
+        populations, and names poverty among humanity's common enemies
+        (p003, p009-p010, p023).
+      confidence: high
+
+  tone:
+    - tag: formal
+      rationale: >
+        Ceremonial address, elevated diction, and solemn public pledges sustain
+        a formal register throughout the speech (p001-p006, p028).
+      confidence: high
+    - tag: idealistic
+      rationale: >
+        The speech envisions common endeavor, international law, human freedom,
+        and moral service as achievable collective aims (p018-p020,
+        p025-p028).
+      confidence: high
+    - tag: resolute
+      rationale: >
+        Unqualified commitments to bear burdens, resist threats, and accept
+        generational responsibility create a determined stance (p005, p013,
+        p025).
+      confidence: high
+    - tag: challenging
+      rationale: >
+        The speaker sets demanding standards for adversaries, institutions,
+        citizens, and himself rather than offering an easy program
+        (p012-p021, p022-p028).
+      confidence: high
+    - tag: conciliatory
+      rationale: >
+        Appeals to begin anew, negotiate without fear, and pursue shared work
+        offer adversaries a path toward cooperation (p012, p015-p020).
+      confidence: high
+    - tag: sombre
+      rationale: >
+        References to human extinction, nuclear terror, graves, and prolonged
+        struggle add a serious and mournful current within the broader address
+        (p003, p012-p014, p022-p023).
+      confidence: medium
+
+passage_annotations:
+  - id: a001
+    category: rhetorical_devices
+    tag: direct_address
+    section: s01
+    paragraphs:
+      - p001
+    evidence: "fellow citizens"
+    rationale: >
+      The salutation explicitly names and addresses the assembled audience.
+    confidence: high
+
+  - id: a002
+    category: rhetorical_devices
+    tag: metaphor
+    section: s02
+    paragraphs:
+      - p004
+    evidence: "the torch has been passed to a new generation of Americans"
+    rationale: >
+      The transferred torch figures political and moral responsibility as an
+      inherited flame passed between generations.
+    confidence: high
+
+  - id: a003
+    category: rhetorical_devices
+    tag: repetition
+    section: s04
+    paragraphs:
+      - p013
+    evidence: "our arms are sufficient beyond doubt ... certain beyond doubt"
+    rationale: >
+      The phrase is deliberately reused within the sentence for emphasis, but
+      not at the beginnings of successive clauses, so this is repetition rather
+      than anaphora.
+    confidence: high
+
+  - id: a004
+    category: rhetorical_devices
+    tag: anaphora
+    section: s05
+    paragraphs:
+      - p016
+      - p017
+      - p018
+      - p019
+    evidence: >
+      “Let both sides explore”; “Let both sides ... formulate”; “Let both sides
+      seek”; “Let both sides unite”
+    rationale: >
+      The same words open successive paragraphs and clauses, creating a
+      sustained sequence of coordinated appeals.
+    confidence: high
+
+  - id: a005
+    category: rhetorical_devices
+    tag: rhetorical_question
+    section: s06
+    paragraphs:
+      - p024
+    evidence: "Will you join in that historic effort?"
+    rationale: >
+      The question functions as an appeal for commitment rather than a request
+      for an immediate factual answer.
+    confidence: high
+
+  - id: a006
+    category: rhetorical_devices
+    tag: tricolon
+    section: s07
+    paragraphs:
+      - p025
+    evidence: "The energy, the faith, the devotion"
+    rationale: >
+      Three parallel noun phrases form a deliberate, rhythmically weighted
+      sequence.
+    confidence: high
+
+  - id: a007
+    category: rhetorical_devices
+    tag: antithesis
+    section: s07
+    paragraphs:
+      - p026
+    evidence: "ask not what your country can do for you--ask what you can do for your country"
+    rationale: >
+      The balanced clauses reverse country and citizen to oppose receiving
+      service to giving it.
+    confidence: high
+
+  - id: a008
+    category: rhetorical_devices
+    tag: parallelism
+    section: s07
+    paragraphs:
+      - p026
+    evidence: "what your country can do for you ... what you can do for your country"
+    rationale: >
+      The two clauses share corresponding grammatical structure; the same
+      passage also qualifies separately as antithesis because its ideas
+      contrast.
+    confidence: high
+
+  - id: a009
+    category: rhetorical_devices
+    tag: imperative
+    section: s07
+    paragraphs:
+      - p026
+    evidence: "ask not ... ask"
+    rationale: >
+      The repeated verb directly instructs the audience how to orient its
+      conduct, making the language grammatically directive.
+    confidence: high
+
+  - id: a010
+    category: writing_patterns
+    tag: reframe_occasion
+    section: s01
+    paragraphs:
+      - p002
+    evidence: "not a victory of party but a celebration of freedom"
+    rationale: >
+      The inauguration is recast from a partisan transfer of power into a
+      broader symbolic renewal of freedom.
+    confidence: high
+
+  - id: a011
+    category: writing_patterns
+    tag: establish_shared_values
+    section: s02
+    paragraphs:
+      - p003
+      - p004
+      - p005
+    evidence: "we are the heirs of that first revolution"
+    rationale: >
+      Inherited beliefs about rights and liberty are presented as common ground
+      supporting the generation's public commitments.
+    confidence: high
+
+  - id: a012
+    category: writing_patterns
+    tag: address_audience_groups
+    section: s03
+    paragraphs:
+      - p007
+      - p008
+      - p009
+      - p010
+      - p011
+    evidence: >
+      “To those old allies”; “To those new states”; “To our sister republics”;
+      “To that world assembly”
+    rationale: >
+      Successive paragraphs organize distinct pledges around multiple named
+      international constituencies.
+    confidence: high
+
+  - id: a013
+    category: writing_patterns
+    tag: contrast_alternatives
+    section: s04
+    paragraphs:
+      - p012
+      - p013
+      - p014
+      - p015
+    evidence: "begin anew the quest for peace ... neither can ... take comfort from our present course"
+    rationale: >
+      The section develops a choice between renewed, credible negotiation and
+      continued movement along a dangerous arms-race trajectory.
+    confidence: high
+
+  - id: a014
+    category: writing_patterns
+    tag: raise_stakes
+    section: s02
+    paragraphs:
+      - p003
+      - p004
+      - p005
+    evidence: "the power to abolish all forms of human poverty and all forms of human life"
+    rationale: >
+      The argument expands from inherited beliefs to humanity's survival and
+      then to an unlimited commitment to liberty, increasing its scale and
+      consequence.
+    confidence: high
+
+  - id: a015
+    category: writing_patterns
+    tag: personalize_responsibility
+    section: s06
+    paragraphs:
+      - p022
+    evidence: "In your hands, my fellow citizens, more than mine"
+    rationale: >
+      The speech converts the success or failure of a national course into a
+      responsibility borne concretely by citizens.
+    confidence: high
+
+  - id: a016
+    category: writing_patterns
+    tag: build_to_climax
+    section: s07
+    paragraphs:
+      - p025
+      - p026
+      - p027
+    evidence: >
+      “The energy, the faith, the devotion”; “ask not”; “My fellow citizens of
+      the world”
+    rationale: >
+      The sequence escalates from a generation's historic role to reciprocal
+      appeals addressed first nationally and then globally, producing the
+      speech's high point.
+    confidence: high
+
+  - id: a017
+    category: writing_patterns
+    tag: transfer_responsibility_to_audience
+    section: s06
+    paragraphs:
+      - p022
+    evidence: "In your hands, my fellow citizens, more than mine"
+    rationale: >
+      The explicit comparison shifts agency for the outcome away from the
+      speaker and toward the listening citizens.
+    confidence: high

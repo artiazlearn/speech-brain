@@ -1,0 +1,17 @@
+candidate_tags:
+  - candidate: poverty
+    proposed_category: themes
+    speech: jfk-1961-inaugural
+    section: s03
+    paragraphs:
+      - p009
+      - p010
+    reason: >
+      Material deprivation is treated as a major global condition requiring
+      sustained action and recurs later as one of humanity's common enemies.
+      The existing themes can capture its relationship to freedom and duty but
+      not poverty itself.
+    possible_existing_tags:
+      - freedom
+    status: approved
+    approved_in_vocabulary_version: 0.1.1

@@ -349,3 +349,9 @@ Theme tags identify substantive ideas developed with meaningful emphasis, not ev
 - **Definition:** Collaboration among nations or international institutions toward shared aims.
 - **Use when:** The speech develops joint action, mutual commitments, alliances, negotiation, or multilateral problem-solving.
 - **Do not use when:** It merely names other countries or discusses foreign affairs without a meaningful cooperative dimension.
+
+### `poverty`
+
+- **Definition:** Material deprivation, economic hardship, or lack of resources affecting individuals or populations.
+- **Use when:** Poverty, deprivation, economic hardship, or unmet material needs are a substantive subject of the speech.
+- **Do not use when:** The speech merely refers generally to struggle, sacrifice, inequality, or hardship without materially discussing poverty or deprivation.

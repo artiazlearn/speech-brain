@@ -1,4 +1,4 @@
-vocabulary_version: 0.1.0
+vocabulary_version: 0.1.1
 
 # Intended outcomes a speech may seek to achieve.
 purposes:
@@ -21,6 +21,7 @@ themes:
   - peace
   - national_unity
   - international_cooperation
+  - poverty
 
 # Qualities describing a speech's attitude or emotional character.
 tone:
