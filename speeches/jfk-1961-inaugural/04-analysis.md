@@ -1,10 +1,20 @@
+---
+speech_id: jfk-1961-inaugural
+derived_from_schema_version: 0.2.0
+derived_from_vocabulary_version: 0.2.0
+---
+
 # JFK Inaugural Address — Speechwriting Analysis
 
 ## 1. Speech at a Glance
 
-The address has several linked purposes: to inspire, warn, unify, mobilize, call people to action, establish values, and define the stakes of the moment. Its major themes are freedom, civic duty, responsibility, sacrifice, peace, international cooperation, and poverty. The tone combines a formal and idealistic public voice with resolute challenge, conciliatory appeals, and a sombre awareness of war and human destruction.
+The address has four validated **primary purposes**: `inspire`, `unify`, `call_to_action`, and `establish_values`. These purposes define its central work. Kennedy presents a generation as capable of defending freedom, builds common ground across political and international divisions, urges sustained action, and establishes the principles by which that action should be judged.
 
-Its architecture steadily widens, narrows to personal responsibility, then widens again globally. Kennedy reframes the inauguration, grounds the speech in inherited values, addresses a series of international constituencies, turns to adversaries, proposes shared work, and then brings responsibility home to individual listeners. That narrowing produces the climax: Americans and citizens of the world receive memorable reciprocal calls to service. A final paragraph closes by placing both leaders and citizens under the same standards of sacrifice and judgment.
+Its three validated **secondary purposes** are `warn`, `mobilize`, and `define_stakes`. They support the central work by making the dangers of weakness, the arms race, and human destruction explicit; summoning collective effort; and clarifying what liberty and humanity stand to lose. They are consequential, but they serve the speech's larger project of shared values, unity, inspiration, and action.
+
+The validated themes are `freedom`, `civic_duty`, `responsibility`, `sacrifice`, `peace`, `international_cooperation`, and `poverty`. The validated tone is `formal`, `idealistic`, `resolute`, `challenging`, `conciliatory`, and `sombre`.
+
+The architecture begins with the immediate inauguration and recasts it as a renewal of freedom. It then widens toward national values and a network of international relationships: allies, new states, impoverished peoples, neighboring republics, the United Nations, and adversaries. After proposing shared action between rival powers, it narrows toward the responsibility of individual citizens. At the climax it widens again, moving from Americans to citizens of the world, before the closing places leaders and listeners under a shared moral responsibility. This movement lets the speech connect a specific ceremony to global stakes without losing the individual listener.
 
 ## 2. Rhetorical Structure
 
@@ -147,10 +157,10 @@ The paired directive “ask not ... ask” tells listeners how to reorient their
 
 ### `personalize_responsibility`
 
-- **Plain English:** Translate a national or institutional outcome into a duty borne by identifiable people.
+- **Plain English:** Translate an abstract, national, or institutional issue into a responsibility personally borne by the audience.
 - **Where JFK uses it:** In p022, success or failure rests “in your hands, my fellow citizens.”
 - **Why it works:** The audience can no longer treat the program as the administration's task alone.
-- **Reusable principle:** Name who must carry the work and make their connection to the outcome explicit.
+- **Reusable principle:** Make listeners personally responsible for an outcome or course of action, and state their connection to it explicitly.
 
 ### `build_to_climax`
 

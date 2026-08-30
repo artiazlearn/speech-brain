@@ -1,3 +1,9 @@
+---
+speech_id: churchill-1940-fight-on-beaches
+derived_from_schema_version: 0.2.0
+derived_from_vocabulary_version: 0.2.0
+---
+
 # Winston Churchill — War Situation — Speechwriting Analysis
 
 ## 1. Speech at a Glance
