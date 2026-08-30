@@ -70,3 +70,124 @@ candidate_tags:
       - raise_stakes
     status: approved
     approved_in_vocabulary_version: 0.2.0
+
+  - candidate: commemorate
+    proposed_category: section_functions
+    speech: reagan-1986-challenger
+    section: s01
+    paragraphs:
+      - p002
+      - p003
+    reason: >
+      Naming the dead, honoring them as heroes, and leading a nation in shared
+      mourning are central rhetorical work not fully described by opening or
+      reframe_occasion.
+    possible_existing_tags:
+      - opening
+      - reframe_occasion
+      - establish_values
+    status: pending_review
+
+  - candidate: console
+    proposed_category: section_functions
+    speech: reagan-1986-challenger
+    section: s02
+    paragraphs:
+      - p004
+      - p005
+    reason: >
+      Acknowledging the families' unequal grief and offering meaning through
+      the crew's character performs consolation beyond audience-targeting and
+      value-setting.
+    possible_existing_tags:
+      - address_audience_group
+      - establish_values
+      - reframe_problem
+    status: pending_review
+
+  - candidate: commemorate
+    proposed_category: purposes
+    speech: reagan-1986-challenger
+    section: s01
+    paragraphs:
+      - p002
+      - p003
+    reason: >
+      A central reason for the address is to name the dead, honor them as
+      heroes, and lead the country in public remembrance. Inspire, unify, and
+      establish_values support that work but do not fully represent
+      commemoration as an intended audience outcome; the purpose recurs in the
+      closing tribute at p009-p010.
+    possible_existing_tags:
+      - inspire
+      - unify
+      - establish_values
+    status: pending_review
+
+  - candidate: console
+    proposed_category: purposes
+    speech: reagan-1986-challenger
+    section: s02
+    paragraphs:
+      - p004
+      - p005
+    reason: >
+      The address seeks to accompany bereaved families in grief and offer
+      meaning through the crew's character. Reassure captures responses to
+      fear and uncertainty but does not fully describe consolation after an
+      irreversible loss; related work addresses children and NASA personnel in
+      s03-s04.
+    possible_existing_tags:
+      - reassure
+      - unify
+      - inspire
+    status: pending_review
+
+  - candidate: exploration
+    proposed_category: themes
+    speech: reagan-1986-challenger
+    section: s03
+    paragraphs:
+      - p006
+    reason: >
+      Exploration is developed as a continuing human endeavor that entails
+      risk, expands horizons, and connects the crew's sacrifice to the future.
+      It recurs from p004 through p010 and is not adequately represented by
+      freedom or sacrifice alone.
+    possible_existing_tags:
+      - freedom
+      - sacrifice
+    status: pending_review
+
+  - candidate: allusion
+    proposed_category: rhetorical_devices
+    speech: reagan-1986-challenger
+    section: s05
+    paragraphs:
+      - p009
+      - p010
+    reason: >
+      The climax gains meaning by invoking Sir Francis Drake and language from
+      an earlier poem. Metaphor captures part of the closing image, but not the
+      rhetorical use of recognizable historical and literary references.
+    possible_existing_tags:
+      - metaphor
+    status: pending_review
+
+  - candidate: move_from_loss_to_meaning
+    proposed_category: writing_patterns
+    speech: reagan-1986-challenger
+    section: s05
+    paragraphs:
+      - p009
+      - p010
+    reason: >
+      The speech's progression culminates by placing the crew's death within a
+      history of exploration and giving their final departure transcendent
+      meaning. Reframing and climax-building describe parts of the construction
+      but not the reusable movement from acknowledged loss toward meaning and
+      continuity.
+    possible_existing_tags:
+      - reframe_occasion
+      - build_to_climax
+    status: pending_review

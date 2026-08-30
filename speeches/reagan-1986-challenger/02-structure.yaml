@@ -1,0 +1,66 @@
+speech_id: reagan-1986-challenger
+schema_version: 0.2.0
+vocabulary_version: 0.2.0
+
+sections:
+  - id: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+    functions:
+      - opening
+      - reframe_occasion
+    rationale: >
+      Reagan replaces the planned State of the Union setting with a national
+      occasion of mourning, identifies the unprecedented loss, names the crew,
+      and establishes that the country shares in remembering them together.
+
+  - id: s02
+    paragraphs:
+      - p004
+      - p005
+    functions:
+      - address_audience_group
+      - establish_values
+    rationale: >
+      The speech turns toward the astronauts' families, acknowledges that their
+      grief cannot be fully shared, and honors the courage, service, joy, and
+      pioneering spirit that give the crew's lives meaning for the wider public.
+
+  - id: s03
+    paragraphs:
+      - p006
+    functions:
+      - address_audience_group
+      - reframe_problem
+    rationale: >
+      Reagan speaks specifically to schoolchildren and helps them interpret the
+      disaster as a painful risk within exploration rather than a reason to
+      abandon it, connecting the crew's bravery to a continuing future.
+
+  - id: s04
+    paragraphs:
+      - p007
+      - p008
+    functions:
+      - reframe_problem
+      - address_audience_group
+    rationale: >
+      The address rejects the idea that the explosion ends or discredits the
+      space program, presents openness and continued exploration as the proper
+      response, and then turns to NASA's workforce to recognize and share its
+      anguish.
+
+  - id: s05
+    paragraphs:
+      - p009
+      - p010
+    functions:
+      - climax
+      - closing
+    rationale: >
+      The historical comparison with Francis Drake gathers the earlier themes
+      of exploration and complete dedication, then rises into a final image of
+      the crew's departure that forms the emotional high point and resolves the
+      speech in remembrance.

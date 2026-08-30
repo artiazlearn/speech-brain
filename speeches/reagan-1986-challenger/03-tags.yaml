@@ -1,0 +1,202 @@
+speech_id: reagan-1986-challenger
+schema_version: 0.2.0
+vocabulary_version: 0.2.0
+
+speech_level:
+  purposes:
+    primary:
+      - tag: reassure
+        rationale: >
+          The address responds to fear and uncertainty after the explosion by
+          helping children understand the risks of exploration, affirming the
+          openness of the space program, and promising that its work will
+          continue (p006-p008).
+        confidence: high
+      - tag: unify
+        rationale: >
+          Reagan presents the disaster as a national loss, joins himself and
+          the country in shared pain, and repeatedly speaks of mourning and
+          remembering together (p001-p004, p008).
+        confidence: high
+      - tag: inspire
+        rationale: >
+          The crew's courage, service, and pioneering spirit are used to renew
+          confidence in exploration and to direct attention toward a future
+          that will continue despite the tragedy (p002, p004-p010).
+        confidence: high
+    secondary:
+      - tag: persuade
+        rationale: >
+          The speech argues that the disaster should not diminish faith in the
+          space program and that public, open exploration should continue
+          (p006-p008).
+        confidence: high
+      - tag: establish_values
+        rationale: >
+          Courage, service, openness, dedication, and willingness to accept the
+          risks of discovery are presented as standards for understanding the
+          crew and the future of the space program (p002, p004-p010).
+        confidence: high
+
+  themes:
+    - tag: sacrifice
+      rationale: >
+        The crew knew the dangers of flight, chose to serve, and is remembered
+        for complete dedication to a larger exploratory purpose (p002, p004,
+        p009-p010).
+      confidence: high
+    - tag: national_unity
+      rationale: >
+        The loss is framed as belonging to the whole country, whose people
+        mourn together and share the grief of the families and NASA community
+        (p001, p003-p004, p008).
+      confidence: high
+
+  tone:
+    - tag: formal
+      rationale: >
+        The presidential address combines measured public acknowledgment,
+        direct messages to affected groups, and an elevated closing tribute
+        (p001-p010).
+      confidence: high
+    - tag: idealistic
+      rationale: >
+        Exploration, courage, freedom, and humanity's expanding horizons are
+        presented as enduring ideals capable of carrying the country beyond
+        the immediate disaster (p004-p010).
+      confidence: medium
+    - tag: resolute
+      rationale: >
+        Repeated assurances that exploration will continue give the later
+        sections a determined stance without denying the loss (p006-p008).
+      confidence: high
+    - tag: sombre
+      rationale: >
+        Mourning, national loss, family grief, anguish, and remembrance sustain
+        a grave emotional character throughout the address (p001-p004,
+        p008-p010).
+      confidence: high
+
+passage_annotations:
+  - id: a001
+    category: rhetorical_devices
+    tag: repetition
+    section: s01
+    paragraphs:
+      - p002
+    evidence: "we've never lost an astronaut in flight; we've never had a tragedy like this"
+    rationale: >
+      Repeating "we've never" emphasizes the unprecedented nature of the loss.
+    confidence: high
+
+  - id: a002
+    category: rhetorical_devices
+    tag: direct_address
+    section: s02
+    paragraphs:
+      - p004
+    evidence: "For the families of the seven ... as you do"
+    rationale: >
+      Reagan turns explicitly toward the bereaved families and speaks to them
+      in the second person, making the national address momentarily intimate.
+    confidence: high
+
+  - id: a003
+    category: rhetorical_devices
+    tag: antithesis
+    section: s03
+    paragraphs:
+      - p006
+    evidence: "The future doesn't belong to the fainthearted; it belongs to the brave"
+    rationale: >
+      The balanced opposition contrasts fearfulness with courage as rival
+      orientations toward exploration after the disaster.
+    confidence: high
+
+  - id: a004
+    category: rhetorical_devices
+    tag: parallelism
+    section: s03
+    paragraphs:
+      - p006
+    evidence: "doesn't belong to the fainthearted; it belongs to the brave"
+    rationale: >
+      Corresponding clauses give the contrast a compact grammatical symmetry;
+      the passage also qualifies separately as antithesis because the ideas
+      oppose each other.
+    confidence: high
+
+  - id: a005
+    category: rhetorical_devices
+    tag: anaphora
+    section: s04
+    paragraphs:
+      - p007
+    evidence: "We don't hide ... We don't keep secrets ... We do it all up front"
+    rationale: >
+      Successive sentences begin with "We," and the closely matched openings
+      turn transparency into a firm collective principle.
+    confidence: high
+
+  - id: a006
+    category: rhetorical_devices
+    tag: tricolon
+    section: s04
+    paragraphs:
+      - p007
+    evidence: "more volunteers, more civilians, more teachers in space"
+    rationale: >
+      Three coordinated noun phrases give the promise of future participation
+      a deliberate, expanding rhythm.
+    confidence: high
+
+  - id: a007
+    category: rhetorical_devices
+    tag: metaphor
+    section: s05
+    paragraphs:
+      - p010
+    evidence: "slipped the surly bonds of earth"
+    rationale: >
+      Earthly gravity is figured as a restraint the crew slips free from,
+      transforming the final memory of departure into a transcendent farewell.
+    confidence: high
+
+  - id: a008
+    category: writing_patterns
+    tag: reframe_occasion
+    section: s01
+    paragraphs:
+      - p001
+    evidence: "I'd planned ... to report on the state of the Union ... Today is a day for mourning and remembering"
+    rationale: >
+      The planned political occasion is explicitly replaced with a national
+      moment of grief and remembrance.
+    confidence: high
+
+  - id: a009
+    category: writing_patterns
+    tag: establish_shared_values
+    section: s02
+    paragraphs:
+      - p004
+      - p005
+    evidence: "They wished to serve ... They served all of us ... We're still pioneers"
+    rationale: >
+      Service, courage, and pioneering are presented as qualities the nation
+      admires and as a shared identity that connects the crew to its audience.
+    confidence: high
+
+  - id: a010
+    category: writing_patterns
+    tag: build_to_climax
+    section: s05
+    paragraphs:
+      - p009
+      - p010
+    evidence: "like Drake's, complete ... slipped the surly bonds of earth"
+    rationale: >
+      The closing rises from historical comparison to an elevated final image
+      of the crew's departure, creating the emotional culmination identified
+      by the validated section structure.
+    confidence: high
