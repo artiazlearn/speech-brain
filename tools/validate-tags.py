@@ -35,6 +35,12 @@ CONFIDENCE_VALUES = {"high", "medium", "low"}
 SPEECH_LEVEL_CATEGORIES = {"purposes", "themes", "tone"}
 PURPOSE_PRIORITIES = {"primary", "secondary"}
 PASSAGE_CATEGORIES = {"rhetorical_devices", "writing_patterns"}
+STRUCTURE_TOP_LEVEL_FIELDS = {
+    "speech_id",
+    "schema_version",
+    "vocabulary_version",
+    "sections",
+}
 CANDIDATE_STATUSES = {"pending_review", "approved", "rejected", "merged"}
 CANDIDATE_CATEGORIES = {
     "purposes",
@@ -182,6 +188,9 @@ def validate_structure(
     structure_path: Path,
     errors: list[str],
 ) -> tuple[int, dict[str, set[str]]]:
+    for field in sorted(set(structure) - STRUCTURE_TOP_LEVEL_FIELDS):
+        add_error(errors, structure_path, f"unexpected top-level field {field!r}")
+
     canonical_functions = vocabulary.get("section_functions", [])
     if not isinstance(canonical_functions, list):
         add_error(errors, VOCABULARY_PATH, "section_functions must be a list")

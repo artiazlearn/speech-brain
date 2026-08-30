@@ -267,6 +267,28 @@ def test_unknown_section_function_fails(
     assert "unknown section function 'explain_magic'" in output
 
 
+def test_unexpected_structure_top_level_field_fails(
+    validator_module: ModuleType,
+    corpus_root: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    structure_path = next(
+        path.relative_to(corpus_root)
+        for path in (corpus_root / "speeches").glob("*/02-structure.yaml")
+    )
+    structure = read_yaml(corpus_root, structure_path)
+    structure["candidate_section_functions"] = []
+    write_yaml(corpus_root, structure_path, structure)
+
+    result, output = run_validator(
+        validator_module, corpus_root, monkeypatch, capsys
+    )
+
+    assert result == 1, output
+    assert "unexpected top-level field 'candidate_section_functions'" in output
+
+
 def test_wrong_schema_version_fails(
     validator_module: ModuleType,
     corpus_root: Path,
