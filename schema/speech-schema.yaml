@@ -1,27 +1,167 @@
 schema_version: 0.2.0
+vocabulary_version: 0.3.0
 
-# Core identifying and contextual information for a speech.
-speech:
-  id:
-  title:
-  speaker:
-  date:
-  country:
-  speech_type:
-
-# Structural divisions recorded within a speech.
+# Canonical shape of 02-structure.yaml.
 structure:
-  sections:
+  required_fields:
+    - speech_id
+    - schema_version
+    - vocabulary_version
+    - sections
 
-# Analytical annotations that may be recorded for a speech.
+  fields:
+    speech_id:
+      type: string
+      non_empty: true
+    schema_version:
+      type: string
+    vocabulary_version:
+      type: string
+    sections:
+      type: list
+      min_items: 1
+      items: section
+
+  section:
+    required_fields:
+      - id
+      - paragraphs
+      - functions
+      - rationale
+
+    fields:
+      id:
+        type: string
+        format: section_identifier
+        example: s01
+      paragraphs:
+        type: list
+        min_items: 1
+        ordered: true
+        items:
+          type: string
+          format: paragraph_identifier
+      functions:
+        type: list
+        min_items: 1
+        items:
+          type: string
+          canonical_category: section_functions
+      rationale:
+        type: string
+        non_empty: true
+
+# Canonical shape of 03-tags.yaml.
 tags:
-  purposes:
-    # The small number of outcomes central to why the speech exists.
-    primary:
-    # Meaningful supporting outcomes that contribute to the speech but are not
-    # its main reason for existence.
-    secondary:
-  themes:
-  tone:
-  rhetorical_devices:
-  writing_patterns:
+  required_fields:
+    - speech_id
+    - schema_version
+    - vocabulary_version
+    - speech_level
+    - passage_annotations
+
+  fields:
+    speech_id:
+      type: string
+      non_empty: true
+    schema_version:
+      type: string
+    vocabulary_version:
+      type: string
+    speech_level:
+      type: mapping
+    passage_annotations:
+      type: list
+      items: passage_annotation
+
+  speech_level:
+    required_fields:
+      - purposes
+      - themes
+      - tone
+
+    purposes:
+      required_fields:
+        - primary
+        - secondary
+      primary:
+        type: list
+        min_items: 1
+        canonical_category: purposes
+        items: speech_level_tag
+      secondary:
+        type: list
+        canonical_category: purposes
+        items: speech_level_tag
+
+    themes:
+      type: list
+      canonical_category: themes
+      items: speech_level_tag
+
+    tone:
+      type: list
+      canonical_category: tone
+      items: speech_level_tag
+
+  speech_level_tag:
+    required_fields:
+      - tag
+      - rationale
+      - confidence
+    fields:
+      tag:
+        type: string
+      rationale:
+        type: string
+        non_empty: true
+      confidence:
+        type: string
+        allowed_values:
+          - high
+          - medium
+          - low
+
+  passage_annotation:
+    required_fields:
+      - id
+      - category
+      - tag
+      - section
+      - paragraphs
+      - evidence
+      - rationale
+      - confidence
+    fields:
+      id:
+        type: string
+        format: annotation_identifier
+      category:
+        type: string
+        allowed_values:
+          - rhetorical_devices
+          - writing_patterns
+      tag:
+        type: string
+        canonical_category: determined_by_category
+      section:
+        type: string
+        format: section_identifier
+      paragraphs:
+        type: list
+        min_items: 1
+        items:
+          type: string
+          format: paragraph_identifier
+      evidence:
+        type: string
+        non_empty: true
+      rationale:
+        type: string
+        non_empty: true
+      confidence:
+        type: string
+        allowed_values:
+          - high
+          - medium
+          - low
