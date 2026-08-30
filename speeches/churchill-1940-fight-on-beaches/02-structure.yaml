@@ -1,0 +1,90 @@
+speech_id: churchill-1940-fight-on-beaches
+schema_version: 0.1.0
+vocabulary_version: 0.1.1
+
+sections:
+  - id: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    functions:
+      - opening
+      - explain_problem
+    rationale: >
+      The speech opens by tracing the German breakthrough, the failed Allied
+      attempt to restore the front, and the resulting retreat toward Dunkirk,
+      establishing how the northern armies became trapped.
+
+  - id: s02
+    paragraphs:
+      - p005
+      - p006
+      - p007
+      - p008
+    functions:
+      - explain_problem
+      - define_stakes
+    rationale: >
+      These paragraphs reconstruct the near-catastrophe Churchill had expected,
+      then show how the Belgian surrender and the attack on the shrinking
+      perimeter placed the Allied armies in danger of destruction or capture.
+
+  - id: s03
+    paragraphs:
+      - p009
+      - p010
+      - p011
+      - p012
+      - p013
+    functions:
+      - reframe_problem
+    rationale: >
+      The account of the evacuation credits the Navy and especially the Royal
+      Air Force, while correcting any interpretation of withdrawal as victory.
+      It presents Dunkirk instead as a deliverance containing evidence of air
+      strength and grounds for confidence in the defence of Britain.
+
+  - id: s04
+    paragraphs:
+      - p014
+      - p015
+      - p016
+    functions:
+      - explain_problem
+      - define_stakes
+    rationale: >
+      Churchill measures the human and material losses, explains their effect
+      on rebuilding military strength, and insists that the evacuation must not
+      obscure the scale of the disaster or the immediate threat to Britain and
+      France.
+
+  - id: s05
+    paragraphs:
+      - p017
+      - p018
+      - p019
+    functions:
+      - explain_problem
+      - define_stakes
+    rationale: >
+      The focus shifts to home defence: military reconstitution, parliamentary
+      scrutiny, domestic security, and preparation for unfamiliar forms of
+      invasion. Together the paragraphs explain the defensive problem and what
+      national survival now requires.
+
+  - id: s06
+    paragraphs:
+      - p020
+    functions:
+      - climax
+      - call_to_action
+      - closing
+    rationale: >
+      The final paragraph turns preparation into collective resolve, calls for
+      every duty to be fulfilled, and rises through repeated pledges of
+      resistance to the refusal to surrender before closing on the prospect of
+      continued imperial and international struggle.
+
+candidate_section_functions: []
