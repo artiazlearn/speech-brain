@@ -1,0 +1,284 @@
+speech_id: churchill-1940-fight-on-beaches
+schema_version: 0.1.0
+vocabulary_version: 0.1.1
+
+speech_level:
+  purposes:
+    - tag: inspire
+      rationale: >
+        The tribute to the airmen and the final declaration of resistance turn
+        military peril into confidence that courage and endurance can preserve
+        the nation (p012-p013, p020).
+      confidence: high
+    - tag: persuade
+      rationale: >
+        Churchill argues for a disciplined interpretation of Dunkirk as a
+        deliverance rather than a victory and uses the air battle to support
+        confidence in Britain's defensive prospects (p010-p012).
+      confidence: medium
+    - tag: reassure
+      rationale: >
+        Evidence about the evacuation, the Royal Air Force, production, and
+        home defence is used to answer fear with practical grounds for
+        confidence (p010-p012, p015, p017, p020).
+      confidence: high
+    - tag: warn
+      rationale: >
+        The speech stresses that the campaign was a military disaster and that
+        invasion, raids, and unfamiliar enemy methods must be expected
+        (p016-p019).
+      confidence: high
+    - tag: unify
+      rationale: >
+        Capital and labour, Government, Parliament, nation, Empire, and ally
+        are presented as joined in common effort and resolve (p015, p020).
+      confidence: high
+    - tag: mobilize
+      rationale: >
+        The address emphasizes intensified production, organized home defence,
+        vigilance, and continued collective resistance (p015, p017-p020).
+      confidence: high
+    - tag: call_to_action
+      rationale: >
+        Its concluding condition that all must do their duty and its commitment
+        to sustained resistance press the audience toward a demanding course
+        of national conduct (p020).
+      confidence: medium
+    - tag: establish_values
+      rationale: >
+        Duty, courage, sacrifice, loyalty, and resistance to tyranny are
+        repeatedly offered as standards for judging conduct in the crisis
+        (p003, p009, p012-p013, p017, p020).
+      confidence: high
+    - tag: define_stakes
+      rationale: >
+        Churchill connects battlefield losses and the fall of European states
+        to the possible invasion, subjugation, and starvation of Britain
+        (p005, p014-p020).
+      confidence: high
+
+  themes:
+    - tag: freedom
+      rationale: >
+        The defence of liberties, civilisation, and eventual liberation from
+        tyranny frames the larger meaning of the military struggle (p002,
+        p012-p013, p020).
+      confidence: high
+    - tag: civic_duty
+      rationale: >
+        Wartime production, national defence, and the survival of the country
+        are presented as duties shared across public institutions and the
+        population (p015, p017, p020).
+      confidence: high
+    - tag: responsibility
+      rationale: >
+        The speech assigns responsibility for the Belgian surrender, military
+        preparedness, domestic security, and national defence to identifiable
+        leaders, institutions, and citizens (p006-p007, p015, p017-p020).
+      confidence: medium
+    - tag: sacrifice
+      rationale: >
+        The resistance at Calais, the work of the services, battlefield losses,
+        and readiness to give life or defend the nation at any cost make
+        sacrifice a recurring subject (p003, p009, p013-p014, p020).
+      confidence: high
+    - tag: national_unity
+      rationale: >
+        Divisions between capital and labour are subordinated to the common
+        stock, while Government, Parliament, and nation are joined in a single
+        resolve (p015, p020).
+      confidence: high
+    - tag: international_cooperation
+      rationale: >
+        British, French, Belgian, and imperial action is discussed through
+        alliance, mutual aid, shared defence, and the continuation of the
+        struggle beyond Britain (p001, p003-p010, p017, p020).
+      confidence: high
+
+  tone:
+    - tag: formal
+      rationale: >
+        Detailed military reporting, parliamentary references, measured
+        judgments, and elevated public declarations sustain a formal register
+        throughout the address (p001-p020).
+      confidence: high
+    - tag: idealistic
+      rationale: >
+        The airmen are associated with heroic tradition, and the war is framed
+        as a defence of civilisation culminating in liberation from tyranny
+        (p012-p013, p020).
+      confidence: medium
+    - tag: resolute
+      rationale: >
+        Firm statements of preparation, duty, continued fighting, and refusal
+        to surrender create an unwavering stance (p017-p020).
+      confidence: high
+    - tag: challenging
+      rationale: >
+        Churchill rejects complacency after the evacuation and demands full
+        exertion, vigilance, and duty in the face of invasion (p015-p020).
+      confidence: high
+    - tag: sombre
+      rationale: >
+        Encirclement, surrender, casualties, bereavement, military disaster,
+        invasion, and possible starvation give much of the speech a grave
+        emotional character (p004-p008, p014-p020).
+      confidence: high
+
+passage_annotations:
+  - id: a001
+    category: rhetorical_devices
+    tag: repetition
+    section: s01
+    paragraphs:
+      - p003
+    evidence: "almost reached Dunkirk—almost but not quite"
+    rationale: >
+      The repeated word emphasizes how narrowly the German advance failed to
+      close the remaining route of escape.
+    confidence: high
+
+  - id: a002
+    category: rhetorical_devices
+    tag: antithesis
+    section: s03
+    paragraphs:
+      - p010
+    evidence: "not ... a victory. ... But there was a victory inside this deliverance"
+    rationale: >
+      The opposed judgments distinguish the evacuation as a whole from the
+      genuine success Churchill locates within it, preventing relief from
+      becoming complacency.
+    confidence: high
+
+  - id: a003
+    category: rhetorical_devices
+    tag: rhetorical_question
+    section: s03
+    paragraphs:
+      - p011
+    evidence: "Can you conceive a greater objective for the Germans"
+    rationale: >
+      The question invites no immediate answer; it leads listeners to accept
+      the strategic importance of the air battle before Churchill describes
+      its outcome.
+    confidence: high
+
+  - id: a004
+    category: rhetorical_devices
+    tag: direct_address
+    section: s03
+    paragraphs:
+      - p011
+    evidence: "Can you conceive"
+    rationale: >
+      The second-person phrasing directly involves listeners in judging the
+      importance of the German objective.
+    confidence: high
+
+  - id: a005
+    category: rhetorical_devices
+    tag: metaphor
+    section: s06
+    paragraphs:
+      - p020
+    evidence: "to ride out the storm of war"
+    rationale: >
+      War is figured as a storm that can be endured, turning a prolonged danger
+      into a severe but survivable trial at the start of the final resolution.
+    confidence: high
+
+  - id: a006
+    category: rhetorical_devices
+    tag: tricolon
+    section: s06
+    paragraphs:
+      - p020
+    evidence: "to defend our island home, to ride out the storm of war, and to outlive the menace of tyranny"
+    rationale: >
+      Three coordinated infinitive phrases give the promised endurance a
+      measured rise from immediate defence to ultimate survival.
+    confidence: high
+
+  - id: a007
+    category: rhetorical_devices
+    tag: anaphora
+    section: s06
+    paragraphs:
+      - p020
+    evidence: >
+      “We shall fight in France”; “we shall fight on the seas”; “We shall fight
+      on the beaches”
+    rationale: >
+      Repeating the same opening across successive clauses drives the pledge
+      forward through an expanding catalogue of places where resistance will
+      continue.
+    confidence: high
+
+  - id: a008
+    category: rhetorical_devices
+    tag: parallelism
+    section: s06
+    paragraphs:
+      - p020
+    evidence: "we shall fight ... we shall defend ... We shall fight"
+    rationale: >
+      Corresponding subject-verb constructions give the separate pledges a
+      common grammatical frame, making national resolve sound coordinated and
+      cumulative.
+    confidence: high
+
+  - id: a009
+    category: writing_patterns
+    tag: personalize_responsibility
+    section: s02
+    paragraphs:
+      - p006
+      - p007
+    evidence: "upon his own personal act, he ... surrendered his Army"
+    rationale: >
+      Churchill attributes the collapse of the Belgian flank to King Leopold's
+      individual decision, narrowing responsibility from a national military
+      outcome to a named actor.
+    confidence: high
+
+  - id: a010
+    category: writing_patterns
+    tag: raise_stakes
+    section: s04
+    paragraphs:
+      - p014
+      - p015
+      - p016
+    evidence: "losses ... enormous ... colossal military disaster ... another blow"
+    rationale: >
+      The sequence advances from casualties, to the loss of equipment and
+      delayed rearmament, to a continental disaster and an imminent attack on
+      Britain or France.
+    confidence: high
+
+  - id: a011
+    category: writing_patterns
+    tag: establish_shared_values
+    section: s06
+    paragraphs:
+      - p020
+    evidence: "That is the will of Parliament and the nation"
+    rationale: >
+      The final pledge presents endurance as a resolve shared across Government,
+      Parliament, and nation, creating common ground for the declaration that
+      follows.
+    confidence: high
+
+  - id: a012
+    category: writing_patterns
+    tag: build_to_climax
+    section: s06
+    paragraphs:
+      - p020
+    evidence: "we shall not flag or fail ... We shall fight ... we shall never surrender"
+    rationale: >
+      Successively stronger vows move from endurance through repeated fields of
+      combat to the categorical refusal to surrender, producing the speech's
+      culminating passage.
+    confidence: high

@@ -15,3 +15,55 @@ candidate_tags:
       - freedom
     status: approved
     approved_in_vocabulary_version: 0.1.1
+
+  - candidate: inform
+    proposed_category: purposes
+    speech: churchill-1940-fight-on-beaches
+    section: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    reason: >
+      A central purpose of the address is to report and explain a complex
+      military situation to Parliament. The existing purposes describe effects
+      such as persuasion, warning, and reassurance, but none captures the
+      substantial informational purpose represented here by the opening account.
+    possible_existing_tags:
+      - persuade
+      - define_stakes
+    status: pending_review
+
+  - candidate: simile
+    proposed_category: rhetorical_devices
+    speech: churchill-1940-fight-on-beaches
+    section: s01
+    paragraphs:
+      - p002
+    reason: >
+      The German advance is explicitly compared to a sharp scythe using
+      "like." The broader metaphor tag can capture figurative comparison, but
+      it does not preserve the educationally useful distinction between an
+      explicit simile and an implicit metaphor.
+    possible_existing_tags:
+      - metaphor
+    status: pending_review
+
+  - candidate: narrative_reconstruction
+    proposed_category: writing_patterns
+    speech: churchill-1940-fight-on-beaches
+    section: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    reason: >
+      Churchill reconstructs the military sequence chronologically so the
+      audience can follow how the Allied armies became trapped. Existing
+      writing patterns can describe escalation or reframing, but not the use of
+      ordered narrative to establish causality, context, and credibility.
+    possible_existing_tags:
+      - raise_stakes
+    status: pending_review
