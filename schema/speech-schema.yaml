@@ -1,4 +1,4 @@
-schema_version: 0.1.0
+schema_version: 0.2.0
 
 # Core identifying and contextual information for a speech.
 speech:
@@ -16,6 +16,11 @@ structure:
 # Analytical annotations that may be recorded for a speech.
 tags:
   purposes:
+    # The small number of outcomes central to why the speech exists.
+    primary:
+    # Meaningful supporting outcomes that contribute to the speech but are not
+    # its main reason for existence.
+    secondary:
   themes:
   tone:
   rhetorical_devices:

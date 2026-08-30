@@ -1,61 +1,70 @@
 speech_id: churchill-1940-fight-on-beaches
-schema_version: 0.1.0
-vocabulary_version: 0.1.1
+schema_version: 0.2.0
+vocabulary_version: 0.2.0
 
 speech_level:
   purposes:
-    - tag: inspire
-      rationale: >
-        The tribute to the airmen and the final declaration of resistance turn
-        military peril into confidence that courage and endurance can preserve
-        the nation (p012-p013, p020).
-      confidence: high
-    - tag: persuade
-      rationale: >
-        Churchill argues for a disciplined interpretation of Dunkirk as a
-        deliverance rather than a victory and uses the air battle to support
-        confidence in Britain's defensive prospects (p010-p012).
-      confidence: medium
-    - tag: reassure
-      rationale: >
-        Evidence about the evacuation, the Royal Air Force, production, and
-        home defence is used to answer fear with practical grounds for
-        confidence (p010-p012, p015, p017, p020).
-      confidence: high
-    - tag: warn
-      rationale: >
-        The speech stresses that the campaign was a military disaster and that
-        invasion, raids, and unfamiliar enemy methods must be expected
-        (p016-p019).
-      confidence: high
-    - tag: unify
-      rationale: >
-        Capital and labour, Government, Parliament, nation, Empire, and ally
-        are presented as joined in common effort and resolve (p015, p020).
-      confidence: high
-    - tag: mobilize
-      rationale: >
-        The address emphasizes intensified production, organized home defence,
-        vigilance, and continued collective resistance (p015, p017-p020).
-      confidence: high
-    - tag: call_to_action
-      rationale: >
-        Its concluding condition that all must do their duty and its commitment
-        to sustained resistance press the audience toward a demanding course
-        of national conduct (p020).
-      confidence: medium
-    - tag: establish_values
-      rationale: >
-        Duty, courage, sacrifice, loyalty, and resistance to tyranny are
-        repeatedly offered as standards for judging conduct in the crisis
-        (p003, p009, p012-p013, p017, p020).
-      confidence: high
-    - tag: define_stakes
-      rationale: >
-        Churchill connects battlefield losses and the fall of European states
-        to the possible invasion, subjugation, and starvation of Britain
-        (p005, p014-p020).
-      confidence: high
+    primary:
+      - tag: inform
+        rationale: >
+          A major purpose of the address is to report and explain the military
+          situation to Parliament, including how the Allied armies became
+          trapped, evacuated, and exposed to the next phase of the war
+          (p001-p019).
+        confidence: high
+      - tag: warn
+        rationale: >
+          The speech stresses that the campaign was a military disaster and that
+          invasion, raids, and unfamiliar enemy methods must be expected
+          (p016-p019).
+        confidence: high
+      - tag: reassure
+        rationale: >
+          Evidence about the evacuation, the Royal Air Force, production, and
+          home defence is used to answer fear with practical grounds for
+          confidence (p010-p012, p015, p017, p020).
+        confidence: high
+      - tag: mobilize
+        rationale: >
+          The address emphasizes intensified production, organized home defence,
+          vigilance, and continued collective resistance (p015, p017-p020).
+        confidence: high
+    secondary:
+      - tag: inspire
+        rationale: >
+          The tribute to the airmen and the final declaration of resistance turn
+          military peril into confidence that courage and endurance can preserve
+          the nation (p012-p013, p020).
+        confidence: high
+      - tag: persuade
+        rationale: >
+          Churchill argues for a disciplined interpretation of Dunkirk as a
+          deliverance rather than a victory and uses the air battle to support
+          confidence in Britain's defensive prospects (p010-p012).
+        confidence: medium
+      - tag: unify
+        rationale: >
+          Capital and labour, Government, Parliament, nation, Empire, and ally
+          are presented as joined in common effort and resolve (p015, p020).
+        confidence: high
+      - tag: call_to_action
+        rationale: >
+          Its concluding condition that all must do their duty and its commitment
+          to sustained resistance press the audience toward a demanding course
+          of national conduct (p020).
+        confidence: medium
+      - tag: establish_values
+        rationale: >
+          Duty, courage, sacrifice, loyalty, and resistance to tyranny are
+          repeatedly offered as standards for judging conduct in the crisis
+          (p003, p009, p012-p013, p017, p020).
+        confidence: high
+      - tag: define_stakes
+        rationale: >
+          Churchill connects battlefield losses and the fall of European states
+          to the possible invasion, subjugation, and starvation of Britain
+          (p005, p014-p020).
+        confidence: high
 
   themes:
     - tag: freedom
@@ -136,6 +145,18 @@ passage_annotations:
     rationale: >
       The repeated word emphasizes how narrowly the German advance failed to
       close the remaining route of escape.
+    confidence: high
+
+  - id: a013
+    category: rhetorical_devices
+    tag: simile
+    section: s01
+    paragraphs:
+      - p002
+    evidence: "the German eruption swept like a sharp scythe"
+    rationale: >
+      The explicit comparison makes the German advance vivid as a sharp scythe
+      sweeping around the Allied armies and cutting their communications.
     confidence: high
 
   - id: a002
@@ -228,20 +249,6 @@ passage_annotations:
       cumulative.
     confidence: high
 
-  - id: a009
-    category: writing_patterns
-    tag: personalize_responsibility
-    section: s02
-    paragraphs:
-      - p006
-      - p007
-    evidence: "upon his own personal act, he ... surrendered his Army"
-    rationale: >
-      Churchill attributes the collapse of the Belgian flank to King Leopold's
-      individual decision, narrowing responsibility from a national military
-      outcome to a named actor.
-    confidence: high
-
   - id: a010
     category: writing_patterns
     tag: raise_stakes
@@ -281,4 +288,19 @@ passage_annotations:
       Successively stronger vows move from endurance through repeated fields of
       combat to the categorical refusal to surrender, producing the speech's
       culminating passage.
+    confidence: high
+
+  - id: a014
+    category: writing_patterns
+    tag: narrative_reconstruction
+    section: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    evidence: "the French defences ... were broken ... only one choice remained"
+    rationale: >
+      Churchill reconstructs the military sequence chronologically so
+      Parliament can understand how the Allied armies became trapped.
     confidence: high

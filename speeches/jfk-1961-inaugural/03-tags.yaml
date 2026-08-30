@@ -1,48 +1,50 @@
 speech_id: jfk-1961-inaugural
-schema_version: 0.1.0
-vocabulary_version: 0.1.1
+schema_version: 0.2.0
+vocabulary_version: 0.2.0
 
 speech_level:
   purposes:
-    - tag: inspire
-      rationale: >
-        The address presents its generation as capable of defending freedom
-        and lighting the world through its energy, faith, and devotion
-        (p004, p025).
-      confidence: high
-    - tag: warn
-      rationale: >
-        It alerts adversaries and the wider audience to the dangers of
-        weakness, the arms race, and nuclear self-destruction (p012-p014).
-      confidence: medium
-    - tag: unify
-      rationale: >
-        It rejects partisan triumph at the outset and repeatedly seeks common
-        ground among citizens, nations, and opposing blocs (p002, p016, p024).
-      confidence: high
-    - tag: mobilize
-      rationale: >
-        Citizens and nations are summoned to sustained collective effort
-        against tyranny, poverty, disease, and war (p023-p024).
-      confidence: high
-    - tag: call_to_action
-      rationale: >
-        The speech repeatedly asks both sides, Americans, and citizens of the
-        world to undertake concrete and continuing action (p016-p021,
-        p026-p028).
-      confidence: high
-    - tag: establish_values
-      rationale: >
-        Rights, liberty, loyalty, responsibility, and sacrifice are presented
-        as standards governing the commitments that follow (p003-p005,
-        p025-p028).
-      confidence: high
-    - tag: define_stakes
-      rationale: >
-        The address frames the choices before its audiences in terms of the
-        survival of liberty and the possibility of human self-destruction
-        (p003, p005, p012-p014).
-      confidence: high
+    primary:
+      - tag: inspire
+        rationale: >
+          The address presents its generation as capable of defending freedom
+          and lighting the world through its energy, faith, and devotion
+          (p004, p025).
+        confidence: high
+      - tag: unify
+        rationale: >
+          It rejects partisan triumph at the outset and repeatedly seeks common
+          ground among citizens, nations, and opposing blocs (p002, p016, p024).
+        confidence: high
+      - tag: call_to_action
+        rationale: >
+          The speech repeatedly asks both sides, Americans, and citizens of the
+          world to undertake concrete and continuing action (p016-p021,
+          p026-p028).
+        confidence: high
+      - tag: establish_values
+        rationale: >
+          Rights, liberty, loyalty, responsibility, and sacrifice are presented
+          as standards governing the commitments that follow (p003-p005,
+          p025-p028).
+        confidence: high
+    secondary:
+      - tag: warn
+        rationale: >
+          It alerts adversaries and the wider audience to the dangers of
+          weakness, the arms race, and nuclear self-destruction (p012-p014).
+        confidence: medium
+      - tag: mobilize
+        rationale: >
+          Citizens and nations are summoned to sustained collective effort
+          against tyranny, poverty, disease, and war (p023-p024).
+        confidence: high
+      - tag: define_stakes
+        rationale: >
+          The address frames the choices before its audiences in terms of the
+          survival of liberty and the possibility of human self-destruction
+          (p003, p005, p012-p014).
+        confidence: high
 
   themes:
     - tag: freedom

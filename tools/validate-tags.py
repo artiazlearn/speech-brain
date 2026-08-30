@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the current speech-corpus pilot files."""
+"""Validate speech-corpus structures and tags against the current taxonomy."""
 
 from __future__ import annotations
 
@@ -22,14 +22,18 @@ except ImportError:
 
 ROOT = Path(__file__).resolve().parents[1]
 
+SCHEMA_PATH = Path("schema/speech-schema.yaml")
 VOCABULARY_PATH = Path("schema/vocabulary.yaml")
-TRANSCRIPT_PATH = Path("speeches/jfk-1961-inaugural/01-transcript.md")
-STRUCTURE_PATH = Path("speeches/jfk-1961-inaugural/02-structure.yaml")
-TAGS_PATH = Path("speeches/jfk-1961-inaugural/03-tags.yaml")
 CANDIDATES_PATH = Path("review/candidate-tags.yaml")
+SPEECHES_PATH = Path("speeches")
+
+TRANSCRIPT_FILENAME = "01-transcript.md"
+STRUCTURE_FILENAME = "02-structure.yaml"
+TAGS_FILENAME = "03-tags.yaml"
 
 CONFIDENCE_VALUES = {"high", "medium", "low"}
 SPEECH_LEVEL_CATEGORIES = {"purposes", "themes", "tone"}
+PURPOSE_PRIORITIES = {"primary", "secondary"}
 PASSAGE_CATEGORIES = {"rhetorical_devices", "writing_patterns"}
 CANDIDATE_STATUSES = {"pending_review", "approved", "rejected", "merged"}
 PASSAGE_REQUIRED_FIELDS = {
@@ -64,27 +68,23 @@ def load_yaml(path: Path, errors: list[str]) -> Any:
     return None
 
 
-def load_transcript(errors: list[str]) -> list[str]:
-    full_path = ROOT / TRANSCRIPT_PATH
+def load_transcript(path: Path, errors: list[str]) -> list[str]:
+    full_path = ROOT / path
     try:
         text = full_path.read_text(encoding="utf-8")
     except FileNotFoundError:
-        add_error(errors, TRANSCRIPT_PATH, "file not found")
+        add_error(errors, path, "file not found")
         return []
     except OSError as exc:
-        add_error(errors, TRANSCRIPT_PATH, f"could not read file: {exc}")
+        add_error(errors, path, f"could not read file: {exc}")
         return []
 
     paragraph_ids = PARAGRAPH_ID_PATTERN.findall(text)
     for paragraph_id, count in Counter(paragraph_ids).items():
         if count > 1:
-            add_error(
-                errors,
-                TRANSCRIPT_PATH,
-                f"duplicate paragraph ID {paragraph_id!r}",
-            )
+            add_error(errors, path, f"duplicate paragraph ID {paragraph_id!r}")
     if not paragraph_ids:
-        add_error(errors, TRANSCRIPT_PATH, "no paragraph IDs found")
+        add_error(errors, path, "no paragraph IDs found")
     return paragraph_ids
 
 
@@ -98,70 +98,54 @@ def require_mapping(
 
 
 def validate_versions(
+    schema: dict[str, Any],
     vocabulary: dict[str, Any],
     structure: dict[str, Any],
     tags: dict[str, Any],
+    structure_path: Path,
+    tags_path: Path,
     errors: list[str],
 ) -> None:
+    schema_version = schema.get("schema_version")
     vocabulary_version = vocabulary.get("vocabulary_version")
+    if schema_version is None:
+        add_error(errors, SCHEMA_PATH, "missing schema_version")
     if vocabulary_version is None:
         add_error(errors, VOCABULARY_PATH, "missing vocabulary_version")
 
-    for key in ("schema_version", "vocabulary_version"):
-        if key not in structure:
-            add_error(errors, STRUCTURE_PATH, f"missing {key}")
-        if key not in tags:
-            add_error(errors, TAGS_PATH, f"missing {key}")
-
-    tags_vocabulary_version = tags.get("vocabulary_version")
-    if (
-        vocabulary_version is not None
-        and tags_vocabulary_version is not None
-        and tags_vocabulary_version != vocabulary_version
-    ):
-        add_error(
-            errors,
-            TAGS_PATH,
-            "vocabulary_version "
-            f"{tags_vocabulary_version!r} does not match "
-            f"{VOCABULARY_PATH.as_posix()} version {vocabulary_version!r}",
-        )
-
-    structure_schema_version = structure.get("schema_version")
-    tags_schema_version = tags.get("schema_version")
-    if (
-        structure_schema_version is not None
-        and tags_schema_version is not None
-        and structure_schema_version != tags_schema_version
-    ):
-        add_error(
-            errors,
-            TAGS_PATH,
-            "schema_version "
-            f"{tags_schema_version!r} does not match "
-            f"{STRUCTURE_PATH.as_posix()} version {structure_schema_version!r}",
-        )
+    for document, path in ((structure, structure_path), (tags, tags_path)):
+        for key, expected, source_path in (
+            ("schema_version", schema_version, SCHEMA_PATH),
+            ("vocabulary_version", vocabulary_version, VOCABULARY_PATH),
+        ):
+            actual = document.get(key)
+            if actual is None:
+                add_error(errors, path, f"missing {key}")
+            elif expected is not None and actual != expected:
+                add_error(
+                    errors,
+                    path,
+                    f"{key} {actual!r} does not match "
+                    f"{source_path.as_posix()} version {expected!r}",
+                )
 
 
 def validate_structure(
     structure: dict[str, Any],
     vocabulary: dict[str, Any],
     transcript_paragraphs: list[str],
+    structure_path: Path,
     errors: list[str],
 ) -> tuple[int, dict[str, set[str]]]:
     canonical_functions = vocabulary.get("section_functions", [])
     if not isinstance(canonical_functions, list):
-        add_error(
-            errors,
-            VOCABULARY_PATH,
-            "section_functions must be a list",
-        )
+        add_error(errors, VOCABULARY_PATH, "section_functions must be a list")
         canonical_functions = []
     canonical_function_set = set(canonical_functions)
 
     sections = structure.get("sections", [])
     if not isinstance(sections, list):
-        add_error(errors, STRUCTURE_PATH, "sections must be a list")
+        add_error(errors, structure_path, "sections must be a list")
         return 0, {}
 
     transcript_set = set(transcript_paragraphs)
@@ -172,19 +156,15 @@ def validate_structure(
     for index, raw_section in enumerate(sections, start=1):
         location = f"sections[{index}]"
         if not isinstance(raw_section, dict):
-            add_error(errors, STRUCTURE_PATH, f"{location} must be a mapping")
+            add_error(errors, structure_path, f"{location} must be a mapping")
             continue
 
         section_id = raw_section.get("id")
         if not isinstance(section_id, str) or not section_id:
-            add_error(errors, STRUCTURE_PATH, f"{location} has no valid id")
+            add_error(errors, structure_path, f"{location} has no valid id")
             section_id = f"<section {index}>"
         elif section_id in section_ids:
-            add_error(
-                errors,
-                STRUCTURE_PATH,
-                f"duplicate section ID {section_id!r}",
-            )
+            add_error(errors, structure_path, f"duplicate section ID {section_id!r}")
         else:
             section_ids.add(section_id)
 
@@ -192,7 +172,7 @@ def validate_structure(
         if not isinstance(paragraphs, list) or not paragraphs:
             add_error(
                 errors,
-                STRUCTURE_PATH,
+                structure_path,
                 f"section {section_id!r} must have a non-empty paragraphs list",
             )
             paragraphs = []
@@ -201,7 +181,7 @@ def validate_structure(
             if paragraph_id not in transcript_set:
                 add_error(
                     errors,
-                    STRUCTURE_PATH,
+                    structure_path,
                     f"section {section_id!r} references unknown paragraph "
                     f"{paragraph_id!r}",
                 )
@@ -212,7 +192,7 @@ def validate_structure(
         if not isinstance(functions, list) or not functions:
             add_error(
                 errors,
-                STRUCTURE_PATH,
+                structure_path,
                 f"section {section_id!r} must have a non-empty functions list",
             )
             functions = []
@@ -220,7 +200,7 @@ def validate_structure(
             if function not in canonical_function_set:
                 add_error(
                     errors,
-                    STRUCTURE_PATH,
+                    structure_path,
                     f"section {section_id!r} has unknown section function "
                     f"{function!r}",
                 )
@@ -230,13 +210,13 @@ def validate_structure(
         if not memberships:
             add_error(
                 errors,
-                STRUCTURE_PATH,
+                structure_path,
                 f"transcript paragraph {paragraph_id!r} belongs to no section",
             )
         elif len(memberships) > 1:
             add_error(
                 errors,
-                STRUCTURE_PATH,
+                structure_path,
                 f"transcript paragraph {paragraph_id!r} appears multiple times "
                 f"in sections: {', '.join(memberships)}",
             )
@@ -244,74 +224,132 @@ def validate_structure(
     return len(sections), dict(section_paragraphs)
 
 
+def validate_tag_entries(
+    entries: Any,
+    category: str,
+    location: str,
+    vocabulary: dict[str, Any],
+    tags_path: Path,
+    errors: list[str],
+) -> list[str]:
+    if not isinstance(entries, list):
+        add_error(errors, tags_path, f"{location} must be a list")
+        return []
+
+    canonical_tags = vocabulary.get(category, [])
+    if not isinstance(canonical_tags, list):
+        add_error(errors, VOCABULARY_PATH, f"{category} must be a list")
+        canonical_tags = []
+    canonical_set = set(canonical_tags)
+    found_tags: list[str] = []
+
+    for index, entry in enumerate(entries, start=1):
+        entry_location = f"{location}[{index}]"
+        if not isinstance(entry, dict):
+            add_error(errors, tags_path, f"{entry_location} must be a mapping")
+            continue
+        missing = SPEECH_TAG_REQUIRED_FIELDS - set(entry)
+        if missing:
+            add_error(
+                errors,
+                tags_path,
+                f"{entry_location} is missing: {', '.join(sorted(missing))}",
+            )
+        tag = entry.get("tag")
+        if tag not in canonical_set:
+            add_error(
+                errors,
+                tags_path,
+                f"{entry_location} has unknown {category} tag {tag!r}",
+            )
+        if isinstance(tag, str):
+            found_tags.append(tag)
+        confidence = entry.get("confidence")
+        if confidence not in CONFIDENCE_VALUES:
+            add_error(
+                errors,
+                tags_path,
+                f"{entry_location} has invalid confidence {confidence!r}",
+            )
+
+    return found_tags
+
+
 def validate_speech_level_tags(
-    tags: dict[str, Any], vocabulary: dict[str, Any], errors: list[str]
-) -> int:
+    tags: dict[str, Any],
+    vocabulary: dict[str, Any],
+    tags_path: Path,
+    errors: list[str],
+) -> tuple[int, int, int]:
     speech_level = tags.get("speech_level")
     if not isinstance(speech_level, dict):
-        add_error(errors, TAGS_PATH, "speech_level must be a mapping")
-        return 0
+        add_error(errors, tags_path, "speech_level must be a mapping")
+        return 0, 0, 0
 
     actual_categories = set(speech_level)
     for category in sorted(actual_categories - SPEECH_LEVEL_CATEGORIES):
-        add_error(
-            errors,
-            TAGS_PATH,
-            f"unknown speech-level category {category!r}",
-        )
+        add_error(errors, tags_path, f"unknown speech-level category {category!r}")
     for category in sorted(SPEECH_LEVEL_CATEGORIES - actual_categories):
+        add_error(errors, tags_path, f"missing speech-level category {category!r}")
+
+    purposes = speech_level.get("purposes")
+    if not isinstance(purposes, dict):
+        add_error(errors, tags_path, "speech_level.purposes must be a mapping")
+        purposes = {}
+    actual_priorities = set(purposes)
+    for priority in sorted(actual_priorities - PURPOSE_PRIORITIES):
+        add_error(errors, tags_path, f"unknown purpose priority {priority!r}")
+    for priority in sorted(PURPOSE_PRIORITIES - actual_priorities):
+        add_error(errors, tags_path, f"missing purpose priority {priority!r}")
+
+    primary_tags = validate_tag_entries(
+        purposes.get("primary", []),
+        "purposes",
+        "speech_level.purposes.primary",
+        vocabulary,
+        tags_path,
+        errors,
+    )
+    secondary_tags = validate_tag_entries(
+        purposes.get("secondary", []),
+        "purposes",
+        "speech_level.purposes.secondary",
+        vocabulary,
+        tags_path,
+        errors,
+    )
+    if not primary_tags:
+        add_error(errors, tags_path, "at least 1 primary purpose is required")
+    if len(primary_tags) > 4:
+        add_error(errors, tags_path, "no more than 4 primary purposes are allowed")
+    overlap = set(primary_tags) & set(secondary_tags)
+    if overlap:
         add_error(
             errors,
-            TAGS_PATH,
-            f"missing speech-level category {category!r}",
+            tags_path,
+            "purposes cannot be both primary and secondary: "
+            f"{', '.join(sorted(overlap))}",
         )
 
-    tag_count = 0
-    for category in sorted(SPEECH_LEVEL_CATEGORIES):
-        entries = speech_level.get(category, [])
-        if not isinstance(entries, list):
-            add_error(
-                errors,
-                TAGS_PATH,
-                f"speech_level.{category} must be a list",
-            )
-            continue
+    theme_tags = validate_tag_entries(
+        speech_level.get("themes", []),
+        "themes",
+        "speech_level.themes",
+        vocabulary,
+        tags_path,
+        errors,
+    )
+    tone_tags = validate_tag_entries(
+        speech_level.get("tone", []),
+        "tone",
+        "speech_level.tone",
+        vocabulary,
+        tags_path,
+        errors,
+    )
 
-        canonical_tags = vocabulary.get(category, [])
-        if not isinstance(canonical_tags, list):
-            add_error(errors, VOCABULARY_PATH, f"{category} must be a list")
-            canonical_tags = []
-        canonical_set = set(canonical_tags)
-
-        for index, entry in enumerate(entries, start=1):
-            tag_count += 1
-            location = f"speech_level.{category}[{index}]"
-            if not isinstance(entry, dict):
-                add_error(errors, TAGS_PATH, f"{location} must be a mapping")
-                continue
-            missing = SPEECH_TAG_REQUIRED_FIELDS - set(entry)
-            if missing:
-                add_error(
-                    errors,
-                    TAGS_PATH,
-                    f"{location} is missing: {', '.join(sorted(missing))}",
-                )
-            tag = entry.get("tag")
-            if tag not in canonical_set:
-                add_error(
-                    errors,
-                    TAGS_PATH,
-                    f"{location} has unknown {category} tag {tag!r}",
-                )
-            confidence = entry.get("confidence")
-            if confidence not in CONFIDENCE_VALUES:
-                add_error(
-                    errors,
-                    TAGS_PATH,
-                    f"{location} has invalid confidence {confidence!r}",
-                )
-
-    return tag_count
+    total = len(primary_tags) + len(secondary_tags) + len(theme_tags) + len(tone_tags)
+    return total, len(primary_tags), len(secondary_tags)
 
 
 def validate_passage_annotations(
@@ -319,11 +357,13 @@ def validate_passage_annotations(
     vocabulary: dict[str, Any],
     transcript_paragraphs: list[str],
     section_paragraphs: dict[str, set[str]],
+    transcript_path: Path,
+    tags_path: Path,
     errors: list[str],
 ) -> int:
     annotations = tags.get("passage_annotations")
     if not isinstance(annotations, list):
-        add_error(errors, TAGS_PATH, "passage_annotations must be a list")
+        add_error(errors, tags_path, "passage_annotations must be a list")
         return 0
 
     transcript_set = set(transcript_paragraphs)
@@ -332,36 +372,28 @@ def validate_passage_annotations(
     for index, annotation in enumerate(annotations, start=1):
         location = f"passage_annotations[{index}]"
         if not isinstance(annotation, dict):
-            add_error(errors, TAGS_PATH, f"{location} must be a mapping")
+            add_error(errors, tags_path, f"{location} must be a mapping")
             continue
 
         missing = PASSAGE_REQUIRED_FIELDS - set(annotation)
         if missing:
             add_error(
                 errors,
-                TAGS_PATH,
+                tags_path,
                 f"{location} is missing: {', '.join(sorted(missing))}",
             )
 
         annotation_id = annotation.get("id")
         if not isinstance(annotation_id, str) or not annotation_id:
-            add_error(errors, TAGS_PATH, f"{location} has no valid id")
+            add_error(errors, tags_path, f"{location} has no valid id")
         elif annotation_id in annotation_ids:
-            add_error(
-                errors,
-                TAGS_PATH,
-                f"duplicate passage annotation ID {annotation_id!r}",
-            )
+            add_error(errors, tags_path, f"duplicate passage annotation ID {annotation_id!r}")
         else:
             annotation_ids.add(annotation_id)
 
         category = annotation.get("category")
         if category not in PASSAGE_CATEGORIES:
-            add_error(
-                errors,
-                TAGS_PATH,
-                f"{location} has invalid category {category!r}",
-            )
+            add_error(errors, tags_path, f"{location} has invalid category {category!r}")
         else:
             canonical_tags = vocabulary.get(category, [])
             if not isinstance(canonical_tags, list):
@@ -371,49 +403,33 @@ def validate_passage_annotations(
             if tag not in set(canonical_tags):
                 add_error(
                     errors,
-                    TAGS_PATH,
+                    tags_path,
                     f"{location} has unknown {category} tag {tag!r}",
                 )
 
         confidence = annotation.get("confidence")
         if confidence not in CONFIDENCE_VALUES:
-            add_error(
-                errors,
-                TAGS_PATH,
-                f"{location} has invalid confidence {confidence!r}",
-            )
+            add_error(errors, tags_path, f"{location} has invalid confidence {confidence!r}")
 
         for text_field in ("evidence", "rationale"):
             value = annotation.get(text_field)
             if not isinstance(value, str) or not value.strip():
-                add_error(
-                    errors,
-                    TAGS_PATH,
-                    f"{location} has no usable {text_field}",
-                )
+                add_error(errors, tags_path, f"{location} has no usable {text_field}")
 
         section_id = annotation.get("section")
         if section_id not in section_paragraphs:
-            add_error(
-                errors,
-                TAGS_PATH,
-                f"{location} references unknown section {section_id!r}",
-            )
+            add_error(errors, tags_path, f"{location} references unknown section {section_id!r}")
 
         paragraphs = annotation.get("paragraphs")
         if not isinstance(paragraphs, list) or not paragraphs:
-            add_error(
-                errors,
-                TAGS_PATH,
-                f"{location} must have a non-empty paragraphs list",
-            )
+            add_error(errors, tags_path, f"{location} must have a non-empty paragraphs list")
             paragraphs = []
 
         for paragraph_id in paragraphs:
             if paragraph_id not in transcript_set:
                 add_error(
                     errors,
-                    TAGS_PATH,
+                    transcript_path,
                     f"{location} references unknown paragraph {paragraph_id!r}",
                 )
             elif (
@@ -422,7 +438,7 @@ def validate_passage_annotations(
             ):
                 add_error(
                     errors,
-                    TAGS_PATH,
+                    tags_path,
                     f"{location} references paragraph {paragraph_id!r}, which "
                     f"does not belong to section {section_id!r}",
                 )
@@ -449,11 +465,7 @@ def validate_candidates(
             add_error(errors, CANDIDATES_PATH, f"{location} is missing status")
             continue
         if status not in CANDIDATE_STATUSES:
-            add_error(
-                errors,
-                CANDIDATES_PATH,
-                f"{location} has invalid status {status!r}",
-            )
+            add_error(errors, CANDIDATES_PATH, f"{location} has invalid status {status!r}")
 
         if status == "approved":
             approved_version = record.get("approved_in_vocabulary_version")
@@ -461,8 +473,7 @@ def validate_candidates(
                 add_error(
                     errors,
                     CANDIDATES_PATH,
-                    f"{location} is approved but missing "
-                    "approved_in_vocabulary_version",
+                    f"{location} is approved but missing approved_in_vocabulary_version",
                 )
 
             candidate = record.get("candidate")
@@ -477,29 +488,59 @@ def validate_candidates(
                 )
 
 
-def print_result(
-    errors: list[str],
-    paragraph_count: int,
-    section_count: int,
-    speech_tag_count: int,
-    annotation_count: int,
-) -> int:
+def discover_speech_directories(errors: list[str]) -> list[Path]:
+    full_speeches_path = ROOT / SPEECHES_PATH
+    try:
+        directories = sorted(path for path in full_speeches_path.iterdir() if path.is_dir())
+    except FileNotFoundError:
+        add_error(errors, SPEECHES_PATH, "directory not found")
+        return []
+    except OSError as exc:
+        add_error(errors, SPEECHES_PATH, f"could not list directory: {exc}")
+        return []
+    if not directories:
+        add_error(errors, SPEECHES_PATH, "no speech directories found")
+    return [path.relative_to(ROOT) for path in directories]
+
+
+def print_result(results: list[dict[str, Any]], global_errors: list[str]) -> int:
     print("Speech corpus validation")
     print()
-    if errors:
-        for message in errors:
+
+    all_errors = list(global_errors)
+    for result in results:
+        print(result["name"])
+        if result["errors"]:
+            all_errors.extend(result["errors"])
+            for message in result["errors"]:
+                print(message)
+        else:
+            print(f"✓ transcript paragraphs: {result['paragraph_count']}")
+            print(f"✓ rhetorical sections: {result['section_count']}")
+            print(f"✓ primary purposes: {result['primary_count']}")
+            print(f"✓ secondary purposes: {result['secondary_count']}")
+            print(f"✓ speech-level tags: {result['speech_tag_count']}")
+            print(f"✓ passage annotations: {result['annotation_count']}")
+            print("✓ canonical tags and references valid")
+            print("✓ versions consistent")
+        print()
+
+    if global_errors:
+        print("Corpus-level errors")
+        for message in global_errors:
             print(message)
         print()
-        print(f"Validation failed with {len(errors)} error(s).")
+
+    print("Overall:")
+    if all_errors:
+        print(f"✗ speeches checked: {len(results)}")
+        print(f"✗ validation errors: {len(all_errors)}")
+        print()
+        print("Validation failed.")
         return 1
 
-    print(f"✓ transcript paragraphs: {paragraph_count}")
-    print(f"✓ rhetorical sections: {section_count}")
-    print(f"✓ speech-level tags: {speech_tag_count}")
-    print(f"✓ passage annotations: {annotation_count}")
+    print(f"✓ speeches validated: {len(results)}")
     print("✓ all canonical tags valid")
-    print("✓ paragraph references valid")
-    print("✓ section references valid")
     print("✓ versions consistent")
     print("✓ candidate-tag records valid")
     print()
@@ -508,51 +549,88 @@ def print_result(
 
 
 def main() -> int:
-    errors: list[str] = []
-    transcript_paragraphs = load_transcript(errors)
+    global_errors: list[str] = []
+    schema = require_mapping(
+        load_yaml(SCHEMA_PATH, global_errors),
+        SCHEMA_PATH,
+        "document root",
+        global_errors,
+    )
     vocabulary = require_mapping(
-        load_yaml(VOCABULARY_PATH, errors),
+        load_yaml(VOCABULARY_PATH, global_errors),
         VOCABULARY_PATH,
         "document root",
-        errors,
-    )
-    structure = require_mapping(
-        load_yaml(STRUCTURE_PATH, errors),
-        STRUCTURE_PATH,
-        "document root",
-        errors,
-    )
-    tags = require_mapping(
-        load_yaml(TAGS_PATH, errors), TAGS_PATH, "document root", errors
+        global_errors,
     )
     candidates = require_mapping(
-        load_yaml(CANDIDATES_PATH, errors),
+        load_yaml(CANDIDATES_PATH, global_errors),
         CANDIDATES_PATH,
         "document root",
-        errors,
+        global_errors,
     )
+    validate_candidates(candidates, vocabulary, global_errors)
 
-    validate_versions(vocabulary, structure, tags, errors)
-    section_count, section_paragraphs = validate_structure(
-        structure, vocabulary, transcript_paragraphs, errors
-    )
-    speech_tag_count = validate_speech_level_tags(tags, vocabulary, errors)
-    annotation_count = validate_passage_annotations(
-        tags,
-        vocabulary,
-        transcript_paragraphs,
-        section_paragraphs,
-        errors,
-    )
-    validate_candidates(candidates, vocabulary, errors)
+    results: list[dict[str, Any]] = []
+    for speech_directory in discover_speech_directories(global_errors):
+        errors: list[str] = []
+        transcript_path = speech_directory / TRANSCRIPT_FILENAME
+        structure_path = speech_directory / STRUCTURE_FILENAME
+        tags_path = speech_directory / TAGS_FILENAME
 
-    return print_result(
-        errors,
-        len(transcript_paragraphs),
-        section_count,
-        speech_tag_count,
-        annotation_count,
-    )
+        transcript_paragraphs = load_transcript(transcript_path, errors)
+        structure = require_mapping(
+            load_yaml(structure_path, errors),
+            structure_path,
+            "document root",
+            errors,
+        )
+        tags = require_mapping(
+            load_yaml(tags_path, errors), tags_path, "document root", errors
+        )
+
+        validate_versions(
+            schema,
+            vocabulary,
+            structure,
+            tags,
+            structure_path,
+            tags_path,
+            errors,
+        )
+        section_count, section_paragraphs = validate_structure(
+            structure,
+            vocabulary,
+            transcript_paragraphs,
+            structure_path,
+            errors,
+        )
+        speech_tag_count, primary_count, secondary_count = validate_speech_level_tags(
+            tags, vocabulary, tags_path, errors
+        )
+        annotation_count = validate_passage_annotations(
+            tags,
+            vocabulary,
+            transcript_paragraphs,
+            section_paragraphs,
+            transcript_path,
+            tags_path,
+            errors,
+        )
+
+        results.append(
+            {
+                "name": tags.get("speech_id", speech_directory.name),
+                "errors": errors,
+                "paragraph_count": len(transcript_paragraphs),
+                "section_count": section_count,
+                "primary_count": primary_count,
+                "secondary_count": secondary_count,
+                "speech_tag_count": speech_tag_count,
+                "annotation_count": annotation_count,
+            }
+        )
+
+    return print_result(results, global_errors)
 
 
 if __name__ == "__main__":

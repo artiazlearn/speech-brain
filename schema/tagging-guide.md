@@ -54,6 +54,12 @@ Rhetorical-device tags identify language-level techniques. They may describe a p
 - **Related tags:** `reframe_problem`, `raise_stakes`.
 - **Example:** “The nation stands at a crossroads.”
 
+### `simile`
+
+- **Definition:** An explicit figurative comparison between unlike things, typically signaled by words such as "like" or "as."
+- **Use when:** The comparison is explicitly stated rather than implied.
+- **Do not use when:** One thing is directly described as another without an explicit comparison; use `metaphor` instead.
+
 ### `rhetorical_question`
 
 - **Definition:** A question posed primarily to make a point, frame an issue, or prompt reflection rather than obtain an answer.
@@ -148,9 +154,9 @@ Section-function tags identify the primary job performed by a coherent section. 
 
 ### `personalize_responsibility`
 
-- **Definition:** A section that makes responsibility concrete for individuals, named groups, or the audience itself.
-- **Use when:** The section shifts from abstract or collective issues to what particular people must answer for or contribute.
-- **Do not use when:** It merely uses personal pronouns or describes responsibility without assigning it to identifiable actors.
+- **Definition:** Translate an abstract, institutional, national, or collective issue into a responsibility personally borne by the audience or listener.
+- **Use when:** The speaker makes listeners personally responsible for an outcome, decision, duty, or course of action.
+- **Do not use when:** The speaker merely identifies a named person as responsible for causing an event, assigns blame, or describes someone's individual actions.
 - **Related tags:** `personalize_responsibility` in writing patterns, `transfer_responsibility_to_audience`, `civic_duty`, `responsibility`.
 - **Example:** A passage moving from national goals to the choices each citizen must make.
 
@@ -181,6 +187,12 @@ Section-function tags identify the primary job performed by a coherent section. 
 ## Writing patterns
 
 Writing-pattern tags identify reusable compositional strategies that may operate across one or more sections. They describe how a speech is built, not merely what one section is called.
+
+### `narrative_reconstruction`
+
+- **Definition:** Reconstructing a sequence of past events in chronological or causal order so the audience can understand how the present situation developed.
+- **Use when:** The speaker substantially organizes past events into a sequence that establishes context, causality, credibility, or interpretation.
+- **Do not use when:** The speech merely mentions historical facts, examples, or isolated anecdotes without reconstructing a meaningful sequence.
 
 ### `reframe_occasion`
 
@@ -224,9 +236,9 @@ Writing-pattern tags identify reusable compositional strategies that may operate
 
 ### `personalize_responsibility`
 
-- **Definition:** A compositional strategy that translates an abstract, institutional, or collective obligation into responsibility borne by identifiable people.
-- **Use when:** The speech deliberately narrows responsibility from systems or groups toward leaders, citizens, or individuals.
-- **Do not use when:** Personal language appears without a meaningful shift in ownership. A section whose primary job is this shift may take `personalize_responsibility` as its section function.
+- **Definition:** Translate an abstract, institutional, national, or collective issue into a responsibility personally borne by the audience or listener.
+- **Use when:** The speaker makes listeners personally responsible for an outcome, decision, duty, or course of action.
+- **Do not use when:** The speaker merely identifies a named person as responsible for causing an event, assigns blame, or describes someone's individual actions.
 - **Related tags:** `personalize_responsibility` in section functions, `transfer_responsibility_to_audience`, `responsibility`, `civic_duty`.
 - **Example:** Moving from “the nation must change” to the specific conduct expected of every listener.
 
@@ -249,6 +261,37 @@ Writing-pattern tags identify reusable compositional strategies that may operate
 ## Purposes
 
 Purpose tags describe intended outcomes supported by the speech as a whole or by a substantial passage.
+
+### Primary purposes
+
+A primary purpose should satisfy most of these tests:
+
+- It is central to why the speech was delivered.
+- It is sustained across substantial parts of the speech.
+- Removing it would materially change the reason the speech exists.
+- It represents a major audience outcome the speaker is seeking.
+
+Rules:
+
+- A speech must have at least 1 primary purpose.
+- Prefer 1–4 primary purposes.
+- Do not mark a purpose primary merely because it occurs somewhere in the speech.
+
+### Secondary purposes
+
+A secondary purpose:
+
+- meaningfully supports the speech,
+- may occur strongly in only part of the speech,
+- but is not one of the main reasons the speech exists.
+
+A purpose cannot appear in both primary and secondary.
+
+### `inform`
+
+- **Definition:** The speech substantially reports, explains, or clarifies facts, events, circumstances, or a situation so the audience understands what has happened or what is happening.
+- **Use when:** Providing understanding or situational awareness is an important purpose of the speech.
+- **Do not use when:** The speech merely contains factual details in support of another purpose.
 
 ### `inspire`
 

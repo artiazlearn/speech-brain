@@ -33,7 +33,8 @@ candidate_tags:
     possible_existing_tags:
       - persuade
       - define_stakes
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.2.0
 
   - candidate: simile
     proposed_category: rhetorical_devices
@@ -48,7 +49,8 @@ candidate_tags:
       explicit simile and an implicit metaphor.
     possible_existing_tags:
       - metaphor
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.2.0
 
   - candidate: narrative_reconstruction
     proposed_category: writing_patterns
@@ -66,4 +68,5 @@ candidate_tags:
       ordered narrative to establish causality, context, and credibility.
     possible_existing_tags:
       - raise_stakes
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.2.0
