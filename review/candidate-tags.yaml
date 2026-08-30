@@ -86,7 +86,8 @@ candidate_tags:
       - opening
       - reframe_occasion
       - establish_values
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.3.0
 
   - candidate: console
     proposed_category: section_functions
@@ -103,7 +104,8 @@ candidate_tags:
       - address_audience_group
       - establish_values
       - reframe_problem
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.3.0
 
   - candidate: commemorate
     proposed_category: purposes
@@ -122,7 +124,8 @@ candidate_tags:
       - inspire
       - unify
       - establish_values
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.3.0
 
   - candidate: console
     proposed_category: purposes
@@ -141,7 +144,8 @@ candidate_tags:
       - reassure
       - unify
       - inspire
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.3.0
 
   - candidate: exploration
     proposed_category: themes
@@ -172,7 +176,8 @@ candidate_tags:
       rhetorical use of recognizable historical and literary references.
     possible_existing_tags:
       - metaphor
-    status: pending_review
+    status: approved
+    approved_in_vocabulary_version: 0.3.0
 
   - candidate: move_from_loss_to_meaning
     proposed_category: writing_patterns

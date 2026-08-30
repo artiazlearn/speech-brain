@@ -1,6 +1,6 @@
 speech_id: jfk-1961-inaugural
 schema_version: 0.2.0
-vocabulary_version: 0.2.0
+vocabulary_version: 0.3.0
 
 speech_level:
   purposes:

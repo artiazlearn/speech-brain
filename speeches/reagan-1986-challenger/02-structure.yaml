@@ -1,6 +1,6 @@
 speech_id: reagan-1986-challenger
 schema_version: 0.2.0
-vocabulary_version: 0.2.0
+vocabulary_version: 0.3.0
 
 sections:
   - id: s01
@@ -11,6 +11,7 @@ sections:
     functions:
       - opening
       - reframe_occasion
+      - commemorate
     rationale: >
       Reagan replaces the planned State of the Union setting with a national
       occasion of mourning, identifies the unprecedented loss, names the crew,
@@ -23,6 +24,7 @@ sections:
     functions:
       - address_audience_group
       - establish_values
+      - console
     rationale: >
       The speech turns toward the astronauts' families, acknowledges that their
       grief cannot be fully shared, and honors the courage, service, joy, and
@@ -34,6 +36,7 @@ sections:
     functions:
       - address_audience_group
       - reframe_problem
+      - console
     rationale: >
       Reagan speaks specifically to schoolchildren and helps them interpret the
       disaster as a painful risk within exploration rather than a reason to
@@ -46,6 +49,7 @@ sections:
     functions:
       - reframe_problem
       - address_audience_group
+      - console
     rationale: >
       The address rejects the idea that the explosion ends or discredits the
       space program, presents openness and continued exploration as the proper
@@ -57,6 +61,7 @@ sections:
       - p009
       - p010
     functions:
+      - commemorate
       - climax
       - closing
     rationale: >

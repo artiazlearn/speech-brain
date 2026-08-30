@@ -60,6 +60,13 @@ Rhetorical-device tags identify language-level techniques. They may describe a p
 - **Use when:** The comparison is explicitly stated rather than implied.
 - **Do not use when:** One thing is directly described as another without an explicit comparison; use `metaphor` instead.
 
+### `allusion`
+
+- **Definition:** A reference to a recognizable literary, historical, cultural, religious, or other prior source that draws meaning from the audience's recognition of that reference.
+- **Use when:** The passage invokes a prior text, person, event, tradition, or cultural source so that its associations contribute to the present message.
+- **Do not use when:** A speaker merely reports a historical fact, explains a past event, or uses language that resembles another source without a meaningful reference.
+- **Related tags:** `metaphor`, `simile`, `establish_shared_values`. Unlike an ordinary historical reference, an allusion depends on the prior source's associations to add rhetorical meaning.
+
 ### `rhetorical_question`
 
 - **Definition:** A question posed primarily to make a point, frame an issue, or prompt reflection rather than obtain an answer.
@@ -103,6 +110,20 @@ Section-function tags identify the primary job performed by a coherent section. 
 - **Do not use when:** It merely describes the event, offers background, or changes the framing of a problem rather than the occasion; use `reframe_problem` for the latter.
 - **Related tags:** `opening`, `reframe_problem`, `reframe_occasion` in writing patterns.
 - **Example:** Presenting a ceremony not as a routine transition but as a renewal of public commitments.
+
+### `commemorate`
+
+- **Definition:** A section whose rhetorical job is substantially to honor or preserve the memory of people, sacrifice, achievement, or loss.
+- **Use when:** A coherent passage recalls character, service, achievement, or sacrifice in order to lead remembrance or pay tribute.
+- **Do not use when:** A person or past event is merely mentioned, or admirable qualities are stated principally to establish standards for later judgment; use `establish_values` for the latter function.
+- **Related tags:** `establish_values`, `closing`, `commemorate` in purposes. Commemoration centers memory and honor, whereas `establish_values` centers the principles that orient an argument or course of conduct.
+
+### `console`
+
+- **Definition:** A section whose rhetorical job is substantially to acknowledge suffering, shock, or grief and offer comfort, solidarity, meaning, or emotional orientation.
+- **Use when:** A passage directly responds to people experiencing pain or irreversible loss and helps them bear or interpret that experience.
+- **Do not use when:** A passage is merely grave or sympathetic, or chiefly reduces fear, uncertainty, or doubt by supplying grounds for confidence.
+- **Related tags:** `address_audience_group`, `reframe_problem`, `console` and `reassure` in purposes. Consolation addresses suffering that cannot simply be undone; reassurance addresses uncertainty or fear that confidence may reduce.
 
 ### `establish_values`
 
@@ -310,6 +331,20 @@ A purpose cannot appear in both primary and secondary.
 - **Definition:** Reduce fear, doubt, uncertainty, or mistrust by offering confidence or stability.
 - **Use when:** The speech directly responds to actual or anticipated concern and seeks to calm it.
 - **Do not use when:** Optimistic language does not address a concern or source of anxiety.
+
+### `commemorate`
+
+- **Definition:** Honor and preserve the memory of a person, group, event, or sacrifice, especially by recalling character, service, achievement, or loss.
+- **Use when:** Remembrance or honoring the dead or past is a central intended audience outcome of the speech.
+- **Do not use when:** A speech merely mentions a historical person or event, or invokes admirable principles chiefly to guide judgment or conduct.
+- **Related tags:** `establish_values`, `inspire`, `commemorate` in section functions. Commemoration seeks remembrance and honor; `establish_values` seeks to articulate a guiding value framework.
+
+### `console`
+
+- **Definition:** Respond to grief, suffering, shock, or irreversible loss by acknowledging pain and offering comfort, solidarity, meaning, or emotional orientation.
+- **Use when:** Helping an audience bear or interpret suffering is a substantial intended outcome of the speech.
+- **Do not use when:** The speech chiefly reduces fear, uncertainty, doubt, or mistrust by offering grounds for confidence; use `reassure` for that outcome.
+- **Related tags:** `reassure`, `unify`, `console` in section functions. A speech may both console an audience about irreversible loss and reassure it about what remains stable or possible.
 
 ### `warn`
 
