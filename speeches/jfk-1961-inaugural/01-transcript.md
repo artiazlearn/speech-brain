@@ -1,3 +1,26 @@
+---
+transcript_format_version: 1.0.0
+speech_id: jfk-1961-inaugural
+title: Inaugural Address
+speaker: John F. Kennedy
+date: 1961-01-20
+country: United States
+speech_type: inaugural_address
+venue: Washington, D.C.
+
+source:
+  organization: John F. Kennedy Presidential Library and Museum
+  source_title: Inaugural Address, January 20, 1961
+  source_url: https://www.jfklibrary.org/archives/other-resources/john-f-kennedy-speeches/inaugural-address-19610120
+
+rights:
+  status: Public domain
+---
+
+# Inaugural Address
+
+## Transcript
+
 [p001]
 Vice President Johnson, Mr. Speaker, Mr. Chief Justice, President Eisenhower, Vice President Nixon, President Truman, Reverend Clergy, fellow citizens:
 

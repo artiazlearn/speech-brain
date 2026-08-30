@@ -1,17 +1,27 @@
+---
+transcript_format_version: 1.0.0
+speech_id: churchill-1940-fight-on-beaches
+title: War Situation
+speaker: Winston Churchill
+date: 1940-06-04
+country: United Kingdom
+speech_type: parliamentary_address
+venue: House of Commons
+common_title: We Shall Fight on the Beaches
+
+source:
+  organization: UK Parliament Hansard
+  source_title: War Situation
+  source_url: https://api.parliament.uk/historic-hansard/commons/1940/jun/04/war-situation
+  document_reference: HC Deb 04 June 1940 vol 361 cc787-98
+
+rights:
+  status: Open Licence
+  license: Open Parliament Licence v3.0
+  attribution: Contains Parliamentary information licensed under the Open Parliament Licence v3.0.
+---
+
 # War Situation
-
-Speaker: Winston Churchill
-Date: 1940-06-04
-Country: United Kingdom
-Venue: House of Commons
-Common title: We Shall Fight on the Beaches
-Authoritative source: UK Parliament Hansard
-Hansard volume: 361
-Rights status: Open Licence
-Licence: Open Parliament Licence v3.0
-
-Attribution:
-Contains Parliamentary information licensed under the Open Parliament Licence v3.0.
 
 ## Transcript
 

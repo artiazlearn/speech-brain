@@ -1,4 +1,5 @@
 ---
+transcript_format_version: 1.0.0
 speech_id: reagan-1986-challenger
 title: Address to the Nation on the Explosion of the Space Shuttle Challenger
 speaker: Ronald Reagan
