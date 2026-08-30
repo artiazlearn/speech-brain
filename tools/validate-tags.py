@@ -36,6 +36,24 @@ SPEECH_LEVEL_CATEGORIES = {"purposes", "themes", "tone"}
 PURPOSE_PRIORITIES = {"primary", "secondary"}
 PASSAGE_CATEGORIES = {"rhetorical_devices", "writing_patterns"}
 CANDIDATE_STATUSES = {"pending_review", "approved", "rejected", "merged"}
+CANDIDATE_CATEGORIES = {
+    "purposes",
+    "themes",
+    "tone",
+    "rhetorical_devices",
+    "writing_patterns",
+    "section_functions",
+}
+CANDIDATE_REQUIRED_FIELDS = {
+    "candidate",
+    "proposed_category",
+    "speech",
+    "section",
+    "paragraphs",
+    "reason",
+    "possible_existing_tags",
+    "status",
+}
 PASSAGE_REQUIRED_FIELDS = {
     "id",
     "category",
@@ -48,6 +66,8 @@ PASSAGE_REQUIRED_FIELDS = {
 }
 SPEECH_TAG_REQUIRED_FIELDS = {"tag", "rationale", "confidence"}
 PARAGRAPH_ID_PATTERN = re.compile(r"^\[(p\d{3})\]\s*$", re.MULTILINE)
+PARAGRAPH_MARKER_PATTERN = re.compile(r"^\[(p[^\]]*)\]\s*$", re.MULTILINE)
+SEMANTIC_VERSION_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
 
 
 def add_error(errors: list[str], path: Path, message: str) -> None:
@@ -79,12 +99,37 @@ def load_transcript(path: Path, errors: list[str]) -> list[str]:
         add_error(errors, path, f"could not read file: {exc}")
         return []
 
+    raw_paragraph_ids = PARAGRAPH_MARKER_PATTERN.findall(text)
     paragraph_ids = PARAGRAPH_ID_PATTERN.findall(text)
+    for paragraph_id in raw_paragraph_ids:
+        if not re.fullmatch(r"p\d{3}", paragraph_id):
+            add_error(
+                errors,
+                path,
+                f"invalid paragraph ID {paragraph_id!r}; expected pNNN format",
+            )
     for paragraph_id, count in Counter(paragraph_ids).items():
         if count > 1:
             add_error(errors, path, f"duplicate paragraph ID {paragraph_id!r}")
     if not paragraph_ids:
         add_error(errors, path, "no paragraph IDs found")
+    else:
+        expected_ids = [f"p{index:03d}" for index in range(1, len(paragraph_ids) + 1)]
+        if paragraph_ids != expected_ids:
+            mismatch_index = next(
+                index
+                for index, (actual, expected) in enumerate(
+                    zip(paragraph_ids, expected_ids), start=1
+                )
+                if actual != expected
+            )
+            add_error(
+                errors,
+                path,
+                "paragraph IDs must be sequential starting at p001; "
+                f"expected {expected_ids[mismatch_index - 1]!r} but found "
+                f"{paragraph_ids[mismatch_index - 1]!r} at position {mismatch_index}",
+            )
     return paragraph_ids
 
 
@@ -167,6 +212,14 @@ def validate_structure(
             add_error(errors, structure_path, f"duplicate section ID {section_id!r}")
         else:
             section_ids.add(section_id)
+
+        rationale = raw_section.get("rationale")
+        if not isinstance(rationale, str) or not rationale.strip():
+            add_error(
+                errors,
+                structure_path,
+                f"section {section_id!r} has no usable rationale",
+            )
 
         paragraphs = raw_section.get("paragraphs")
         if not isinstance(paragraphs, list) or not paragraphs:
@@ -256,20 +309,38 @@ def validate_tag_entries(
                 f"{entry_location} is missing: {', '.join(sorted(missing))}",
             )
         tag = entry.get("tag")
-        if tag not in canonical_set:
+        if not isinstance(tag, str) or not tag.strip():
+            add_error(errors, tags_path, f"{entry_location} has no usable tag")
+        elif tag not in canonical_set:
             add_error(
                 errors,
                 tags_path,
                 f"{entry_location} has unknown {category} tag {tag!r}",
             )
-        if isinstance(tag, str):
+        else:
             found_tags.append(tag)
+
+        rationale = entry.get("rationale")
+        if not isinstance(rationale, str) or not rationale.strip():
+            add_error(
+                errors,
+                tags_path,
+                f"{entry_location} has no usable rationale",
+            )
         confidence = entry.get("confidence")
         if confidence not in CONFIDENCE_VALUES:
             add_error(
                 errors,
                 tags_path,
                 f"{entry_location} has invalid confidence {confidence!r}",
+            )
+
+    for tag, count in Counter(found_tags).items():
+        if count > 1:
+            add_error(
+                errors,
+                tags_path,
+                f"{location} has duplicate tag {tag!r}",
             )
 
     return found_tags
@@ -447,7 +518,10 @@ def validate_passage_annotations(
 
 
 def validate_candidates(
-    candidates: dict[str, Any], vocabulary: dict[str, Any], errors: list[str]
+    candidates: dict[str, Any],
+    vocabulary: dict[str, Any],
+    speech_contexts: dict[str, dict[str, Any]],
+    errors: list[str],
 ) -> None:
     records = candidates.get("candidate_tags")
     if not isinstance(records, list):
@@ -460,24 +534,161 @@ def validate_candidates(
             add_error(errors, CANDIDATES_PATH, f"{location} must be a mapping")
             continue
 
+        missing = CANDIDATE_REQUIRED_FIELDS - set(record)
+        if missing:
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} is missing: {', '.join(sorted(missing))}",
+            )
+
+        candidate = record.get("candidate")
+        if not isinstance(candidate, str) or not candidate.strip():
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} has no usable candidate",
+            )
+
+        category = record.get("proposed_category")
+        category_is_valid = (
+            isinstance(category, str) and category in CANDIDATE_CATEGORIES
+        )
+        if not category_is_valid:
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} has invalid proposed_category {category!r}",
+            )
+
+        speech_id = record.get("speech")
+        speech_context = None
+        if not isinstance(speech_id, str) or not speech_id.strip():
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} has no usable speech",
+            )
+        elif speech_id not in speech_contexts:
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} references nonexistent speech {speech_id!r}",
+            )
+        else:
+            speech_context = speech_contexts[speech_id]
+
+        section_id = record.get("section")
+        section_paragraphs: set[str] | None = None
+        if not isinstance(section_id, str) or not section_id.strip():
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} has no usable section",
+            )
+        elif speech_context is not None:
+            sections = speech_context["sections"]
+            if section_id not in sections:
+                add_error(
+                    errors,
+                    CANDIDATES_PATH,
+                    f"{location} references nonexistent section {section_id!r} "
+                    f"in speech {speech_id!r}",
+                )
+            else:
+                section_paragraphs = sections[section_id]
+
+        paragraphs = record.get("paragraphs")
+        if not isinstance(paragraphs, list) or not paragraphs:
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} must have a non-empty paragraphs list",
+            )
+            paragraphs = []
+        for paragraph_id in paragraphs:
+            if not isinstance(paragraph_id, str) or not paragraph_id.strip():
+                add_error(
+                    errors,
+                    CANDIDATES_PATH,
+                    f"{location} has invalid paragraph {paragraph_id!r}",
+                )
+            elif (
+                speech_context is not None
+                and paragraph_id not in speech_context["paragraphs"]
+            ):
+                add_error(
+                    errors,
+                    CANDIDATES_PATH,
+                    f"{location} references nonexistent paragraph "
+                    f"{paragraph_id!r} in speech {speech_id!r}",
+                )
+            elif section_paragraphs is not None and paragraph_id not in section_paragraphs:
+                add_error(
+                    errors,
+                    CANDIDATES_PATH,
+                    f"{location} references paragraph {paragraph_id!r}, which "
+                    f"does not belong to section {section_id!r}",
+                )
+
+        reason = record.get("reason")
+        if not isinstance(reason, str) or not reason.strip():
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} has no usable reason",
+            )
+
+        possible_existing_tags = record.get("possible_existing_tags")
+        if not isinstance(possible_existing_tags, list):
+            add_error(
+                errors,
+                CANDIDATES_PATH,
+                f"{location} possible_existing_tags must be a list",
+            )
+            possible_existing_tags = []
+        if category_is_valid:
+            canonical_tags = vocabulary.get(category)
+            if not isinstance(canonical_tags, list):
+                add_error(
+                    errors,
+                    VOCABULARY_PATH,
+                    f"{category} must be a list",
+                )
+                canonical_tags = []
+            canonical_set = set(canonical_tags)
+            for possible_tag in possible_existing_tags:
+                if (
+                    not isinstance(possible_tag, str)
+                    or possible_tag not in canonical_set
+                ):
+                    add_error(
+                        errors,
+                        CANDIDATES_PATH,
+                        f"{location} has unknown possible_existing_tag "
+                        f"{possible_tag!r} for category {category!r}",
+                    )
+
         status = record.get("status")
-        if status is None:
-            add_error(errors, CANDIDATES_PATH, f"{location} is missing status")
-            continue
-        if status not in CANDIDATE_STATUSES:
+        if not isinstance(status, str) or not status.strip():
+            add_error(errors, CANDIDATES_PATH, f"{location} has no usable status")
+        elif status not in CANDIDATE_STATUSES:
             add_error(errors, CANDIDATES_PATH, f"{location} has invalid status {status!r}")
 
         if status == "approved":
             approved_version = record.get("approved_in_vocabulary_version")
-            if approved_version is None:
+            if (
+                not isinstance(approved_version, str)
+                or not approved_version.strip()
+                or not SEMANTIC_VERSION_PATTERN.fullmatch(approved_version)
+            ):
                 add_error(
                     errors,
                     CANDIDATES_PATH,
-                    f"{location} is approved but missing approved_in_vocabulary_version",
+                    f"{location} has invalid approved_in_vocabulary_version "
+                    f"{approved_version!r}; expected semantic version X.Y.Z",
                 )
 
-            candidate = record.get("candidate")
-            category = record.get("proposed_category")
             canonical_tags = vocabulary.get(category)
             if not isinstance(canonical_tags, list) or candidate not in canonical_tags:
                 add_error(
@@ -568,9 +779,9 @@ def main() -> int:
         "document root",
         global_errors,
     )
-    validate_candidates(candidates, vocabulary, global_errors)
 
     results: list[dict[str, Any]] = []
+    speech_contexts: dict[str, dict[str, Any]] = {}
     for speech_directory in discover_speech_directories(global_errors):
         errors: list[str] = []
         transcript_path = speech_directory / TRANSCRIPT_FILENAME
@@ -617,6 +828,11 @@ def main() -> int:
             errors,
         )
 
+        speech_contexts[speech_directory.name] = {
+            "paragraphs": set(transcript_paragraphs),
+            "sections": section_paragraphs,
+        }
+
         results.append(
             {
                 "name": tags.get("speech_id", speech_directory.name),
@@ -629,6 +845,8 @@ def main() -> int:
                 "annotation_count": annotation_count,
             }
         )
+
+    validate_candidates(candidates, vocabulary, speech_contexts, global_errors)
 
     return print_result(results, global_errors)
 
