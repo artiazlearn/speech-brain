@@ -1,0 +1,430 @@
+speech_id: thatcher-1980-not-for-turning
+schema_version: 0.2.0
+vocabulary_version: 0.3.0
+
+speech_level:
+  purposes:
+    primary:
+      - tag: persuade
+        rationale: >
+          Thatcher's central task is to defend the Government's economic,
+          social, and foreign-policy course and convince the conference that
+          persistence, rather than reversal, is the credible response to the
+          country's difficulties.
+        confidence: high
+      - tag: establish_values
+        rationale: >
+          The speech repeatedly defines a governing philosophy built around
+          freedom, independence, enterprise, responsibility, community, and
+          national duty, making those values the basis of its policy case.
+        confidence: high
+      - tag: mobilize
+        rationale: >
+          Addressing a party conference, Thatcher seeks to rally supporters
+          behind a demanding programme, sustain their resolve under pressure,
+          and enlist their energy in carrying it through.
+        confidence: high
+      - tag: define_stakes
+        rationale: >
+          Thatcher presents the consequences of policy choices as extending
+          beyond short-term economics to employment, social order, national
+          security, democratic institutions, and freedom itself.
+        confidence: high
+    secondary:
+      - tag: inform
+        rationale: >
+          The speech reviews domestic legislation, economic policy, public
+          spending, defence commitments, and international developments so the
+          audience can understand the Government's record and reasoning.
+        confidence: high
+      - tag: inspire
+        rationale: >
+          The address works to restore confidence in Britain's capacity for
+          recovery and closes by elevating political perseverance into a shared
+          defence of freedom and national purpose.
+        confidence: high
+      - tag: reassure
+        rationale: >
+          Thatcher acknowledges hardship and doubt but argues that inflation is
+          falling, the chosen course is sound, and firmness at home and abroad
+          is already producing grounds for confidence.
+        confidence: medium
+      - tag: warn
+        rationale: >
+          Warnings about inflation, unchecked public spending, Soviet power,
+          weak defence, and political reversal reinforce the dangers of
+          abandoning the Government's course.
+        confidence: high
+      - tag: unify
+        rationale: >
+          References to party unity, mutual obligation, national community, and
+          standing together invite supporters to see themselves as participants
+          in one collective undertaking.
+        confidence: high
+      - tag: call_to_action
+        rationale: >
+          The final paragraphs explicitly urge the audience to dedicate its
+          energy, resist defeatism, stand together, and do its duty.
+        confidence: high
+  themes:
+    - tag: freedom
+      rationale: >
+        Freedom connects the speech's arguments for ownership and enterprise,
+        its resistance to an over-powerful state, its condemnation of Communist
+        repression, and its closing appeal to defend a free nation.
+      confidence: high
+    - tag: civic_duty
+      rationale: >
+        The address links national renewal to citizens' contributions to their
+        communities and ends by asking party members to stand together and do
+        their duty.
+      confidence: high
+    - tag: responsibility
+      rationale: >
+        Thatcher distributes responsibility among government, public bodies,
+        individuals, communities, leaders, and party supporters rather than
+        treating national recovery as an impersonal process.
+      confidence: high
+    - tag: national_unity
+      rationale: >
+        Party unity develops into a wider vision of a confident national
+        community whose institutions and recovery depend on people acting
+        together.
+      confidence: medium
+    - tag: international_cooperation
+      rationale: >
+        Alliances, the European Community, NATO, arms discussions, and mutual
+        obligations are presented as necessary ways for Britain to protect its
+        interests and uphold democratic order with other nations.
+      confidence: high
+
+  tone:
+    - tag: formal
+      rationale: >
+        Despite moments of wit, the address sustains the formal register of a
+        major party-conference statement through detailed policy argument and an
+        elevated conclusion.
+      confidence: high
+    - tag: resolute
+      rationale: >
+        Assertions that the Government will stay its course, resist pressure,
+        meet external threats, and not fail give the speech its dominant
+        quality of determination.
+      confidence: high
+    - tag: challenging
+      rationale: >
+        Thatcher confronts critics, opponents, and comfortable assumptions,
+        demanding that the audience accept discipline and choose between
+        sharply opposed political courses.
+      confidence: high
+    - tag: idealistic
+      rationale: >
+        The speech repeatedly reaches beyond policy mechanics toward a vision
+        of a free, responsible, confident society and a democratic West secure
+        in its principles.
+      confidence: medium
+passage_annotations:
+  - id: a001
+    category: rhetorical_devices
+    tag: direct_address
+    section: s01
+    paragraphs:
+      - p001
+      - p004
+    evidence: "Mr chairman, ladies and gentlemen ... you"
+    rationale: >
+      Thatcher speaks explicitly to the conference at the outset and returns
+      to its expectations, establishing a direct relationship with the people
+      whose support she is seeking.
+    confidence: high
+
+  - id: a002
+    category: rhetorical_devices
+    tag: antithesis
+    section: s02
+    paragraphs:
+      - p008
+    evidence: "not to lengthen our stride but to shorten the distance to be covered"
+    rationale: >
+      The balanced opposition turns diminished ambition into a vivid measure
+      of national decline, sharpening the case for recovering confidence.
+    confidence: high
+
+  - id: a003
+    category: rhetorical_devices
+    tag: simile
+    section: s04
+    paragraphs:
+      - p016
+    evidence: "as surely as invading armies do"
+    rationale: >
+      The explicit comparison gives inflation the destructive force of a
+      military invasion, making an abstract economic danger immediate and
+      severe as the policy argument begins.
+    confidence: high
+
+  - id: a004
+    category: rhetorical_devices
+    tag: metaphor
+    section: s04
+    paragraphs:
+      - p016
+    evidence: "Inflation is the parent of unemployment. It is the unseen robber"
+    rationale: >
+      The familial and criminal images turn inflation into an active source
+      of unemployment and a hidden taker of savings, giving listeners concrete
+      ways to understand its effects.
+    confidence: high
+
+  - id: a005
+    category: rhetorical_devices
+    tag: rhetorical_question
+    section: s05
+    paragraphs:
+      - p032
+    evidence: "If I could press a button ... would I not press that button this instant?"
+    rationale: >
+      The question anticipates doubt about Thatcher's concern for the
+      unemployed and invites the audience to accept her answer without
+      treating the exchange as a request for information.
+    confidence: high
+
+  - id: a006
+    category: rhetorical_devices
+    tag: repetition
+    section: s06
+    paragraphs:
+      - p036
+    evidence: "spent, spent, spent and spent again"
+    rationale: >
+      Repeating the verb mimics accumulated expenditure and makes the critique
+      of an exhausted spending remedy memorable at the point where Thatcher
+      rejects it.
+    confidence: high
+
+  - id: a007
+    category: rhetorical_devices
+    tag: parallelism
+    section: s07
+    paragraphs:
+      - p039
+    evidence: "Without a healthy economy ... Without a healthy society"
+    rationale: >
+      Matching sentence structures give economic strength and social strength
+      equal weight, reinforcing the claim that neither can be sustained
+      without the other.
+    confidence: high
+
+  - id: a008
+    category: rhetorical_devices
+    tag: metaphor
+    section: s08
+    paragraphs:
+      - p044
+    evidence: "an autumn of understanding ... a winter of common sense"
+    rationale: >
+      Seasonal images convert shifts in public judgment into an advancing
+      political climate, preparing the assertion that pressure will not divert
+      the Government.
+    confidence: high
+
+  - id: a009
+    category: rhetorical_devices
+    tag: antithesis
+    section: s08
+    paragraphs:
+      - p045
+    evidence: "You turn if you want to. The lady's not for turning."
+    rationale: >
+      The opposed alternatives of turning and refusing to turn compress the
+      dispute over policy reversal into a concise declaration of resolve. It
+      caps this confrontation with domestic critics but does not function as
+      the climax of the whole speech.
+    confidence: high
+
+  - id: a010
+    category: rhetorical_devices
+    tag: allusion
+    section: s09
+    paragraphs:
+      - p046
+    evidence: "The peer that reaches those foreign parts that other peers cannot reach."
+    rationale: >
+      The adapted advertising line relies on recognition of an earlier
+      formulation to introduce the foreign-affairs section with a compact,
+      audience-friendly tribute to the Foreign Secretary.
+    confidence: high
+
+  - id: a011
+    category: rhetorical_devices
+    tag: antithesis
+    section: s09
+    paragraphs:
+      - p048
+    evidence: "ideologically, politically and morally bankrupt. But militarily"
+    rationale: >
+      The contrast distinguishes ideological weakness from military strength,
+      preventing moral condemnation of Soviet Marxism from becoming strategic
+      complacency.
+    confidence: high
+
+  - id: a012
+    category: rhetorical_devices
+    tag: tricolon
+    section: s12
+    paragraphs:
+      - p069
+    evidence: "let us resist ... let us ignore ... let us stand together"
+    rationale: >
+      Three coordinated exhortations give the conclusion a complete,
+      escalating cadence that moves from rejecting obstacles to collective
+      action.
+    confidence: high
+
+  - id: a013
+    category: rhetorical_devices
+    tag: anaphora
+    section: s12
+    paragraphs:
+      - p069
+    evidence: "let us ... let us ... let us"
+    rationale: >
+      Repetition at the beginnings of successive clauses creates a rallying
+      rhythm and repeatedly includes speaker and audience in the same duty.
+    confidence: high
+
+  - id: a014
+    category: rhetorical_devices
+    tag: parallelism
+    section: s12
+    paragraphs:
+      - p069
+    evidence: "let us resist ... let us ignore ... let us stand together"
+    rationale: >
+      The recurring grammatical form makes separate actions feel like parts
+      of one coherent response, carrying the speech toward its final promise.
+    confidence: high
+
+  - id: a015
+    category: rhetorical_devices
+    tag: imperative
+    section: s12
+    paragraphs:
+      - p069
+    evidence: "let us stand together and do our duty"
+    rationale: >
+      The inclusive command converts the argument from a defence of policy
+      into an immediate obligation shared by the conference audience.
+    confidence: high
+
+  - id: a016
+    category: writing_patterns
+    tag: reframe_occasion
+    section: s02
+    paragraphs:
+      - p005
+      - p006
+      - p007
+      - p008
+    evidence: "Much more is at stake than the success of one party."
+    rationale: >
+      Thatcher expands the party conference beyond a test of Conservative
+      fortunes into a test of national economic recovery, independence, and
+      confidence.
+    confidence: high
+
+  - id: a017
+    category: writing_patterns
+    tag: establish_shared_values
+    section: s07
+    paragraphs:
+      - p038
+      - p039
+      - p040
+      - p041
+      - p042
+      - p043
+    evidence: "People yearn to be able to rely on some generally accepted standards."
+    rationale: >
+      The speech grounds its programme in familiar beliefs about independence,
+      honest work, family, voluntary service, and community, creating common
+      moral ground before the declaration of resolve.
+    confidence: high
+
+  - id: a018
+    category: writing_patterns
+    tag: contrast_alternatives
+    section: s06
+    paragraphs:
+      - p033
+      - p034
+      - p035
+      - p036
+      - p037
+    evidence: "Public sector employees ... private sector employees"
+    rationale: >
+      Thatcher contrasts more public spending as an apparent remedy with its
+      claimed costs to firms and jobs, asking the audience to choose fiscal
+      restraint over a familiar but, in her account, self-defeating response.
+    confidence: high
+
+  - id: a019
+    category: writing_patterns
+    tag: raise_stakes
+    section: s12
+    paragraphs:
+      - p067
+      - p068
+      - p069
+    evidence: "freedom could be imperilled and too easily lost"
+    rationale: >
+      The conclusion increases the significance of the undertaking from
+      restoring confidence and stability to preventing a national and moral
+      loss of freedom.
+    confidence: high
+
+  - id: a020
+    category: writing_patterns
+    tag: personalize_responsibility
+    section: s12
+    paragraphs:
+      - p068
+      - p069
+    evidence: "for us to dedicate ... every ounce of our energy and moral strength"
+    rationale: >
+      The abstract work of national renewal becomes a responsibility to be
+      borne personally by the speaker and her supporters through their own
+      energy, strength, and duty.
+    confidence: high
+
+  - id: a021
+    category: writing_patterns
+    tag: transfer_responsibility_to_audience
+    section: s12
+    paragraphs:
+      - p067
+      - p068
+      - p069
+    evidence: "let us stand together and do our duty"
+    rationale: >
+      The focus shifts from what party and government are doing to what the
+      assembled collective must dedicate, resist, ignore, and perform, giving
+      the audience agency in the outcome.
+    confidence: high
+
+  - id: a022
+    category: writing_patterns
+    tag: build_to_climax
+    section: s12
+    paragraphs:
+      - p066
+      - p067
+      - p068
+      - p069
+    evidence: "let us resist ... let us ignore ... let us stand together"
+    rationale: >
+      The closing sequence moves from a principle of leadership, through the
+      Government's mission and the threat to freedom, into increasingly direct
+      collective exhortations and the final assurance that the audience will
+      not fail.
+    confidence: high

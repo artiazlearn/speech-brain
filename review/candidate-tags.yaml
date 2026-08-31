@@ -196,3 +196,92 @@ candidate_tags:
       - reframe_occasion
       - build_to_climax
     status: pending_review
+
+  - candidate: review_record
+    proposed_category: section_functions
+    speech: thatcher-1980-not-for-turning
+    section: s03
+    paragraphs:
+      - p009
+      - p010
+      - p011
+      - p012
+      - p013
+      - p014
+      - p015
+    reason: >
+      This section systematically reviews concrete government achievements and
+      uses the record of action to demonstrate credibility and progress. The
+      existing establish_values function is defensible because the achievements
+      embody ownership, competition, self-reliance, and reduced state control,
+      but it does not fully describe the primary rhetorical job of reviewing an
+      administration's record as evidence.
+    possible_existing_tags:
+      - establish_values
+    status: pending_review
+
+  - candidate: assert_resolve
+    proposed_category: section_functions
+    speech: thatcher-1980-not-for-turning
+    section: s08
+    paragraphs:
+      - p044
+      - p045
+    reason: >
+      The section's main rhetorical job is to affirm commitment to an existing
+      course despite pressure, criticism, or expectations of reversal.
+      Address_adversary is the best available canonical function because
+      Thatcher directly answers those expecting a U-turn and extends the
+      message to hostile audiences, but the vocabulary does not currently
+      contain a section function specifically describing continued resolve
+      under pressure.
+    possible_existing_tags:
+      - address_adversary
+      - establish_values
+    status: pending_review
+
+  - candidate: humor
+    proposed_category: rhetorical_devices
+    speech: thatcher-1980-not-for-turning
+    section: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    reason: >
+      Humor and wit recur throughout the speech and perform meaningful
+      rhetorical work by building audience rapport, deflecting criticism,
+      ridiculing opposing claims, relieving dense policy argument, and
+      projecting confidence. Existing canonical devices such as allusion,
+      antithesis, repetition, and direct_address can describe the local
+      linguistic mechanisms, but none captures humor itself as a recurrent
+      rhetorical technique.
+    possible_existing_tags:
+      - allusion
+      - antithesis
+      - repetition
+      - direct_address
+    status: pending_review
+
+  - candidate: counterargument
+    proposed_category: writing_patterns
+    speech: thatcher-1980-not-for-turning
+    section: s06
+    paragraphs:
+      - p033
+      - p034
+      - p035
+      - p036
+      - p037
+    reason: >
+      The speech repeatedly presents an objection, rival explanation, or
+      opposing position and then answers it. This pattern recurs in arguments
+      about monetary policy, unemployment, further public spending, policy
+      reversal, detente, and unilateral disarmament. Existing reframe_problem
+      and contrast_alternatives overlap with this strategy but do not precisely
+      describe the recurring compositional pattern of stating and answering an
+      opposing case.
+    possible_existing_tags:
+      - contrast_alternatives
+    status: pending_review

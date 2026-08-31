@@ -1,0 +1,210 @@
+speech_id: thatcher-1980-not-for-turning
+schema_version: 0.2.0
+vocabulary_version: 0.3.0
+
+sections:
+  - id: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    functions:
+      - opening
+    rationale: >
+      The greeting, personal acknowledgments, affirmation of party unity, and
+      handling of the interruption establish rapport with the conference before
+      setting the expectation that Thatcher will explain the Government's task
+      and methods.
+
+  - id: s02
+    paragraphs:
+      - p005
+      - p006
+      - p007
+      - p008
+    functions:
+      - reframe_occasion
+      - define_stakes
+    rationale: >
+      These paragraphs interpret the Brighton conference in light of Labour's
+      gathering at Blackpool, turning routine party deliberation into an urgent
+      test of whether the Government can secure national recovery, confidence,
+      and renewed ambition.
+
+  - id: s03
+    paragraphs:
+      - p009
+      - p010
+      - p011
+      - p012
+      - p013
+      - p014
+      - p015
+    functions:
+      - establish_values
+    rationale: >
+      A connected review of the Government's first seventeen months presents
+      incentives, competition, private investment, union reform, and home
+      ownership as practical expressions of self-reliance, independence, and
+      a property-owning democracy.
+
+  - id: s04
+    paragraphs:
+      - p016
+      - p017
+      - p018
+      - p019
+      - p020
+      - p021
+      - p022
+      - p023
+    functions:
+      - explain_problem
+      - define_stakes
+      - reframe_problem
+    rationale: >
+      The inflation argument explains its social and economic damage, makes
+      monetary discipline essential to recovery, and recasts that discipline
+      from an allegedly revolutionary doctrine into a proven, conventional
+      policy whose success depends on sustained resolve.
+
+  - id: s05
+    paragraphs:
+      - p024
+      - p025
+      - p026
+      - p027
+      - p028
+      - p029
+      - p030
+      - p031
+      - p032
+    functions:
+      - explain_problem
+      - define_stakes
+      - reframe_problem
+    rationale: >
+      Thatcher turns from inflation to unemployment, considers contextual
+      qualifications without minimizing the human cost, and rejects the idea
+      that joblessness reflects indifference or economic dogma by presenting
+      lower inflation as the route to lasting employment.
+
+  - id: s06
+    paragraphs:
+      - p033
+      - p034
+      - p035
+      - p036
+      - p037
+    functions:
+      - explain_problem
+      - reframe_problem
+    rationale: >
+      This unit traces how public spending, rates, pay, and monopoly charges
+      transfer burdens to private firms and jobs, then reverses the proposed
+      remedy by arguing that indiscriminate spending would reproduce rather
+      than cure the underlying problem.
+
+  - id: s07
+    paragraphs:
+      - p038
+      - p039
+      - p040
+      - p041
+      - p042
+      - p043
+    functions:
+      - establish_values
+    rationale: >
+      The speech broadens from economic policy to a social philosophy grounded
+      in independence joined to community, limits on state power, honesty,
+      family standards, voluntary contribution, and the people's role in
+      creating and sustaining a great nation.
+
+  - id: s08
+    paragraphs:
+      - p044
+      - p045
+    functions:
+      - address_adversary
+    rationale: >
+      These paragraphs form a single answer to anticipated pressure for policy
+      reversal: Thatcher first declares that the Government will not be
+      diverted, then directly answers those expecting a U-turn and extends the
+      refusal to audiences overseas and to those who are not Britain's friends.
+      Addressing those critics and hostile audiences makes address_adversary the
+      most defensible existing function.
+
+  - id: s09
+    paragraphs:
+      - p046
+      - p047
+      - p048
+      - p049
+      - p050
+      - p051
+      - p052
+      - p053
+    functions:
+      - address_adversary
+      - explain_problem
+      - define_stakes
+    rationale: >
+      The foreign-policy turn develops the Soviet military and ideological
+      threat through Afghanistan, détente, Helsinki, and Poland, while setting
+      conditions and warnings for the hostile bloc and showing that silence
+      would endanger other nations and political freedom.
+
+  - id: s10
+    paragraphs:
+      - p054
+      - p055
+      - p056
+      - p057
+      - p058
+      - p059
+    functions:
+      - establish_values
+      - define_stakes
+    rationale: >
+      The Rhodesia settlement supplies evidence for realism and resolve before
+      the same principles are applied to defence, where nuclear deterrence,
+      conventional strength, and alliance participation are presented as
+      necessary to national security and international credibility.
+
+  - id: s11
+    paragraphs:
+      - p060
+      - p061
+      - p062
+      - p063
+      - p064
+      - p065
+    functions:
+      - establish_values
+      - define_stakes
+    rationale: >
+      Practical European negotiations expand into a wider international case:
+      firm defence of national interests is joined to fair dealing and durable
+      commitment to the Community and NATO as safeguards of democracy, order,
+      and restored Western confidence.
+
+  - id: s12
+    paragraphs:
+      - p066
+      - p067
+      - p068
+      - p069
+    functions:
+      - personalize_responsibility
+      - climax
+      - call_to_action
+      - closing
+    rationale: >
+      The closing sequence joins reciprocal leadership, the Government's
+      national mission, and the renewed challenge posed by Labour, then places
+      responsibility on the assembled party through escalating appeals to
+      dedicate its strength, resist pressure, stand together, and do its duty.
+      That culmination supplies both the speech's principal high point and its
+      final resolution.
