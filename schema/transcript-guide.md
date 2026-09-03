@@ -7,9 +7,9 @@ Transcript Format Version: 1.0.0
 Each `01-transcript.md` file contains two distinct layers:
 
 1. standardized machine-readable provenance metadata;
-2. the immutable primary-source transcript.
+2. a source-faithful transcript body with stable paragraph IDs.
 
-Metadata may be normalized as source research improves. The transcript beginning at `[p001]` is primary-source data and must not be changed during metadata normalization.
+Metadata may be normalized as source research improves. Once prepared, the transcript body beginning at `[p001]` must not be changed during metadata or container normalization.
 
 ## Standard File Shape
 
@@ -66,11 +66,27 @@ Every transcript front matter must contain:
 - `source.source_title`
 - `source.source_url`
 
-The front matter must begin and end with `---`. Nested `source` and `rights` mappings must use valid YAML indentation. No free-form metadata may appear between the closing delimiter and the title.
+The front matter must begin and end with `---`. Nested `source` and `rights` mappings must use valid YAML indentation.
+
+## Document Structure
+
+After the closing front-matter delimiter, the document must contain, in order:
+
+1. an H1 heading that exactly matches the `title` value;
+2. the H2 heading `Transcript`;
+3. the paragraph entries, beginning with `[p001]`.
+
+Do not place free-form metadata or commentary between these elements.
+
+## Paragraph IDs and Source Text
+
+Each transcript paragraph must have an ID on its own line immediately before the paragraph text. IDs use the three-digit, zero-padded form `[pNNN]`: begin with `[p001]` and increment by one without gaps or duplicates. Separate paragraph entries with a blank line.
+
+Prepare the transcript faithfully from the cited source. Preserve its wording, spelling, capitalization, punctuation, quotation style, dashes, and paragraph divisions; do not silently correct or modernize the text. Do not add editorial commentary that is absent from the source.
 
 ## Transcript Immutability
 
-Everything from the existing `[p001]` marker through the end of the file must remain byte-for-byte unchanged during metadata or container normalization. This includes:
+Once the transcript body has been prepared, everything from `[p001]` through the end of the file must remain byte-for-byte unchanged during metadata or container normalization. This includes:
 
 - paragraph wording and spelling;
 - punctuation, quotation marks, and dashes;
@@ -80,13 +96,14 @@ Everything from the existing `[p001]` marker through the end of the file must re
 
 If a formatting preference conflicts with body preservation, preserve the body. Transcript Format Version is independent of schema, vocabulary, and analysis-template versions.
 
-## Verification Checklist
+## Conformance Checklist
 
-Before completing a normalization pass:
+A conforming transcript meets these checks:
 
-1. Parse the front matter as YAML.
-2. Confirm every required metadata field exists and is nonempty.
-3. Confirm source URLs are plain YAML strings.
-4. Confirm paragraph IDs begin at p001 and remain sequential.
-5. Compare the bytes from `[p001]` through EOF with the pre-edit snapshot.
-6. Confirm that only authorized transcript containers and this guide changed.
+1. The front matter parses as YAML.
+2. Every required metadata field exists and is nonempty.
+3. The source URL is a plain YAML string.
+4. The H1 heading exactly matches `title` and is followed by `## Transcript`.
+5. Paragraph IDs use the required form, begin at `[p001]`, and remain sequential.
+6. The transcript is source-faithful and contains no added editorial commentary.
+7. During metadata or container normalization, the bytes from `[p001]` through EOF remain unchanged.
