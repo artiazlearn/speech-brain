@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This guide governs generation of `02-structure.yaml`. The schema defines the required data shape; rhetorical segmentation still requires judgment about what each group of paragraphs does within the speech.
+This guide explains the rhetorical judgment used to create `02-structure.yaml`. The schema defines the canonical data shape; this guide explains how to decide what each group of paragraphs does within the speech.
 
-Use `schema/speech-schema.yaml` for structural requirements, `schema/vocabulary.yaml` for canonical section functions, and `schema/tagging-guide.md` for their meanings and distinctions.
+Use `schema/speech-schema.yaml` for required fields, types, cardinalities, and identifier formats; `schema/vocabulary.yaml` for canonical section functions; and `schema/tagging-guide.md` for their meanings and distinctions.
 
 ## Standard Structure File
 
@@ -25,55 +25,42 @@ sections:
       assigned canonical section functions fit.
 ```
 
-## Schema Rules
+The example illustrates the artifact shape; it does not prescribe a section count, section length, or function.
 
-Every structure file requires `speech_id`, `schema_version`, `vocabulary_version`, and `sections`. Every section requires:
+## Artifact Rules
 
-- a section `id`;
-- a non-empty ordered list of `paragraphs`;
-- a non-empty list of canonical `functions`;
-- a non-empty explanatory `rationale`.
+Use `schema/speech-schema.yaml` as the canonical definition of the artifact shape. The following structure-stage invariants also apply:
 
-The following invariants apply:
-
-1. Every transcript paragraph must appear exactly once.
-2. Paragraphs must remain in transcript order.
-3. Sections must be contiguous.
-4. Section IDs must be sequential and ordered: `s01`, `s02`, `s03`, and so on.
-5. Every section must contain at least one paragraph.
-6. Every section must contain at least one canonical section function.
-7. Functions must come only from `schema/vocabulary.yaml` under `section_functions`.
-8. Every rationale must be a non-empty explanatory string.
-9. Do not place candidate taxonomy fields or concepts inside `02-structure.yaml`.
-10. Do not change transcript wording, paragraph IDs, paragraph order, or paragraph boundaries during structural analysis.
+1. Every transcript paragraph must appear in exactly one section.
+2. Copy paragraph identifiers unchanged from `01-transcript.md` and list each identifier explicitly rather than using a range.
+3. Within each section, paragraphs must be contiguous and remain in transcript order; the ordered sections must cover the transcript without gaps or overlaps.
+4. Assign section IDs in section order, beginning with `s01` and incrementing sequentially: `s01`, `s02`, `s03`, and so on.
+5. Functions must come only from `schema/vocabulary.yaml` under `section_functions`.
+6. Do not place candidate taxonomy fields or concepts inside `02-structure.yaml`.
+7. Structural analysis must not change transcript wording, paragraph IDs, paragraph order, or paragraph boundaries.
 
 ## Rhetorical Segmentation Judgment
 
-Use the smallest number of sections that captures meaningful rhetorical shifts. A section should unite contiguous paragraphs performing a common rhetorical job. Do not create one section per paragraph merely for convenience, and do not divide the speech solely by paragraph length or topic.
+Use no more sections than necessary to capture meaningful rhetorical or argumentative shifts. A section should unite contiguous paragraphs performing a common rhetorical job. There is no target section count or preferred section length: a section may contain one paragraph or many. Do not create one section per paragraph merely for convenience, divide the speech by equal lengths, or treat a topic change alone as sufficient when the rhetorical job continues.
 
-A famous or memorable passage is not automatically a `climax`. Apply the definition in `schema/tagging-guide.md` and consider whether the speech's rhetorical progression genuinely culminates there.
+No particular function is required in every speech. A famous or memorable passage is not automatically a `climax`; apply the distinction in `schema/tagging-guide.md` and consider whether the speech's rhetorical progression genuinely culminates there.
 
-Rationales should explain both why the paragraphs belong together and why the assigned functions describe their shared role. They should record analysis rather than quote large portions of the transcript.
+Assign only functions that describe the section's role as a unit. A section may have more than one function when each is defensible for the grouped passage.
 
-## Vocabulary Gaps and Candidate Concepts
+Rationales should explain both why the paragraphs belong together and why the assigned functions describe their shared role. They should record section-specific analysis rather than merely restate function labels or quote large portions of the transcript.
 
-Candidate taxonomy proposals belong in `review/candidate-tags.yaml`, never in canonical structure data. If the vocabulary does not adequately describe a section:
+## Vocabulary Boundary
 
-1. use only defensible canonical functions in `02-structure.yaml`;
-2. report the vocabulary gap clearly;
-3. quarantine the proposed concept in `review/candidate-tags.yaml` with pending-review status;
-4. do not silently modify `schema/vocabulary.yaml`.
+Use only defensible canonical functions in `02-structure.yaml`. Candidate concepts and vocabulary-gap resolution do not belong in the canonical structure artifact.
 
-Human review, rather than structural analysis, determines whether a candidate is approved, rejected, or merged with an existing concept.
+## Conformance Checklist
 
-## Consistency Checklist
+A conforming structure file:
 
-Before completing a structure file, verify that:
-
-- all required top-level and section fields are present;
-- every transcript paragraph is covered exactly once and in order;
-- section ranges are contiguous and section IDs are sequential;
-- all functions are canonical and defensible;
-- all rationales are substantive and non-empty;
-- no transcript content or identifiers changed;
-- no candidate concept appears in the canonical structure file.
+- follows the canonical shape in `schema/speech-schema.yaml`;
+- covers every transcript paragraph exactly once and in order;
+- uses contiguous section ranges and sequential section IDs;
+- assigns only canonical, defensible functions;
+- provides a substantive, non-empty rationale for every section;
+- leaves transcript content and identifiers unchanged;
+- contains no candidate concepts.
