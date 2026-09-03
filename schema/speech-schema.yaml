@@ -80,29 +80,32 @@ tags:
       - themes
       - tone
 
-    purposes:
-      required_fields:
-        - primary
-        - secondary
-      primary:
+    fields:
+      purposes:
+        type: mapping
+        required_fields:
+          - primary
+          - secondary
+        fields:
+          primary:
+            type: list
+            min_items: 1
+            canonical_category: purposes
+            items: speech_level_tag
+          secondary:
+            type: list
+            canonical_category: purposes
+            items: speech_level_tag
+
+      themes:
         type: list
-        min_items: 1
-        canonical_category: purposes
-        items: speech_level_tag
-      secondary:
-        type: list
-        canonical_category: purposes
+        canonical_category: themes
         items: speech_level_tag
 
-    themes:
-      type: list
-      canonical_category: themes
-      items: speech_level_tag
-
-    tone:
-      type: list
-      canonical_category: tone
-      items: speech_level_tag
+      tone:
+        type: list
+        canonical_category: tone
+        items: speech_level_tag
 
   speech_level_tag:
     required_fields:
