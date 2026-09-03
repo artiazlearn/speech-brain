@@ -86,13 +86,13 @@ Prepare the transcript faithfully from the cited source. Preserve its wording, s
 
 ## Transcript Immutability
 
-Once the transcript body has been prepared, everything from `[p001]` through the end of the file must remain byte-for-byte unchanged during metadata or container normalization. This includes:
+Once the transcript body has been prepared, its textual content, paragraph IDs,
+paragraph order, and paragraph boundaries must not change during metadata or container normalization. This includes:
 
 - paragraph wording and spelling;
 - punctuation, quotation marks, and dashes;
 - paragraph IDs and their order;
-- line wrapping and paragraph boundaries;
-- blank lines between paragraphs.
+- paragraph boundaries.
 
 If a formatting preference conflicts with body preservation, preserve the body. Transcript Format Version is independent of schema, vocabulary, and analysis-template versions.
 
