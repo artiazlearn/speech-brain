@@ -93,7 +93,7 @@ Rhetorical-device tags identify language-level techniques. They may describe a p
 
 ## Section functions
 
-Section-function tags identify the primary job performed by a coherent section. They operate at a larger structural level than individual rhetorical devices.
+Section-function tags identify the rhetorical roles performed by a coherent section. They operate at a larger structural level than individual rhetorical devices.
 
 ### `opening`
 
@@ -295,8 +295,8 @@ A primary purpose should satisfy most of these tests:
 Rules:
 
 - A speech must have at least 1 primary purpose.
-- Prefer 1–4 primary purposes.
-- Do not mark a purpose primary merely because it occurs somewhere in the speech.
+- Use no more than 4 primary purposes.
+- Classify a purpose as primary only when it satisfies the tests above.
 
 ### Secondary purposes
 
@@ -433,3 +433,43 @@ Theme tags identify substantive ideas developed with meaningful emphasis, not ev
 - **Definition:** Material deprivation, economic hardship, or lack of resources affecting individuals or populations.
 - **Use when:** Poverty, deprivation, economic hardship, or unmet material needs are a substantive subject of the speech.
 - **Do not use when:** The speech merely refers generally to struggle, sacrifice, inequality, or hardship without materially discussing poverty or deprivation.
+
+## Tone
+
+Tone tags describe sustained qualities of attitude or emotional character in the speech, not its subject or intended outcome. Apply them when the quality is supported across a meaningful portion of the speech; do not infer tone solely from the occasion, speaker, or an isolated phrase.
+
+### `formal`
+
+- **Definition:** A controlled, ceremonious, institutional, or elevated public register.
+- **Use when:** Diction, syntax, forms of address, or measured presentation consistently give the speech an official or ceremonially serious character.
+- **Do not use when:** The speech is merely delivered in an official setting or contains occasional polite language. `formal` describes register, whereas `sombre` describes emotional gravity.
+
+### `idealistic`
+
+- **Definition:** An aspirational attitude oriented toward principles, moral possibility, or a better future.
+- **Use when:** The speech repeatedly reaches beyond immediate circumstances to present ideals as guides for collective judgment, identity, or action.
+- **Do not use when:** The speech is merely optimistic, complimentary, or hopeful. `idealistic` describes the speech's outlook; `inspire` describes an intended audience outcome.
+
+### `resolute`
+
+- **Definition:** A firm, determined attitude marked by commitment despite difficulty, loss, doubt, or opposition.
+- **Use when:** The speech repeatedly affirms that a duty, course, or undertaking will be sustained and not abandoned.
+- **Do not use when:** The speech contains only isolated certainty or forceful wording. `resolute` emphasizes commitment; `challenging` emphasizes pressure placed on an audience, opponent, or assumption.
+
+### `challenging`
+
+- **Definition:** A demanding or confrontational attitude that presses others to meet a standard, reconsider an assumption, or face an unwelcome choice or difficulty.
+- **Use when:** The speech persistently tests, rebukes, confronts, or makes exacting demands of an audience, institution, or adversary.
+- **Do not use when:** The subject itself is difficult or the speaker merely states a firm position. A speech may be `resolute` without directing a challenge toward others.
+
+### `conciliatory`
+
+- **Definition:** An accommodating attitude that seeks common ground, reduced hostility, negotiation, or repaired relations across disagreement.
+- **Use when:** The speech offers cooperation, mutual restraint, or a credible path toward agreement while acknowledging division or conflict.
+- **Do not use when:** The language is merely courteous or the speech invokes unity without addressing disagreement. `conciliatory` describes the manner of approaching division; `unify` describes an intended outcome.
+
+### `sombre`
+
+- **Definition:** A grave, mournful, or emotionally weighty attitude shaped by loss, danger, suffering, or tragic consequence.
+- **Use when:** The speech sustains gravity through mourning, acknowledgment of suffering, or serious contemplation of destructive stakes.
+- **Do not use when:** The speech is merely formal or discusses a serious subject without a sustained grave emotional character. A `sombre` tone does not by itself imply the purpose `console`.
