@@ -2,13 +2,12 @@
 
 ## Purpose and Division of Responsibility
 
-This guide governs generation of `03-tags.yaml`. The supporting files and validator have distinct responsibilities:
+This guide explains the tagging judgment used to create `03-tags.yaml`. Supporting files have distinct responsibilities:
 
-- `speech-schema.yaml` defines the shape of the data.
-- `vocabulary.yaml` supplies the allowed canonical tags.
-- `tagging-guide.md` defines how those tags are interpreted.
-- `tags-guide.md` explains how to construct a canonical tags file.
-- `validate-tags.py` mechanically enforces corpus requirements.
+- `schema/speech-schema.yaml` defines the canonical data shape.
+- `schema/vocabulary.yaml` supplies the allowed canonical tags.
+- `schema/tagging-guide.md` defines how those tags are interpreted.
+- `schema/tags-guide.md` explains how to apply that shape and taxonomy in a canonical tags file.
 
 The current authoritative tag list is always `schema/vocabulary.yaml`.
 
@@ -60,88 +59,56 @@ passage_annotations:
     confidence: high
 ```
 
-The tag values in this example are illustrative only. They do not replace or independently define the canonical vocabulary.
+The file shape and tag values in this example are illustrative. Use `schema/speech-schema.yaml` for structural requirements; the example does not prescribe tag combinations or collection sizes.
 
 ## Speech-Level Rules
 
-Only canonical vocabulary may appear in `03-tags.yaml`. Candidate concepts belong in `review/candidate-tags.yaml`.
+Only canonical vocabulary may appear in `03-tags.yaml`. Unresolved taxonomy gaps belong outside the canonical artifact.
 
-The `speech_level` mapping contains `purposes`, `themes`, and `tone`. Purposes are divided into `primary` and `secondary`:
+Speech-level tags describe the speech as a whole or qualities developed across a substantial part of it:
 
-- `purposes.primary` must contain at least one tag. Prefer no more than four. These are the central reasons the speech exists.
-- `purposes.secondary` contains meaningful supporting purposes that are not central reasons for the speech.
-- A purpose must not appear in both primary and secondary.
+- `purposes` describe intended audience outcomes. Primary purposes are central reasons the speech exists; secondary purposes meaningfully support the speech without being central. Apply the detailed tests in `schema/tagging-guide.md`.
+- `themes` identify subjects or ideas developed with meaningful emphasis, not every topic mentioned.
+- `tone` identifies sustained qualities of attitude or emotional character, not an isolated sentence's mood.
 
-No tag may be duplicated within an individual speech-level collection. For example, two `freedom` entries within `themes`, or two `inspire` entries within `purposes.primary`, are invalid even if their rationales differ.
+The schema requires at least one primary purpose. Beyond schema requirements, there is no fixed or target number of purposes, themes, or tones. Select only tags supported by the speech:
 
-Every speech-level tag entry requires:
+- a purpose must not appear in both primary and secondary;
+- a tag must not be duplicated within the same speech-level collection.
 
-- `tag`;
-- a non-empty `rationale`;
-- `confidence`, with a value of `high`, `medium`, or `low`.
-
-Themes identify substantive recurring ideas, not every topic mentioned. Tone tags should be applied conservatively and supported across meaningful portions of the speech.
+For every speech-level tag, write a rationale that explains how the classification is supported at speech level. A separate `evidence` field is not part of a speech-level entry. Confidence records certainty that the classification fits, not the tag's importance or rhetorical strength.
 
 ## Passage Annotation Rules
 
-Every passage annotation requires:
+Passage annotations record specific, localized observations. The `rhetorical_devices` category identifies language-level techniques; the `writing_patterns` category identifies compositional strategies operating across a passage. Use `schema/tagging-guide.md` for the detailed distinctions.
 
-- `id`;
-- `category`;
-- `tag`;
-- `section`;
-- `paragraphs`;
-- `evidence`;
-- `rationale`;
-- `confidence`.
-
-The only allowed annotation categories are `rhetorical_devices` and `writing_patterns`.
+Create a passage annotation only for a meaningful, defensible observation. Do not annotate every possible occurrence, and do not require every paragraph or section to have an annotation. More than one annotation may cite the same passage when the evidence independently supports each classification.
 
 Apply these rules:
 
 1. Annotation IDs must be unique and stable.
-2. Annotation IDs do not need to be sequential; gaps are explicitly allowed. For example, `a007`, `a008`, `a010`, and `a011` may coexist after `a009` is removed.
-3. Do not renumber existing annotations merely to restore a numerical sequence. Deleting one annotation must not change the identity of unrelated annotations.
-4. For a new annotation, normally use an unused identifier above the highest existing ID rather than filling a historical gap. If the existing IDs are `a001`, `a002`, and `a004`, the next annotation should normally be `a005`, not `a003`.
-5. The annotation category must match the canonical tag category in `schema/vocabulary.yaml`.
-6. `section` must reference an existing rhetorical section.
-7. Every paragraph reference must exist in the transcript and belong to the referenced section.
-8. Paragraph evidence must relate to the referenced paragraph or paragraphs.
-9. `evidence` must be a non-empty textual excerpt or concise evidence string.
-10. `rationale` must be non-empty and explain why the annotation applies.
-11. `confidence` must be `high`, `medium`, or `low`.
-12. Prefer representative, defensible annotations rather than exhaustive tagging.
-13. Do not create annotations merely because a device or pattern could technically be detected.
-14. Do not use pending candidates as canonical annotations.
+2. Annotation IDs represent identity rather than document order; they need not be sequential, and gaps are valid.
+3. The annotation category and tag must correspond to the same category in `schema/vocabulary.yaml`.
+4. `section` must reference an existing rhetorical section.
+5. Every paragraph reference must exist in the transcript and belong to the referenced section.
+6. Evidence must be a concise, faithful textual excerpt or evidence string related to the referenced paragraphs.
+7. The rationale must explain why the assigned tag fits the cited evidence rather than merely repeat the tag or excerpt.
+8. Confidence must express certainty in the classification, not the observation's importance or rhetorical strength.
+9. Candidate or unresolved taxonomy terms must not appear as canonical annotations.
 
-## Identifier Distinction
+## Taxonomy Boundary
 
-Section IDs and annotation IDs serve different purposes:
+Canonical tags must come from the current `schema/vocabulary.yaml`. Taxonomy proposals, review, and migration are outside the canonical `03-tags.yaml` artifact and outside this guide.
 
-- Section IDs represent ordered structural position and are normally sequential: `s01`, `s02`, `s03`, and so on.
-- Annotation IDs represent stable annotation identity. They require uniqueness, not sequence, and gaps are allowed.
+## Conformance Checklist
 
-This distinction preserves section order while preventing unrelated annotations from changing identity when one annotation is removed.
+A conforming tags file:
 
-## Candidate Taxonomy Rule
-
-If tagging reveals an important concept not adequately covered by the vocabulary:
-
-1. do not invent it inside `03-tags.yaml`;
-2. add a pending record to `review/candidate-tags.yaml`;
-3. preserve existing canonical data;
-4. leave approval, rejection, or merger to human review;
-5. require an explicit vocabulary migration before using an approved addition canonically.
-
-## Consistency Checklist
-
-Before completing a tags file, verify that:
-
-- all required top-level and nested fields are present;
-- purpose placement and speech-level collections contain no duplicates;
-- every tag is canonical for its category;
-- annotation IDs are unique and existing IDs remain stable;
-- section and paragraph references resolve to canonical records;
-- evidence and rationales are relevant and non-empty;
-- confidence values are valid;
-- no pending candidate appears as canonical data.
+- follows the canonical shape in `schema/speech-schema.yaml`;
+- assigns canonical tags to the correct collections and categories;
+- distinguishes primary from secondary purposes and contains no collection-level duplicates;
+- uses unique, stable annotation IDs;
+- resolves section and paragraph references to canonical records;
+- provides relevant evidence and rationales;
+- uses confidence to express classification certainty;
+- contains no candidate or unresolved taxonomy terms.
