@@ -20,7 +20,7 @@ except ImportError:
     sys.exit(2)
 
 
-ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 SCHEMA_PATH = Path("schema/speech-schema.yaml")
 VOCABULARY_PATH = Path("schema/vocabulary.yaml")
@@ -31,10 +31,6 @@ TRANSCRIPT_FILENAME = "01-transcript.md"
 STRUCTURE_FILENAME = "02-structure.yaml"
 TAGS_FILENAME = "03-tags.yaml"
 
-CONFIDENCE_VALUES = {"high", "medium", "low"}
-SPEECH_LEVEL_CATEGORIES = {"purposes", "themes", "tone"}
-PURPOSE_PRIORITIES = {"primary", "secondary"}
-PASSAGE_CATEGORIES = {"rhetorical_devices", "writing_patterns"}
 STRUCTURE_TOP_LEVEL_FIELDS = {
     "speech_id",
     "schema_version",
@@ -60,19 +56,11 @@ CANDIDATE_REQUIRED_FIELDS = {
     "possible_existing_tags",
     "status",
 }
-PASSAGE_REQUIRED_FIELDS = {
-    "id",
-    "category",
-    "tag",
-    "section",
-    "paragraphs",
-    "evidence",
-    "rationale",
-    "confidence",
-}
-SPEECH_TAG_REQUIRED_FIELDS = {"tag", "rationale", "confidence"}
 PARAGRAPH_ID_PATTERN = re.compile(r"^\[(p\d{3})\]\s*$", re.MULTILINE)
 PARAGRAPH_MARKER_PATTERN = re.compile(r"^\[(p[^\]]*)\]\s*$", re.MULTILINE)
+ANNOTATION_ID_PATTERN = re.compile(r"^a\d{3}$")
+SECTION_ID_PATTERN = re.compile(r"^s\d{2,}$")
+PARAGRAPH_REFERENCE_PATTERN = re.compile(r"^p\d{3}$")
 SEMANTIC_VERSION_PATTERN = re.compile(r"^\d+\.\d+\.\d+$")
 
 
@@ -81,7 +69,7 @@ def add_error(errors: list[str], path: Path, message: str) -> None:
 
 
 def load_yaml(path: Path, errors: list[str]) -> Any:
-    full_path = ROOT / path
+    full_path = PROJECT_ROOT / path
     try:
         with full_path.open(encoding="utf-8") as handle:
             return yaml.safe_load(handle)
@@ -95,7 +83,7 @@ def load_yaml(path: Path, errors: list[str]) -> Any:
 
 
 def load_transcript(path: Path, errors: list[str]) -> list[str]:
-    full_path = ROOT / path
+    full_path = PROJECT_ROOT / path
     try:
         text = full_path.read_text(encoding="utf-8")
     except FileNotFoundError:
@@ -148,6 +136,162 @@ def require_mapping(
     return value
 
 
+def schema_string_set(
+    definition: dict[str, Any],
+    key: str,
+    location: str,
+    errors: list[str],
+) -> set[str]:
+    values = definition.get(key)
+    if not isinstance(values, list) or not all(
+        isinstance(value, str) and value for value in values
+    ):
+        add_error(errors, SCHEMA_PATH, f"{location}.{key} must be a list of strings")
+        return set()
+    return set(values)
+
+
+def schema_fields(
+    definition: dict[str, Any], location: str, errors: list[str]
+) -> dict[str, Any]:
+    fields = definition.get("fields")
+    if not isinstance(fields, dict):
+        add_error(errors, SCHEMA_PATH, f"{location}.fields must be a mapping")
+        return {}
+    return fields
+
+
+def nested_schema_mapping(
+    value: Any, location: str, errors: list[str]
+) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        add_error(errors, SCHEMA_PATH, f"{location} must be a mapping")
+        return {}
+    return value
+
+
+def build_tags_contract(
+    schema: dict[str, Any], errors: list[str]
+) -> dict[str, set[str]]:
+    """Read mechanically enforceable Tags-stage rules from the canonical schema."""
+    tags_definition = nested_schema_mapping(schema.get("tags"), "tags", errors)
+    tags_fields = schema_fields(tags_definition, "tags", errors)
+
+    speech_level_definition = nested_schema_mapping(
+        tags_definition.get("speech_level"), "tags.speech_level", errors
+    )
+    speech_level_fields = schema_fields(
+        speech_level_definition, "tags.speech_level", errors
+    )
+    purposes_definition = nested_schema_mapping(
+        speech_level_fields.get("purposes"),
+        "tags.speech_level.fields.purposes",
+        errors,
+    )
+
+    speech_tag_definition = nested_schema_mapping(
+        tags_definition.get("speech_level_tag"), "tags.speech_level_tag", errors
+    )
+    speech_tag_fields = schema_fields(
+        speech_tag_definition, "tags.speech_level_tag", errors
+    )
+    speech_confidence_definition = nested_schema_mapping(
+        speech_tag_fields.get("confidence"),
+        "tags.speech_level_tag.fields.confidence",
+        errors,
+    )
+
+    passage_definition = nested_schema_mapping(
+        tags_definition.get("passage_annotation"),
+        "tags.passage_annotation",
+        errors,
+    )
+    passage_fields = schema_fields(
+        passage_definition, "tags.passage_annotation", errors
+    )
+    passage_category_definition = nested_schema_mapping(
+        passage_fields.get("category"),
+        "tags.passage_annotation.fields.category",
+        errors,
+    )
+    passage_confidence_definition = nested_schema_mapping(
+        passage_fields.get("confidence"),
+        "tags.passage_annotation.fields.confidence",
+        errors,
+    )
+
+    return {
+        "top_required": schema_string_set(
+            tags_definition, "required_fields", "tags", errors
+        ),
+        "top_allowed": set(tags_fields),
+        "speech_level_required": schema_string_set(
+            speech_level_definition,
+            "required_fields",
+            "tags.speech_level",
+            errors,
+        ),
+        "speech_level_allowed": set(speech_level_fields),
+        "purpose_required": schema_string_set(
+            purposes_definition,
+            "required_fields",
+            "tags.speech_level.fields.purposes",
+            errors,
+        ),
+        "purpose_allowed": set(
+            schema_fields(
+                purposes_definition, "tags.speech_level.fields.purposes", errors
+            )
+        ),
+        "speech_tag_required": schema_string_set(
+            speech_tag_definition,
+            "required_fields",
+            "tags.speech_level_tag",
+            errors,
+        ),
+        "speech_confidence_allowed": schema_string_set(
+            speech_confidence_definition,
+            "allowed_values",
+            "tags.speech_level_tag.fields.confidence",
+            errors,
+        ),
+        "passage_required": schema_string_set(
+            passage_definition,
+            "required_fields",
+            "tags.passage_annotation",
+            errors,
+        ),
+        "passage_categories": schema_string_set(
+            passage_category_definition,
+            "allowed_values",
+            "tags.passage_annotation.fields.category",
+            errors,
+        ),
+        "passage_confidence_allowed": schema_string_set(
+            passage_confidence_definition,
+            "allowed_values",
+            "tags.passage_annotation.fields.confidence",
+            errors,
+        ),
+    }
+
+
+def validate_tags_document(
+    tags: dict[str, Any],
+    contract: dict[str, set[str]],
+    tags_path: Path,
+    errors: list[str],
+) -> None:
+    for field in sorted(contract["top_required"] - set(tags)):
+        add_error(errors, tags_path, f"missing required top-level field {field!r}")
+    for field in sorted(set(tags) - contract["top_allowed"]):
+        add_error(errors, tags_path, f"unexpected top-level field {field!r}")
+
+    speech_id = tags.get("speech_id")
+    if not isinstance(speech_id, str) or not speech_id.strip():
+        add_error(errors, tags_path, "speech_id must be a non-empty string")
+
+
 def validate_versions(
     schema: dict[str, Any],
     vocabulary: dict[str, Any],
@@ -158,11 +302,25 @@ def validate_versions(
     errors: list[str],
 ) -> None:
     schema_version = schema.get("schema_version")
+    schema_vocabulary_version = schema.get("vocabulary_version")
     vocabulary_version = vocabulary.get("vocabulary_version")
     if schema_version is None:
         add_error(errors, SCHEMA_PATH, "missing schema_version")
+    if schema_vocabulary_version is None:
+        add_error(errors, SCHEMA_PATH, "missing vocabulary_version")
     if vocabulary_version is None:
         add_error(errors, VOCABULARY_PATH, "missing vocabulary_version")
+    if (
+        schema_vocabulary_version is not None
+        and vocabulary_version is not None
+        and schema_vocabulary_version != vocabulary_version
+    ):
+        add_error(
+            errors,
+            SCHEMA_PATH,
+            f"vocabulary_version {schema_vocabulary_version!r} does not match "
+            f"{VOCABULARY_PATH.as_posix()} version {vocabulary_version!r}",
+        )
 
     for document, path in ((structure, structure_path), (tags, tags_path)):
         for key, expected, source_path in (
@@ -291,6 +449,8 @@ def validate_tag_entries(
     category: str,
     location: str,
     vocabulary: dict[str, Any],
+    required_fields: set[str],
+    confidence_values: set[str],
     tags_path: Path,
     errors: list[str],
 ) -> list[str]:
@@ -310,7 +470,7 @@ def validate_tag_entries(
         if not isinstance(entry, dict):
             add_error(errors, tags_path, f"{entry_location} must be a mapping")
             continue
-        missing = SPEECH_TAG_REQUIRED_FIELDS - set(entry)
+        missing = required_fields - set(entry)
         if missing:
             add_error(
                 errors,
@@ -337,7 +497,7 @@ def validate_tag_entries(
                 f"{entry_location} has no usable rationale",
             )
         confidence = entry.get("confidence")
-        if confidence not in CONFIDENCE_VALUES:
+        if not isinstance(confidence, str) or confidence not in confidence_values:
             add_error(
                 errors,
                 tags_path,
@@ -358,6 +518,7 @@ def validate_tag_entries(
 def validate_speech_level_tags(
     tags: dict[str, Any],
     vocabulary: dict[str, Any],
+    contract: dict[str, set[str]],
     tags_path: Path,
     errors: list[str],
 ) -> tuple[int, int, int]:
@@ -367,9 +528,9 @@ def validate_speech_level_tags(
         return 0, 0, 0
 
     actual_categories = set(speech_level)
-    for category in sorted(actual_categories - SPEECH_LEVEL_CATEGORIES):
+    for category in sorted(actual_categories - contract["speech_level_allowed"]):
         add_error(errors, tags_path, f"unknown speech-level category {category!r}")
-    for category in sorted(SPEECH_LEVEL_CATEGORIES - actual_categories):
+    for category in sorted(contract["speech_level_required"] - actual_categories):
         add_error(errors, tags_path, f"missing speech-level category {category!r}")
 
     purposes = speech_level.get("purposes")
@@ -377,31 +538,40 @@ def validate_speech_level_tags(
         add_error(errors, tags_path, "speech_level.purposes must be a mapping")
         purposes = {}
     actual_priorities = set(purposes)
-    for priority in sorted(actual_priorities - PURPOSE_PRIORITIES):
+    for priority in sorted(actual_priorities - contract["purpose_allowed"]):
         add_error(errors, tags_path, f"unknown purpose priority {priority!r}")
-    for priority in sorted(PURPOSE_PRIORITIES - actual_priorities):
+    for priority in sorted(contract["purpose_required"] - actual_priorities):
         add_error(errors, tags_path, f"missing purpose priority {priority!r}")
 
+    primary_entries = purposes.get("primary", [])
+    secondary_entries = purposes.get("secondary", [])
     primary_tags = validate_tag_entries(
-        purposes.get("primary", []),
+        primary_entries,
         "purposes",
         "speech_level.purposes.primary",
         vocabulary,
+        contract["speech_tag_required"],
+        contract["speech_confidence_allowed"],
         tags_path,
         errors,
     )
     secondary_tags = validate_tag_entries(
-        purposes.get("secondary", []),
+        secondary_entries,
         "purposes",
         "speech_level.purposes.secondary",
         vocabulary,
+        contract["speech_tag_required"],
+        contract["speech_confidence_allowed"],
         tags_path,
         errors,
     )
-    if not primary_tags:
-        add_error(errors, tags_path, "at least 1 primary purpose is required")
-    if len(primary_tags) > 4:
-        add_error(errors, tags_path, "no more than 4 primary purposes are allowed")
+    if isinstance(primary_entries, list):
+        if not primary_entries:
+            add_error(errors, tags_path, "at least 1 primary purpose is required")
+        if len(primary_entries) > 4:
+            add_error(
+                errors, tags_path, "no more than 4 primary purposes are allowed"
+            )
     overlap = set(primary_tags) & set(secondary_tags)
     if overlap:
         add_error(
@@ -416,6 +586,8 @@ def validate_speech_level_tags(
         "themes",
         "speech_level.themes",
         vocabulary,
+        contract["speech_tag_required"],
+        contract["speech_confidence_allowed"],
         tags_path,
         errors,
     )
@@ -424,6 +596,8 @@ def validate_speech_level_tags(
         "tone",
         "speech_level.tone",
         vocabulary,
+        contract["speech_tag_required"],
+        contract["speech_confidence_allowed"],
         tags_path,
         errors,
     )
@@ -435,9 +609,9 @@ def validate_speech_level_tags(
 def validate_passage_annotations(
     tags: dict[str, Any],
     vocabulary: dict[str, Any],
+    contract: dict[str, set[str]],
     transcript_paragraphs: list[str],
     section_paragraphs: dict[str, set[str]],
-    transcript_path: Path,
     tags_path: Path,
     errors: list[str],
 ) -> int:
@@ -455,7 +629,7 @@ def validate_passage_annotations(
             add_error(errors, tags_path, f"{location} must be a mapping")
             continue
 
-        missing = PASSAGE_REQUIRED_FIELDS - set(annotation)
+        missing = contract["passage_required"] - set(annotation)
         if missing:
             add_error(
                 errors,
@@ -464,23 +638,43 @@ def validate_passage_annotations(
             )
 
         annotation_id = annotation.get("id")
-        if not isinstance(annotation_id, str) or not annotation_id:
+        if not isinstance(annotation_id, str) or not annotation_id.strip():
             add_error(errors, tags_path, f"{location} has no valid id")
-        elif annotation_id in annotation_ids:
-            add_error(errors, tags_path, f"duplicate passage annotation ID {annotation_id!r}")
         else:
-            annotation_ids.add(annotation_id)
+            if not ANNOTATION_ID_PATTERN.fullmatch(annotation_id):
+                add_error(
+                    errors,
+                    tags_path,
+                    f"{location} has invalid annotation ID {annotation_id!r}; "
+                    "expected aNNN format",
+                )
+            if annotation_id in annotation_ids:
+                add_error(
+                    errors,
+                    tags_path,
+                    f"duplicate passage annotation ID {annotation_id!r}",
+                )
+            else:
+                annotation_ids.add(annotation_id)
 
         category = annotation.get("category")
-        if category not in PASSAGE_CATEGORIES:
-            add_error(errors, tags_path, f"{location} has invalid category {category!r}")
+        category_is_valid = (
+            isinstance(category, str)
+            and category in contract["passage_categories"]
+        )
+        if not category_is_valid:
+            add_error(
+                errors, tags_path, f"{location} has invalid category {category!r}"
+            )
         else:
             canonical_tags = vocabulary.get(category, [])
             if not isinstance(canonical_tags, list):
                 add_error(errors, VOCABULARY_PATH, f"{category} must be a list")
                 canonical_tags = []
             tag = annotation.get("tag")
-            if tag not in set(canonical_tags):
+            if not isinstance(tag, str) or not tag.strip():
+                add_error(errors, tags_path, f"{location} has no usable tag")
+            elif tag not in set(canonical_tags):
                 add_error(
                     errors,
                     tags_path,
@@ -488,8 +682,15 @@ def validate_passage_annotations(
                 )
 
         confidence = annotation.get("confidence")
-        if confidence not in CONFIDENCE_VALUES:
-            add_error(errors, tags_path, f"{location} has invalid confidence {confidence!r}")
+        if (
+            not isinstance(confidence, str)
+            or confidence not in contract["passage_confidence_allowed"]
+        ):
+            add_error(
+                errors,
+                tags_path,
+                f"{location} has invalid confidence {confidence!r}",
+            )
 
         for text_field in ("evidence", "rationale"):
             value = annotation.get(text_field)
@@ -497,23 +698,53 @@ def validate_passage_annotations(
                 add_error(errors, tags_path, f"{location} has no usable {text_field}")
 
         section_id = annotation.get("section")
-        if section_id not in section_paragraphs:
-            add_error(errors, tags_path, f"{location} references unknown section {section_id!r}")
+        section_is_formatted = (
+            isinstance(section_id, str)
+            and SECTION_ID_PATTERN.fullmatch(section_id) is not None
+        )
+        if not section_is_formatted:
+            add_error(
+                errors,
+                tags_path,
+                f"{location} has invalid section ID {section_id!r}; "
+                "expected sNN... format",
+            )
+        elif section_id not in section_paragraphs:
+            add_error(
+                errors,
+                tags_path,
+                f"{location} references unknown section {section_id!r}",
+            )
 
         paragraphs = annotation.get("paragraphs")
         if not isinstance(paragraphs, list) or not paragraphs:
-            add_error(errors, tags_path, f"{location} must have a non-empty paragraphs list")
+            add_error(
+                errors,
+                tags_path,
+                f"{location} must have a non-empty paragraphs list",
+            )
             paragraphs = []
 
         for paragraph_id in paragraphs:
-            if paragraph_id not in transcript_set:
+            if (
+                not isinstance(paragraph_id, str)
+                or PARAGRAPH_REFERENCE_PATTERN.fullmatch(paragraph_id) is None
+            ):
                 add_error(
                     errors,
-                    transcript_path,
+                    tags_path,
+                    f"{location} has invalid paragraph ID {paragraph_id!r}; "
+                    "expected pNNN format",
+                )
+            elif paragraph_id not in transcript_set:
+                add_error(
+                    errors,
+                    tags_path,
                     f"{location} references unknown paragraph {paragraph_id!r}",
                 )
             elif (
-                section_id in section_paragraphs
+                section_is_formatted
+                and section_id in section_paragraphs
                 and paragraph_id not in section_paragraphs[section_id]
             ):
                 add_error(
@@ -709,18 +940,18 @@ def validate_candidates(
 
 
 def discover_speech_directories(errors: list[str]) -> list[Path]:
-    full_speeches_path = ROOT / SPEECHES_PATH
+    speeches_dir = PROJECT_ROOT / SPEECHES_PATH
     try:
-        directories = sorted(path for path in full_speeches_path.iterdir() if path.is_dir())
+        speech_dirs = sorted(path for path in speeches_dir.iterdir() if path.is_dir())
     except FileNotFoundError:
         add_error(errors, SPEECHES_PATH, "directory not found")
         return []
     except OSError as exc:
         add_error(errors, SPEECHES_PATH, f"could not list directory: {exc}")
         return []
-    if not directories:
+    if not speech_dirs:
         add_error(errors, SPEECHES_PATH, "no speech directories found")
-    return [path.relative_to(ROOT) for path in directories]
+    return [speech_dir.relative_to(PROJECT_ROOT) for speech_dir in speech_dirs]
 
 
 def print_result(results: list[dict[str, Any]], global_errors: list[str]) -> int:
@@ -782,6 +1013,7 @@ def main() -> int:
         "document root",
         global_errors,
     )
+    tags_contract = build_tags_contract(schema, global_errors)
     candidates = require_mapping(
         load_yaml(CANDIDATES_PATH, global_errors),
         CANDIDATES_PATH,
@@ -791,11 +1023,11 @@ def main() -> int:
 
     results: list[dict[str, Any]] = []
     speech_contexts: dict[str, dict[str, Any]] = {}
-    for speech_directory in discover_speech_directories(global_errors):
+    for speech_dir in discover_speech_directories(global_errors):
         errors: list[str] = []
-        transcript_path = speech_directory / TRANSCRIPT_FILENAME
-        structure_path = speech_directory / STRUCTURE_FILENAME
-        tags_path = speech_directory / TAGS_FILENAME
+        transcript_path = speech_dir / TRANSCRIPT_FILENAME
+        structure_path = speech_dir / STRUCTURE_FILENAME
+        tags_path = speech_dir / TAGS_FILENAME
 
         transcript_paragraphs = load_transcript(transcript_path, errors)
         structure = require_mapping(
@@ -808,6 +1040,7 @@ def main() -> int:
             load_yaml(tags_path, errors), tags_path, "document root", errors
         )
 
+        validate_tags_document(tags, tags_contract, tags_path, errors)
         validate_versions(
             schema,
             vocabulary,
@@ -825,26 +1058,26 @@ def main() -> int:
             errors,
         )
         speech_tag_count, primary_count, secondary_count = validate_speech_level_tags(
-            tags, vocabulary, tags_path, errors
+            tags, vocabulary, tags_contract, tags_path, errors
         )
         annotation_count = validate_passage_annotations(
             tags,
             vocabulary,
+            tags_contract,
             transcript_paragraphs,
             section_paragraphs,
-            transcript_path,
             tags_path,
             errors,
         )
 
-        speech_contexts[speech_directory.name] = {
+        speech_contexts[speech_dir.name] = {
             "paragraphs": set(transcript_paragraphs),
             "sections": section_paragraphs,
         }
 
         results.append(
             {
-                "name": tags.get("speech_id", speech_directory.name),
+                "name": tags.get("speech_id", speech_dir.name),
                 "errors": errors,
                 "paragraph_count": len(transcript_paragraphs),
                 "section_count": section_count,
