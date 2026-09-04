@@ -1,6 +1,6 @@
 ---
 date: 2026-09-04
-version: 0.2.2
+version: 0.2.3
 ---
 
 # Speech Refinery Runbook
@@ -17,14 +17,15 @@ This runbook currently covers:
 
 1. Ingestion Track
 2. Evolution Track
-
-It does not yet define the Migration Track.
+3. Migration Track
 
 ## Operating sequence
 
 For the Ingestion Track, complete the stages in order. Each stage creates the artifact used by the stages that follow it, and each ends with its specified gate, human review, and Git commit checkpoint.
 
 The Evolution Track begins only when ingestion work, validation, or human review identifies a possible framework change.
+
+The Migration Track begins only when a human decides to apply accumulated accepted Evolution Track changes to existing speech artifacts.
 
 ## Execution agent
 
@@ -402,9 +403,121 @@ git commit -m "Describe framework change"
 git push
 ```
 
-### 12. Return to ingestion or start migration
+### 12. Return to ingestion or queue migration
 
 After the framework change:
 
 - If no existing speech artifacts are affected → return to the Ingestion Track.
-- If existing speech artifacts need updating → start the Migration Track.
+- If existing speech artifacts may need updating → queue them for a future Migration Track batch.
+
+## Migration Track
+
+### 1. Trigger
+
+Migration begins when a human decides to apply accumulated accepted Evolution Track changes to existing speech artifacts.
+
+Triggers include accepted framework changes to:
+
+- vocabulary
+- schema
+- tagging rules
+- structure rules
+- analysis rules
+- validator behavior
+- workflow rules that affect existing artifacts
+
+Migration must not begin from an unapproved framework change.
+
+### 2. Identify affected speech artifacts
+
+Identify which existing speech artifacts may need updates.
+
+Affected files may include:
+
+- `speeches/{{speech-id}}/01-transcript.md`
+- `speeches/{{speech-id}}/02-structure.yaml`
+- `speeches/{{speech-id}}/03-tags.yaml`
+- `speeches/{{speech-id}}/04-analysis.md`
+
+### 3. Create migration plan
+
+Record the migration scope before editing existing speech artifacts.
+
+The migration plan should include:
+
+- accepted framework change
+- affected speech IDs
+- affected artifact types
+- intended edits
+- validation commands
+- review criteria
+
+Use:
+
+- `review/migration-plan.yaml` (future) — for larger corpus migrations
+
+For now, the migration plan may be recorded in the migration prompt or commit notes.
+
+### 4. Human decision gate
+
+Human decides whether to:
+
+- proceed
+- defer
+- narrow scope
+- reject migration need
+
+Do not proceed unless the migration scope is clear.
+
+### 5. Update existing speech artifacts
+
+Update only the existing speech artifacts affected by the accepted framework change.
+
+Important rule:
+
+Do **not** change schema, vocabulary, guides, validators, prompt templates, skills, runbooks, or workflow diagrams here. Those belong to the Evolution Track.
+
+If migration reveals that the framework still needs to change, stop migration and return to the Evolution Track.
+
+### 6. Run validation
+
+Run relevant checks:
+
+- `tools/validate-tags.py`
+- `tests/test_validate_tags.py`
+- `pytest`
+
+Future checks:
+
+- `tools/validate-transcript.py` (future)
+- `tools/validate-structure.py` (future)
+- `tools/validate-analysis.py` (future)
+
+### 7. Human review
+
+Confirm migrated artifacts are correct and remain faithful to the original speech.
+
+Review should check:
+
+- no framework drift
+- no invented tags
+- no accidental meaning changes
+- no broken references
+- no over-broad migration
+- no unrelated edits
+
+### 8. Git commit
+
+Commit migration changes separately from framework changes.
+
+```bash
+git status
+git diff --check
+git add speeches/
+git commit -m "Migrate speech artifacts for accepted framework change"
+git push
+```
+
+### 9. Return to ingestion
+
+After migration is complete, return to the Ingestion Track or normal corpus work.
