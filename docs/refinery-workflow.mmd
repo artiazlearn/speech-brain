@@ -3,6 +3,9 @@
 %% Update docs/refinery-runbook.md first, then regenerate this file.
 
 flowchart TD
+    subgraph ingestion_track["Ingestion Track"]
+        direction TD
+
     subgraph transcript_stage["1. Transcript"]
         direction TD
         T_TEMPLATE["Launcher<br/>prompts/ingestion/transcript.md"] --> T_FILL["fill run-specific values"]
@@ -121,3 +124,43 @@ flowchart TD
     T_COMMIT --> S_TEMPLATE
     S_COMMIT --> G_TEMPLATE
     G_COMMIT --> A_TEMPLATE
+    end
+
+    subgraph evolution_track["Evolution Track"]
+        direction TD
+        E_TRIGGER["1. Trigger<br/>Possible framework change discovered during ingestion,<br/>validation, or human review"]
+        E_RECORD["2. Record candidate change<br/>review/candidate-tags.yaml<br/>review/evolution-candidates.yaml (future)"]
+        E_CLASSIFY["3. Classify change type"]
+        E_IMPACT["4. Review impact<br/>Check affected framework files as relevant"]
+        E_DECISION{"5. Human decision gate<br/>accept / reject / defer / revise"}
+        E_CANDIDATE_STATUS["Update candidate record<br/>if one is used"]
+        E_STATUS_COMMIT["Git commit<br/>Commit candidate status update"]
+        E_END["End Evolution Track"]
+        E_AUTHORITATIVE["6. Update authoritative framework artifact first<br/>Change the highest-authority file before dependent files"]
+        E_DEPENDENT["7. Update dependent framework artifacts<br/>Do not update existing speech artifacts here"]
+        E_REGENERATE["8. Regenerate derived files if needed<br/>docs/refinery-runbook.md → docs/refinery-workflow.mmd"]
+        E_VALIDATE["9. Run validation<br/>Relevant validators, tests, pytest, and preflights"]
+        E_REVIEW["10. Human review<br/>Confirm correctness and no drift<br/>Update candidate record if one is used"]
+        E_COMMIT["11. Git commit<br/>Commit the accepted framework change"]
+        E_NEXT{"12. Existing speech artifacts need updating?"}
+        E_INGESTION["Return to Ingestion Track"]
+        E_MIGRATION["Start Migration Track"]
+
+        E_TRIGGER --> E_RECORD
+        E_RECORD --> E_CLASSIFY
+        E_CLASSIFY --> E_IMPACT
+        E_IMPACT --> E_DECISION
+        E_DECISION -->|accept| E_AUTHORITATIVE
+        E_DECISION -->|reject / defer| E_CANDIDATE_STATUS
+        E_DECISION -->|revise| E_RECORD
+        E_CANDIDATE_STATUS --> E_STATUS_COMMIT
+        E_STATUS_COMMIT --> E_END
+        E_AUTHORITATIVE --> E_DEPENDENT
+        E_DEPENDENT --> E_REGENERATE
+        E_REGENERATE --> E_VALIDATE
+        E_VALIDATE --> E_REVIEW
+        E_REVIEW --> E_COMMIT
+        E_COMMIT --> E_NEXT
+        E_NEXT -->|No| E_INGESTION
+        E_NEXT -->|Yes| E_MIGRATION
+    end
