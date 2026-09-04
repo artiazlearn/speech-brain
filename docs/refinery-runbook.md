@@ -1,6 +1,6 @@
 ---
-date: 2026-09-02
-version: 0.1
+date: 2026-09-04
+version: 0.2.1
 ---
 
 # Speech Refinery Runbook
@@ -22,204 +22,213 @@ This runbook covers only the four Ingestion stages, in this order:
 
 It does not define Evolution Track rules, Migration Track rules, or any workflow beyond the locked Ingestion Track design.
 
-## Status notation
-
-The status descriptions below reproduce the design document's status information; they are not an independent inventory of the repository.
-
-| Status | Meaning |
-|---|---|
-| No future label | The design does not mark the item as future. |
-| Not written yet | The design explicitly says the file is not written yet. |
-| `(future)` | The design explicitly marks the tool as `(future)`. |
-
 ## Operating sequence
 
 Complete the stages in order. Each stage creates the artifact used by the stages that follow it, and each ends with its specified gate, human review, and Git commit checkpoint.
+
+## Execution agent
+
+The refinery agent is the tool or platform used to execute a stage. It may be Codex, ChatGPT Work, Claude Code, Cursor, a local script, or another compatible execution environment.
+
+The runbook defines the required workflow and inputs. It does not depend on a specific execution platform.
+
+## Canonical prompt discipline
+
+Direct prompts for the Ingestion stages must use the canonical thin launcher templates for the refinery agent. ChatGPT, a human, or any execution platform must not compose a Rendered Prompt from scratch. Instead:
+
+1. Select the canonical template for the stage from `prompts/ingestion/`.
+2. Fill only its permitted run-specific values.
+3. Produce the Rendered Prompt and pass it to the refinery agent.
+
+Responsibility is divided among authoritative repository artifacts:
+
+- `prompts/ingestion/*.md` contains the canonical launcher templates and controls what direct prompts may contain.
+- `skills/speech-refinery/SKILL.md` contains refinery workflow and orchestration rules. It is not written yet.
+- The stage guides contain stage-specific artifact rules and judgment.
+- `schema/speech-schema.yaml` defines canonical data shape.
+- `schema/vocabulary.yaml` supplies the allowed taxonomy.
+- Validators provide deterministic enforcement.
+
+A direct stage prompt may contain only run-specific information: the stage, `speech_id`, source or input paths, target output path, genuine speech-specific cautions, and stop condition. Not every stage requires every field.
+
+Direct prompts must not redefine or duplicate reusable rules such as paragraph-ID conventions, transcript metadata requirements, source-faithfulness rules, segmentation rules, schema fields or types, taxonomy inventories, tagging semantics, analysis-template rules, validator rules, overall workflow sequencing, Git workflow, or Evolution or Migration rules. Those rules belong in the appropriate authoritative repository artifact.
+
+Every launcher applies this conflict guardrail:
+
+> Follow the refinery skill and stage-specific authoritative files. Do not treat this prompt as permission to redefine, supplement, or override reusable framework rules. If this prompt conflicts with an authoritative repository instruction, report the conflict instead of silently resolving it.
+
+`speech_specific_cautions` may be `None`. When present, it may contain only information genuinely specific to the speech or source; it must not be an escape hatch for reusable framework instructions. Do not add a general additional-instructions or requirements mechanism.
 
 ## 1. Transcript
 
 ### Purpose
 
-Create the transcript artifact, `01-transcript.md`, from Source A by following the Transcript-stage inputs and flow.
+Create the transcript artifact `01-transcript.md` from Source A by following the Transcript-stage inputs and flow.
 
-### Codex inputs
+### Launcher
 
-| Input | Design status |
-|---|---|
-| Source A | No future label |
-| `schema/speech-refinery-skill.md` | Not written yet |
-| `schema/transcript-guide.md` | No future label |
-| `tools/transcript-preflight.py` | `(future)` |
-| `tools/validate-transcript.py` | `(future)` |
+1. Select `prompts/ingestion/transcript.md`.
+2. Fill its permitted run-specific values.
+3. Produce the Rendered Prompt and pass it to the refinery agent.
 
-### Ordered flow
+### Required Inputs
 
-1. Start with `Prompt X1`.
-2. Use `speech-refinery-skill.md`.
-3. Use `transcript-guide.md`.
-4. Use Source A.
-5. Run `transcript-preflight.py` `(future)`.
-6. Create `01-transcript.md`.
-7. Run `validate-transcript.py` `(future)`.
-8. Conduct human review.
-9. Create the Git commit checkpoint.
+The following are required inputs to this stage. They are provided together, and their listing order does not imply workflow sequence.
 
-### Artifact created
+- Rendered Prompt
+- `skills/speech-refinery/SKILL.md` (not written yet)
+- `schema/transcript-guide.md`
+- Source A, referenced by `source` in the Rendered Prompt
 
-`01-transcript.md`
+### Preflight
 
-### Validation and gate
+Run `tools/transcript-preflight.py` (future).
 
-Run `transcript-preflight.py` `(future)` before creating the artifact. Run `validate-transcript.py` `(future)` after creating it.
+### Execution
 
-### Human review
+Create `01-transcript.md`.
+
+### Validation
+
+Run `tools/validate-transcript.py` (future).
+
+### Human Review
 
 Human review follows validation.
 
-### Git commit checkpoint
+### Git Commit
 
-Git commit follows human review and closes the Transcript stage.
+Git commit follows human review, closes the Transcript stage, and proceeds to the Structure launcher.
 
 ## 2. Structure
 
 ### Purpose
 
-Create the structured speech artifact, `02-structure.yaml`, using the transcript and the Structure-stage schema and guidance.
+Create the structure artifact `02-structure.yaml` using the transcript and the Structure-stage schema and guidance.
 
-### Codex inputs
+### Launcher
 
-| Input | Design status |
-|---|---|
-| `schema/speech-refinery-skill.md` | Not written yet |
-| `schema/structure-guide.md` | No future label |
-| `schema/speech-schema.yaml` | No future label |
-| `speeches/{{speech-id}}/01-transcript.md` | No future label |
-| `tools/structure-preflight.py` | `(future)` |
-| `tools/validate-structure.py` | `(future)` |
+1. Select `prompts/ingestion/structure.md`.
+2. Fill its permitted run-specific values.
+3. Produce the Rendered Prompt and pass it to the refinery agent.
 
-### Ordered flow
+### Required Inputs
 
-1. Start with `Prompt X2`.
-2. Use `speech-refinery-skill.md`.
-3. Use `structure-guide.md`.
-4. Use `speech-schema.yaml` and `01-transcript.md` as parallel inputs, then converge them into the next step.
-5. Run `structure-preflight.py` `(future)`.
-6. Create `02-structure.yaml`.
-7. Run `validate-structure.py` `(future)`.
-8. Conduct human review.
-9. Create the Git commit checkpoint.
+The following are required inputs to this stage. They are provided together, and their listing order does not imply workflow sequence.
 
-### Artifact created
+- Rendered Prompt
+- `skills/speech-refinery/SKILL.md` (not written yet)
+- `schema/structure-guide.md`
+- `schema/speech-schema.yaml`
+- `speeches/{{speech-id}}/01-transcript.md`
 
-`02-structure.yaml`
+### Preflight
 
-### Validation and gate
+Run `tools/structure-preflight.py` (future).
 
-Run `structure-preflight.py` `(future)` before creating the artifact. Run `validate-structure.py` `(future)` after creating it.
+### Execution
 
-### Human review
+Create `02-structure.yaml`.
+
+### Validation
+
+Run `tools/validate-structure.py` (future).
+
+### Human Review
 
 Human review follows validation.
 
-### Git commit checkpoint
+### Git Commit
 
-Git commit follows human review and closes the Structure stage.
+Git commit follows human review, closes the Structure stage, and proceeds to the Tags launcher.
 
 ## 3. Tags
 
 ### Purpose
 
-Create the tags artifact, `03-tags.yaml`, using the transcript, structure, schema, vocabulary, and tagging guidance.
+Create the tags artifact `03-tags.yaml` using the transcript, structure, schema, vocabulary, and tagging guidance.
 
-### Codex inputs
+### Launcher
 
-| Input | Design status |
-|---|---|
-| `schema/speech-refinery-skill.md` | Not written yet |
-| `schema/tags-guide.md` | No future label |
-| `schema/tagging-guide.md` | No future label |
-| `schema/speech-schema.yaml` | No future label |
-| `schema/vocabulary.yaml` | No future label |
-| `speeches/{{speech-id}}/01-transcript.md` | No future label |
-| `speeches/{{speech-id}}/02-structure.yaml` | No future label |
-| `tools/tags-preflight.py` | `(future)` |
-| `tools/validate-tags.py` | No future label |
+1. Select `prompts/ingestion/tags.md`.
+2. Fill its permitted run-specific values.
+3. Produce the Rendered Prompt and pass it to the refinery agent.
 
-### Ordered flow
+### Required Inputs
 
-1. Start with `Prompt X3`.
-2. Use `speech-refinery-skill.md`.
-3. Use `tags-guide.md`.
-4. From `tags-guide.md`, proceed along parallel branches to `tagging-guide.md` and `speech-schema.yaml`.
-5. From those branches, use `vocabulary.yaml`, `01-transcript.md`, and `02-structure.yaml`, then converge them into the next step.
-6. Run `tags-preflight.py` `(future)`.
-7. Create `03-tags.yaml`.
-8. Run `validate-tags.py`.
-9. Run `pytest`.
-10. Conduct human review.
-11. Create the Git commit checkpoint.
+The following are required inputs to this stage. They are provided together, and their listing order does not imply workflow sequence.
 
-### Artifact created
+- Rendered Prompt
+- `skills/speech-refinery/SKILL.md` (not written yet)
+- `schema/tags-guide.md`
+- `schema/tagging-guide.md`
+- `schema/speech-schema.yaml`
+- `schema/vocabulary.yaml`
+- `speeches/{{speech-id}}/01-transcript.md`
+- `speeches/{{speech-id}}/02-structure.yaml`
 
-`03-tags.yaml`
+### Preflight
 
-### Validation and gate
+Run `tools/tags-preflight.py` (future).
 
-Run `tags-preflight.py` `(future)` before creating the artifact. After creating it, run `validate-tags.py`, then run `pytest`.
+### Execution
 
-### Human review
+Create `03-tags.yaml`.
+
+### Validation
+
+1. Run `tools/validate-tags.py`.
+2. Run `pytest`.
+
+### Human Review
 
 Human review follows `validate-tags.py` and `pytest`.
 
-### Git commit checkpoint
+### Git Commit
 
-Git commit follows human review and closes the Tags stage.
+Git commit follows human review, closes the Tags stage, and proceeds to the Analysis launcher.
 
 ## 4. Analysis
 
 ### Purpose
 
-Create the analysis artifact, `04-analysis.md`, using the transcript, structure, tags, schema, vocabulary, and Analysis-stage guidance.
+Create the analysis artifact `04-analysis.md` using the transcript, structure, tags, schema, vocabulary, and Analysis-stage guidance.
 
-### Codex inputs
+### Launcher
 
-| Input | Design status |
-|---|---|
-| `schema/speech-refinery-skill.md` | Not written yet |
-| `schema/analysis-guide.md` | No future label |
-| `schema/speech-schema.yaml` | No future label |
-| `schema/vocabulary.yaml` | No future label |
-| `speeches/{{speech-id}}/01-transcript.md` | No future label |
-| `speeches/{{speech-id}}/02-structure.yaml` | No future label |
-| `speeches/{{speech-id}}/03-tags.yaml` | No future label |
-| `tools/analysis-preflight.py` | `(future)` |
-| `tools/validate-analysis.py` | `(future)` |
+1. Select `prompts/ingestion/analysis.md`.
+2. Fill its permitted run-specific values.
+3. Produce the Rendered Prompt and pass it to the refinery agent.
 
-### Ordered flow
+### Required Inputs
 
-1. Start with `Prompt X4`.
-2. Use `speech-refinery-skill.md`.
-3. Use `analysis-guide.md`.
-4. Use `speech-schema.yaml` and `vocabulary.yaml` as parallel inputs.
-5. Use 01-transcript.md, 02-structure.yaml, and 03-tags.yaml together as canonical inputs to the analysis stage.
-6. Run `analysis-preflight.py` `(future)`.
-7. Create `04-analysis.md`.
-8. Run `validate-analysis.py` `(future)`.
-9. Conduct human review.
-10. Create the Git commit checkpoint.
+The following are required inputs to this stage. They are provided together, and their listing order does not imply workflow sequence.
 
-### Artifact created
+- Rendered Prompt
+- `skills/speech-refinery/SKILL.md` (not written yet)
+- `schema/analysis-guide.md`
+- `schema/speech-schema.yaml`
+- `schema/vocabulary.yaml`
+- `speeches/{{speech-id}}/01-transcript.md`
+- `speeches/{{speech-id}}/02-structure.yaml`
+- `speeches/{{speech-id}}/03-tags.yaml`
 
-`04-analysis.md`
+### Preflight
 
-### Validation and gate
+Run `tools/analysis-preflight.py` (future).
 
-Run `analysis-preflight.py` `(future)` before creating the artifact. Run `validate-analysis.py` `(future)` after creating it.
+### Execution
 
-### Human review
+Create `04-analysis.md`.
+
+### Validation
+
+Run `tools/validate-analysis.py` (future).
+
+### Human Review
 
 Human review follows validation.
 
-### Git commit checkpoint
+### Git Commit
 
 Git commit follows human review and closes the Analysis stage.
