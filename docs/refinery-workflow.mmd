@@ -144,7 +144,7 @@ flowchart TD
         E_COMMIT["11. Git commit<br/>Commit the accepted framework change"]
         E_NEXT{"12. Existing speech artifacts need updating?"}
         E_INGESTION["Return to Ingestion Track"]
-        E_MIGRATION["Start Migration Track"]
+        E_QUEUE["Queue for a future Migration Track batch"]
 
         E_TRIGGER --> E_RECORD
         E_RECORD --> E_CLASSIFY
@@ -162,5 +162,33 @@ flowchart TD
         E_REVIEW --> E_COMMIT
         E_COMMIT --> E_NEXT
         E_NEXT -->|No| E_INGESTION
-        E_NEXT -->|Yes| E_MIGRATION
+        E_NEXT -->|Yes| E_QUEUE
+    end
+
+    subgraph migration_track["Migration Track"]
+        direction TD
+        M_TRIGGER{"1. Trigger<br/>Human decides to apply accumulated accepted Evolution Track changes<br/>to existing speech artifacts"}
+        M_IDENTIFY["2. Identify affected speech artifacts<br/>01-transcript.md / 02-structure.yaml / 03-tags.yaml / 04-analysis.md"]
+        M_PLAN["3. Create migration plan<br/>review/migration-plan.yaml (future), migration prompt, or commit notes"]
+        M_DECISION{"4. Human decision gate<br/>proceed / defer / narrow scope / reject migration need"}
+        M_END["End Migration Track"]
+        M_UPDATE["5. Update existing speech artifacts only<br/>Do not change framework artifacts here"]
+        M_FRAMEWORK{"Framework changes needed?"}
+        M_VALIDATE["6. Run validation<br/>Relevant validators, tests, and pytest"]
+        M_REVIEW["7. Human review<br/>Confirm correctness, source faithfulness, and migration scope"]
+        M_COMMIT["8. Git commit<br/>Commit migration separately from framework changes"]
+        M_RETURN["9. Return to Ingestion Track<br/>or normal corpus work"]
+
+        M_TRIGGER --> M_IDENTIFY
+        M_IDENTIFY --> M_PLAN
+        M_PLAN --> M_DECISION
+        M_DECISION -->|proceed| M_UPDATE
+        M_DECISION -->|narrow scope| M_PLAN
+        M_DECISION -->|defer / reject| M_END
+        M_UPDATE --> M_FRAMEWORK
+        M_FRAMEWORK -->|No| M_VALIDATE
+        M_FRAMEWORK -->|Yes: stop migration| E_TRIGGER
+        M_VALIDATE --> M_REVIEW
+        M_REVIEW --> M_COMMIT
+        M_COMMIT --> M_RETURN
     end
