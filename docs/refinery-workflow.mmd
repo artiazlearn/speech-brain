@@ -5,73 +5,119 @@
 flowchart TD
     subgraph transcript_stage["1. Transcript"]
         direction TD
-        T_PROMPT["Prompt X1"] --> T_SKILL["speech-refinery-skill.md"]
-        T_SKILL --> T_GUIDE["transcript-guide.md"]
-        T_GUIDE --> T_SOURCE["Source A"]
-        T_SOURCE --> T_PREFLIGHT["transcript-preflight.py (future)"]
-        T_PREFLIGHT --> T_CREATE["Create 01-transcript.md"]
-        T_CREATE --> T_VALIDATE["validate-transcript.py (future)"]
-        T_VALIDATE --> T_REVIEW["Human review"]
-        T_REVIEW --> T_COMMIT["Git commit"]
+        T_TEMPLATE["prompts/ingestion/transcript.md"] --> T_FILL["fill run-specific values"]
+
+        subgraph transcript_inputs["Required Inputs (parallel)"]
+            direction LR
+            T_PROMPT["Rendered Prompt"]
+            T_SKILL["skills/speech-refinery/SKILL.md<br/>(not written yet)"]
+            T_GUIDE["schema/transcript-guide.md"]
+            T_SOURCE["Source A<br/>referenced by source in the Rendered Prompt"]
+        end
+
+        T_FILL --> T_PROMPT
+        T_PROMPT --> T_PREFLIGHT["Preflight<br/>Run tools/transcript-preflight.py (future)"]
+        T_SKILL --> T_PREFLIGHT
+        T_GUIDE --> T_PREFLIGHT
+        T_SOURCE --> T_PREFLIGHT
+        T_PREFLIGHT --> T_AGENT["refinery agent"]
+        T_AGENT --> T_CREATE["Execution<br/>Create 01-transcript.md"]
+        T_CREATE --> T_VALIDATE["Validation<br/>Run tools/validate-transcript.py (future)"]
+        T_VALIDATE --> T_REVIEW["Human Review"]
+        T_REVIEW --> T_COMMIT["Git Commit"]
     end
 
     subgraph structure_stage["2. Structure"]
         direction TD
-        S_PROMPT["Prompt X2"] --> S_SKILL["speech-refinery-skill.md"]
-        S_SKILL --> S_GUIDE["structure-guide.md"]
-        S_GUIDE --> S_SCHEMA["speech-schema.yaml"]
-        S_GUIDE --> S_TRANSCRIPT["01-transcript.md"]
-        S_SCHEMA --> S_PREFLIGHT["structure-preflight.py (future)"]
+        S_TEMPLATE["Launcher<br/>prompts/ingestion/structure.md"] --> S_FILL["fill run-specific values"]
+
+        subgraph structure_inputs["Required Inputs (parallel)"]
+            direction LR
+            S_PROMPT["Rendered Prompt"]
+            S_SKILL["skills/speech-refinery/SKILL.md<br/>(not written yet)"]
+            S_GUIDE["schema/structure-guide.md"]
+            S_SCHEMA["schema/speech-schema.yaml"]
+            S_TRANSCRIPT["speeches/{{speech-id}}/01-transcript.md"]
+        end
+
+        S_FILL --> S_PROMPT
+        S_PROMPT --> S_PREFLIGHT["Preflight<br/>Run tools/structure-preflight.py (future)"]
+        S_SKILL --> S_PREFLIGHT
+        S_GUIDE --> S_PREFLIGHT
+        S_SCHEMA --> S_PREFLIGHT
         S_TRANSCRIPT --> S_PREFLIGHT
-        S_PREFLIGHT --> S_CREATE["Create 02-structure.yaml"]
-        S_CREATE --> S_VALIDATE["validate-structure.py (future)"]
-        S_VALIDATE --> S_REVIEW["Human review"]
-        S_REVIEW --> S_COMMIT["Git commit"]
+        S_PREFLIGHT --> S_AGENT["refinery agent"]
+        S_AGENT --> S_CREATE["Execution<br/>Create 02-structure.yaml"]
+        S_CREATE --> S_VALIDATE["Validation<br/>Run tools/validate-structure.py (future)"]
+        S_VALIDATE --> S_REVIEW["Human Review"]
+        S_REVIEW --> S_COMMIT["Git Commit"]
     end
 
     subgraph tags_stage["3. Tags"]
         direction TD
-        G_PROMPT["Prompt X3"] --> G_SKILL["speech-refinery-skill.md"]
-        G_SKILL --> G_GUIDE["tags-guide.md"]
-        G_GUIDE --> G_TAGGING_GUIDE["tagging-guide.md"]
-        G_GUIDE --> G_SCHEMA["speech-schema.yaml"]
-        G_TAGGING_GUIDE --> G_VOCAB["vocabulary.yaml"]
-        G_TAGGING_GUIDE --> G_TRANSCRIPT["01-transcript.md"]
-        G_TAGGING_GUIDE --> G_STRUCTURE["02-structure.yaml"]
-        G_SCHEMA --> G_VOCAB
-        G_SCHEMA --> G_TRANSCRIPT
-        G_SCHEMA --> G_STRUCTURE
-        G_VOCAB --> G_PREFLIGHT["tags-preflight.py (future)"]
+        G_TEMPLATE["Launcher<br/>prompts/ingestion/tags.md"] --> G_FILL["fill run-specific values"]
+
+        subgraph tags_inputs["Required Inputs (parallel)"]
+            direction LR
+            G_PROMPT["Rendered Prompt"]
+            G_SKILL["skills/speech-refinery/SKILL.md<br/>(not written yet)"]
+            G_TAGS_GUIDE["schema/tags-guide.md"]
+            G_TAGGING_GUIDE["schema/tagging-guide.md"]
+            G_SCHEMA["schema/speech-schema.yaml"]
+            G_VOCABULARY["schema/vocabulary.yaml"]
+            G_TRANSCRIPT["speeches/{{speech-id}}/01-transcript.md"]
+            G_STRUCTURE["speeches/{{speech-id}}/02-structure.yaml"]
+        end
+
+        G_FILL --> G_PROMPT
+        G_PROMPT --> G_PREFLIGHT["Preflight<br/>Run tools/tags-preflight.py (future)"]
+        G_SKILL --> G_PREFLIGHT
+        G_TAGS_GUIDE --> G_PREFLIGHT
+        G_TAGGING_GUIDE --> G_PREFLIGHT
+        G_SCHEMA --> G_PREFLIGHT
+        G_VOCABULARY --> G_PREFLIGHT
         G_TRANSCRIPT --> G_PREFLIGHT
         G_STRUCTURE --> G_PREFLIGHT
-        G_PREFLIGHT --> G_CREATE["Create 03-tags.yaml"]
-        G_CREATE --> G_VALIDATE["validate-tags.py"]
-        G_VALIDATE --> G_PYTEST["pytest"]
-        G_PYTEST --> G_REVIEW["Human review"]
-        G_REVIEW --> G_COMMIT["Git commit"]
+        G_PREFLIGHT --> G_AGENT["refinery agent"]
+        G_AGENT --> G_CREATE["Execution<br/>Create 03-tags.yaml"]
+        G_CREATE --> G_VALIDATE["Validation<br/>Run tools/validate-tags.py"]
+        G_VALIDATE --> G_PYTEST["Validation<br/>Run pytest"]
+        G_PYTEST --> G_REVIEW["Human Review"]
+        G_REVIEW --> G_COMMIT["Git Commit"]
     end
 
     subgraph analysis_stage["4. Analysis"]
         direction TD
-        A_PROMPT["Prompt X4"] --> A_SKILL["speech-refinery-skill.md"]
-        A_SKILL --> A_GUIDE["analysis-guide.md"]
-        A_GUIDE --> A_SCHEMA["speech-schema.yaml"]
-        A_GUIDE --> A_VOCAB["vocabulary.yaml"]
-        A_SCHEMA --> A_TRANSCRIPT["01-transcript.md"]
-        A_SCHEMA --> A_STRUCTURE["02-structure.yaml"]
-        A_SCHEMA --> A_TAGS["03-tags.yaml"]
-        A_VOCAB --> A_TRANSCRIPT
-        A_VOCAB --> A_STRUCTURE
-        A_VOCAB --> A_TAGS
-        A_TRANSCRIPT --> A_PREFLIGHT["analysis-preflight.py (future)"]
+        A_TEMPLATE["Launcher<br/>prompts/ingestion/analysis.md"] --> A_FILL["fill run-specific values"]
+
+        subgraph analysis_inputs["Required Inputs (parallel)"]
+            direction LR
+            A_PROMPT["Rendered Prompt"]
+            A_SKILL["skills/speech-refinery/SKILL.md<br/>(not written yet)"]
+            A_GUIDE["schema/analysis-guide.md"]
+            A_SCHEMA["schema/speech-schema.yaml"]
+            A_VOCABULARY["schema/vocabulary.yaml"]
+            A_TRANSCRIPT["speeches/{{speech-id}}/01-transcript.md"]
+            A_STRUCTURE["speeches/{{speech-id}}/02-structure.yaml"]
+            A_TAGS["speeches/{{speech-id}}/03-tags.yaml"]
+        end
+
+        A_FILL --> A_PROMPT
+        A_PROMPT --> A_PREFLIGHT["Preflight<br/>Run tools/analysis-preflight.py (future)"]
+        A_SKILL --> A_PREFLIGHT
+        A_GUIDE --> A_PREFLIGHT
+        A_SCHEMA --> A_PREFLIGHT
+        A_VOCABULARY --> A_PREFLIGHT
+        A_TRANSCRIPT --> A_PREFLIGHT
         A_STRUCTURE --> A_PREFLIGHT
         A_TAGS --> A_PREFLIGHT
-        A_PREFLIGHT --> A_CREATE["Create 04-analysis.md"]
-        A_CREATE --> A_VALIDATE["validate-analysis.py (future)"]
-        A_VALIDATE --> A_REVIEW["Human review"]
-        A_REVIEW --> A_COMMIT["Git commit"]
+        A_PREFLIGHT --> A_AGENT["refinery agent"]
+        A_AGENT --> A_CREATE["Execution<br/>Create 04-analysis.md"]
+        A_CREATE --> A_VALIDATE["Validation<br/>Run tools/validate-analysis.py (future)"]
+        A_VALIDATE --> A_REVIEW["Human Review"]
+        A_REVIEW --> A_COMMIT["Git Commit"]
     end
 
-    T_COMMIT --> S_PROMPT
-    S_COMMIT --> G_PROMPT
-    G_COMMIT --> A_PROMPT
+    T_COMMIT --> S_TEMPLATE
+    S_COMMIT --> G_TEMPLATE
+    G_COMMIT --> A_TEMPLATE
