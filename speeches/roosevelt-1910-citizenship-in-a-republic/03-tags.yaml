@@ -1,0 +1,429 @@
+speech_id: roosevelt-1910-citizenship-in-a-republic
+schema_version: 0.2.0
+vocabulary_version: 0.3.0
+
+speech_level:
+  purposes:
+    primary:
+      - tag: establish_values
+        rationale: >
+          The address systematically defines the qualities by which democratic
+          citizens, leaders, wealth, talent, reform, liberty, and relations
+          among nations should be judged (p005-p039).
+        confidence: high
+      - tag: persuade
+        rationale: >
+          Roosevelt develops comparisons, examples, distinctions, and warnings
+          to win assent to a demanding account of effective and morally guided
+          citizenship rather than merely describing that account.
+        confidence: high
+      - tag: call_to_action
+        rationale: >
+          Across the speech listeners are urged to work, act despite possible
+          failure, defend justice, test reforms practically, protect reciprocal
+          liberty, and exercise responsible civic judgment (p007-p035).
+        confidence: high
+    secondary:
+      - tag: inspire
+        rationale: >
+          Praise of courageous effort, disciplined character, and France's
+          historic achievements elevates the audience's aspiration to useful
+          service (p009-p011, p040).
+        confidence: high
+      - tag: warn
+        rationale: >
+          The speech repeatedly alerts listeners to the civic dangers of
+          cynicism, idle wealth, morally uncontrolled ability, fanaticism,
+          demagoguery, and weakness before injustice.
+        confidence: high
+      - tag: unify
+        rationale: >
+          Appeals for reciprocal liberty and judgment by conduct seek to place
+          loyalty to the republic above divisions of wealth, occupation,
+          religion, and political belief (p031-p035).
+        confidence: high
+      - tag: define_stakes
+        rationale: >
+          Roosevelt ties individual character to the success or failure of
+          democratic republics, the survival of free institutions, and the
+          ability of nations to preserve justice and civilization.
+        confidence: high
+
+  themes:
+    - tag: civic_duty
+      rationale: >
+        The speech's central subject is what citizens owe themselves, their
+        families, neighbors, republics, and ultimately other nations, with
+        duties developed across nearly every argumentative domain.
+      confidence: high
+    - tag: responsibility
+      rationale: >
+        Advantages, abilities, property, public influence, voting judgment,
+        and national power are consistently treated as obligations whose worth
+        depends on how they are exercised.
+      confidence: high
+    - tag: freedom
+      rationale: >
+        Democratic self-government, reciprocal liberty, minority protection,
+        and resistance to wrongdoing make freedom both a governing principle
+        and an outcome citizens must preserve (p005-p006, p031-p039).
+      confidence: high
+    - tag: national_unity
+      rationale: >
+        The sustained rejection of class hatred, persecution, fanaticism, and
+        sectional political appeals presents loyalty across internal divisions
+        as necessary to republican survival (p031-p035).
+      confidence: high
+    - tag: international_cooperation
+      rationale: >
+        The final movement develops honorable relations among nations, stronger
+        means for settling disputes without force, and friendship between the
+        French and American republics (p036-p040).
+      confidence: medium
+    - tag: sacrifice
+      rationale: >
+        Worthy citizenship repeatedly requires effort, risk, self-denial, and
+        willingness to bear costs for family, justice, community, or country
+        rather than seek ease or private advantage (p009, p012-p017, p039).
+      confidence: medium
+
+  tone:
+    - tag: formal
+      rationale: >
+        The historical opening, extended moral argument, elevated diction, and
+        ceremonious tribute to the French hosts sustain the register of a major
+        public address throughout.
+      confidence: high
+    - tag: idealistic
+      rationale: >
+        Moral character, equal opportunity, reciprocal liberty, practical
+        justice, and peaceful international order are repeatedly presented as
+        ideals capable of directing civic and national conduct.
+      confidence: high
+    - tag: challenging
+      rationale: >
+        Roosevelt persistently rebukes complacency, cynicism, idleness,
+        self-indulgence, doctrinaire thinking, and prejudice while holding his
+        audience to exacting standards of service.
+      confidence: high
+    - tag: resolute
+      rationale: >
+        Firm declarations about work, righteous defense, human rights,
+        practical reform, and resistance to international wrongdoing sustain a
+        determined commitment even where action entails cost or failure.
+      confidence: high
+    - tag: conciliatory
+      rationale: >
+        Meaningful portions seek workable common ground across ideological and
+        religious differences, permit cooperation on partial reforms, and
+        encourage peaceful settlement among nations (p025, p030-p033, p039).
+      confidence: medium
+
+passage_annotations:
+  - id: a001
+    category: rhetorical_devices
+    tag: direct_address
+    section: s02
+    paragraphs:
+      - p005
+    evidence: "you and we are citizens of great democratic republics"
+    rationale: >
+      The second-person reference explicitly joins the French listeners and
+      the speaker as participants in the same democratic experiment.
+    confidence: high
+
+  - id: a002
+    category: rhetorical_devices
+    tag: antithesis
+    section: s02
+    paragraphs:
+      - p005
+    evidence: "The success of republics like yours and like ours means the glory, and our failure the despair, of mankind"
+    rationale: >
+      The balanced opposition of success and failure with glory and despair
+      sharpens the alternatives facing democratic republics.
+    confidence: high
+
+  - id: a003
+    category: rhetorical_devices
+    tag: metaphor
+    section: s02
+    paragraphs:
+      - p006
+    evidence: "The stream will not permanently rise higher than the main source"
+    rationale: >
+      Citizenship is figured as the source that determines how high national
+      power and greatness can rise.
+    confidence: high
+
+  - id: a004
+    category: rhetorical_devices
+    tag: metaphor
+    section: s03
+    paragraphs:
+      - p009
+    evidence: "the man who is actually in the arena"
+    rationale: >
+      The arena turns public action into a scene of exposed struggle, giving
+      concrete form to the wider section's contrast between service and
+      detached criticism.
+    confidence: high
+
+  - id: a005
+    category: rhetorical_devices
+    tag: tricolon
+    section: s05
+    paragraphs:
+      - p012
+    evidence: "to work, to fight at need, and to have plenty of healthy children"
+    rationale: >
+      Three coordinated infinitive phrases form a deliberate summary of the
+      ordinary qualities developed in the following paragraphs.
+    confidence: high
+
+  - id: a006
+    category: rhetorical_devices
+    tag: rhetorical_question
+    section: s05
+    paragraphs:
+      - p013
+    evidence: "Is the right to prevail? Are the great laws of righteousness once more to be fulfilled?"
+    rationale: >
+      The questions frame the moral issue and immediately prepare the speaker's
+      affirmative answer rather than seeking information from the audience.
+    confidence: high
+
+  - id: a007
+    category: rhetorical_devices
+    tag: anaphora
+    section: s05
+    paragraphs:
+      - p014
+    evidence: "No refinement of life, no delicacy of taste, no material progress, no sordid heaping up of riches"
+    rationale: >
+      Repeated initial negatives organize successive noun phrases into an
+      emphatic rejection of substitutes for fundamental virtues.
+    confidence: high
+
+  - id: a008
+    category: rhetorical_devices
+    tag: metaphor
+    section: s06
+    paragraphs:
+      - p015
+      - p016
+    evidence: "the solid material foundation ... the superstructure of a higher life"
+    rationale: >
+      The extended building image makes material well-being necessary support
+      for, but subordinate to, moral and public service.
+    confidence: high
+
+  - id: a009
+    category: rhetorical_devices
+    tag: antithesis
+    section: s06
+    paragraphs:
+      - p018
+    evidence: "property belongs to man and not man to property"
+    rationale: >
+      The reversed grammatical relationship contrasts the proper authority of
+      human rights with the improper domination of people by property.
+    confidence: high
+
+  - id: a010
+    category: rhetorical_devices
+    tag: antithesis
+    section: s07
+    paragraphs:
+      - p021
+      - p022
+    evidence: "He is useless if he is inefficient ... the more efficient he is the worse he is"
+    rationale: >
+      The adjoining claims oppose ineffectual goodness to effective wickedness,
+      demonstrating why both capacity and moral direction are required.
+    confidence: high
+
+  - id: a011
+    category: rhetorical_devices
+    tag: allusion
+    section: s09
+    paragraphs:
+      - p026
+      - p027
+    evidence: "Abraham Lincoln ... spoke of the doctrine of equality"
+    rationale: >
+      Invoking Lincoln and his interpretation of the Declaration draws on their
+      authority and associations to ground Roosevelt's account of equality.
+    confidence: high
+
+  - id: a012
+    category: rhetorical_devices
+    tag: antithesis
+    section: s09
+    paragraphs:
+      - p029
+    evidence: "Let us try to level up, but let us beware of the evil of leveling down."
+    rationale: >
+      Matching clauses place two opposed understandings of equality in a
+      concise and memorable contrast.
+    confidence: high
+
+  - id: a013
+    category: rhetorical_devices
+    tag: imperative
+    section: s09
+    paragraphs:
+      - p030
+    evidence: "look at it on its merits and in considering it disregard formulas"
+    rationale: >
+      The verbs directly instruct listeners how to assess proposed reforms.
+    confidence: high
+
+  - id: a014
+    category: rhetorical_devices
+    tag: anaphora
+    section: s12
+    paragraphs:
+      - p037
+    evidence: "I do not for one moment admit ... I do not for one moment admit ... I do not for one moment admit"
+    rationale: >
+      The same opening phrase begins three successive sentences, reinforcing
+      the asserted continuity between private, political, and national morals.
+    confidence: high
+
+  - id: a015
+    category: rhetorical_devices
+    tag: parallelism
+    section: s12
+    paragraphs:
+      - p039
+    evidence: "It is the duty of wise statesmen ... It is the duty of every honest statesman"
+    rationale: >
+      Corresponding sentence structures coordinate the duties of building
+      alternatives to force and preventing national wrongdoing.
+    confidence: high
+
+  - id: a016
+    category: writing_patterns
+    tag: reframe_occasion
+    section: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    evidence: "freely drawing upon the treasure-houses of the Old World"
+    rationale: >
+      The Sorbonne address becomes more than a ceremonial visit: it is framed
+      as an exchange through which the New World recovers learning and ideals
+      while adapting them to new national conditions.
+    confidence: high
+
+  - id: a017
+    category: writing_patterns
+    tag: narrative_reconstruction
+    section: s01
+    paragraphs:
+      - p002
+      - p003
+      - p004
+    evidence: "The pioneer days pass ... the stockade clusters of log cabins change into towns"
+    rationale: >
+      Roosevelt reconstructs the movement from frontier struggle through
+      industrial materialism to a renewed search for intellectual and moral
+      cultivation, explaining the New World's present need.
+    confidence: high
+
+  - id: a018
+    category: writing_patterns
+    tag: establish_shared_values
+    section: s02
+    paragraphs:
+      - p005
+      - p006
+    evidence: "you and we are citizens of great democratic republics"
+    rationale: >
+      Shared republican citizenship supplies common ground for the claim that
+      ordinary civic character determines democratic success.
+    confidence: high
+
+  - id: a019
+    category: writing_patterns
+    tag: raise_stakes
+    section: s02
+    paragraphs:
+      - p005
+      - p006
+    evidence: "The success of republics like yours and like ours means the glory, and our failure the despair, of mankind"
+    rationale: >
+      The argument expands the quality of individual citizenship from a matter
+      of private conduct into a test with consequences for national greatness
+      and humanity's judgment of republican government.
+    confidence: high
+
+  - id: a020
+    category: writing_patterns
+    tag: transfer_responsibility_to_audience
+    section: s03
+    paragraphs:
+      - p007
+    evidence: "To you and your kind much has been given, and from you much should be expected."
+    rationale: >
+      After establishing the general dependence of republics on citizen
+      quality, Roosevelt places a heightened share of that duty on the
+      educated and privileged listeners before him.
+    confidence: high
+
+  - id: a021
+    category: writing_patterns
+    tag: contrast_alternatives
+    section: s08
+    paragraphs:
+      - p023
+      - p024
+      - p025
+    evidence: "the so-called \"practical\" men ... the man of fantastic vision"
+    rationale: >
+      The passage develops morality-free practicality and unrealizable
+      idealism as opposing but equally inadequate approaches, then offers
+      practical experimentation and flexible common action between them.
+    confidence: high
+
+  - id: a022
+    category: writing_patterns
+    tag: narrative_reconstruction
+    section: s11
+    paragraphs:
+      - p034
+    evidence: "One day I was riding the range with a newly hired cowboy"
+    rationale: >
+      The ranch episode unfolds as a causal sequence from discovering the
+      maverick through the attempted misbranding to dismissal, establishing
+      the principle later applied to political judgment.
+    confidence: high
+
+  - id: a023
+    category: writing_patterns
+    tag: personalize_responsibility
+    section: s11
+    paragraphs:
+      - p035
+    evidence: "If a public man tries to get your vote"
+    rationale: >
+      The anecdote's general lesson is translated into a responsibility borne
+      by each listener when judging a politician seeking personal support.
+    confidence: high
+
+  - id: a024
+    category: writing_patterns
+    tag: contrast_alternatives
+    section: s12
+    paragraphs:
+      - p038
+      - p039
+    evidence: "We sincerely and earnestly believe in peace; but if peace and justice conflict"
+    rationale: >
+      The section distinguishes efforts to replace international force from
+      acquiescence in wrongdoing, clarifying a choice between peace consistent
+      with justice and peace purchased through weakness.
+    confidence: high
