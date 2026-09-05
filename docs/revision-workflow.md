@@ -2,262 +2,245 @@
 
 ## Purpose
 
-Use the Speech Brain corpus to improve a first draft without replacing the writer’s voice with generic AI prose.
+Use the Speech Brain corpus to improve a draft without blindly imitating famous speakers.
 
-The workflow should use corpus annotations to identify rhetorical problems, retrieve relevant examples, extract transferable techniques, and apply those techniques to the writer’s own content.
+Speech Brain should help:
 
-The corpus is used for **analysis and technique transfer**, not imitation.
+- diagnose rhetorical weaknesses;
+- retrieve relevant corpus examples;
+- extract transferable techniques;
+- improve structure and rhetoric;
+- preserve or transform the speaker’s voice according to the user’s goal.
+
+The corpus is used for **technique transfer, not style imitation**.
 
 ---
 
-## Core Principle
+# Revision Controls
 
-Do not revise by copying the wording, cadence, or voice of speeches in the corpus.
+The user controls three dimensions:
 
-Use this sequence:
+| Control                     | Governs                                                |
+| --------------------------- | ------------------------------------------------------ |
+| **Voice fidelity*-          | How much the speaker’s existing voice is preserved     |
+| **Structural intervention*- | How aggressively ideas and sections may be reorganized |
+| **Rhetorical intensity*-    | How strongly rhetorical techniques are applied         |
+
+Revision scope is separate. It determines **what parts of the speech may be changed**.
+
+## Voice Fidelity
+
+**High**
+Preserve vocabulary, informality, sentence habits, roughness, and personality.
+
+**Medium**
+Preserve the general voice while allowing noticeable improvement in phrasing and rhythm.
+
+**Low**
+Prioritize effectiveness even if the result sounds substantially more polished than the original.
+
+## Structural Intervention
+
+**Low**
+Keep the existing architecture and repair obvious weaknesses only.
+
+**Medium**
+Allow restructuring of weak sections, transitions, and argument sequence.
+
+**High**
+Allow major reordering, combining, splitting, or rebuilding of sections.
+
+## Rhetorical Intensity
+
+**Low**
+Prioritize clarity and naturalness.
+
+**Medium**
+Use selective contrast, repetition, parallelism, escalation, and audience activation.
+
+**High**
+Allow deliberate use of stronger devices such as anaphora, antithesis, tricolon, rhetorical questions, and climax.
+
+---
+
+# Revision Scope
+
+Choose one:
+
+- **Entire speech**
+- **Selected section**
+- **High-priority weaknesses only**
+
+For normal editing, prefer high-priority weaknesses only.
+
+---
+
+# Corpus Roles
+
+| Corpus layer           | Main use              |
+| ---------------------- | --------------------- |
+| Raw transcript         | Evidence and examples |
+| Section functions      | Structural diagnosis  |
+| Writing patterns       | Rhetorical strategy   |
+| Rhetorical devices     | Rhetorical intensity  |
+| Purpose / theme / tone | Secondary context     |
+
+Current testing suggests that **section functions and writing patterns provide the strongest direct value for revision**.
+
+---
+
+# Workflow
 
 ```text
-Draft
-  ↓
-Diagnose
-  ↓
-Retrieve
-  ↓
-Abstract
-  ↓
-Choose Strategy
-  ↓
-Revise
-  ↓
-Review
+1. Set revision controls
+        ↓
+2. Preserve author intent
+        ↓
+3. Map the draft structure
+        ↓
+4. Diagnose weaknesses
+        ↓
+5. Retrieve analogous corpus passages
+        ↓
+6. Abstract the technique
+        ↓
+7. Choose a revision strategy
+        ↓
+8. Revise selected material
+        ↓
+9. Review the whole speech
 ```
-
-The desired result is:
-
-> the writer’s ideas and voice, with stronger rhetorical structure
-
-not:
-
-> the writer’s ideas rewritten in the style of another speaker or generic AI
 
 ---
 
-# Step 1 — Preserve Author Intent
+# 1. Set Revision Controls
 
-Before revising, identify:
-
-- audience
-- purpose
-- central argument
-- desired audience response
-- current voice
-- important ideas, phrases, examples, or stories that should be preserved
-
-Do not rewrite yet.
-
-### Output
+Record:
 
 ```text
-Audience:
-Purpose:
-Central argument:
-Desired audience response:
-Current voice:
-Must preserve:
+Revision scope:
+Voice fidelity:
+Structural intervention:
+Rhetorical intensity:
 ```
-
----
-
-# Step 2 — Map the Draft Structure
-
-Divide the draft into rhetorical sections.
-
-For each section, identify:
-
-- paragraph range
-- current rhetorical function
-- main idea
-
-Use existing Speech Brain section-function vocabulary where appropriate.
-
-### Output
-
-| Section | Paragraphs | Function | Main idea |
-| ------- | ---------- | -------- | --------- |
-| 1       |            |          |           |
-| 2       |            |          |           |
-| 3       |            |          |           |
-
-Do not force every section into an existing tag if none fits well.
-
----
-
-# Step 3 — Diagnose Weaknesses
-
-Evaluate each section before making changes.
-
-Ask:
-
-1. What rhetorical job is this section trying to perform?
-2. Does it perform that job effectively?
-3. Is an important rhetorical function missing?
-4. Is the sequence of functions effective?
-5. Is the problem structural or sentence-level?
-
-Possible problems include:
-
-- weak opening
-- unclear stakes
-- excessive explanation
-- missing transition
-- weak escalation
-- abrupt call to action
-- repetitive argument
-- conclusion that summarizes instead of culminates
-- rhetorical device used without purpose
-
-### Output
-
-| Section | Function | Diagnosis | Priority            |
-| ------- | -------- | --------- | ------------------- |
-|         |          |           | High / Medium / Low |
-
-Only high-value problems should proceed to corpus retrieval.
-
----
-
-# Step 4 — Retrieve Analogous Corpus Passages
-
-For each high-priority problem, retrieve passages that perform a similar rhetorical function.
-
-Prefer functional similarity over topic similarity.
-
-Useful retrieval dimensions include:
-
-- section function
-- writing pattern
-- rhetorical device
-- position within the speech
 
 Example:
 
 ```text
-Problem:
-Weak transition into the call to action
-
-Relevant corpus functions:
-- shift_to_citizen_responsibility
-- call_to_service
-
-Relevant writing patterns:
-- transfer_responsibility
-- reciprocal_call
+Revision scope: High-priority weaknesses only
+Voice fidelity: High
+Structural intervention: Medium
+Rhetorical intensity: Medium
 ```
-
-Retrieve a small number of strong examples rather than many loosely related examples.
 
 ---
 
-# Step 5 — Abstract the Technique
+# 2. Preserve Author Intent
 
-For every retrieved example, identify:
+Identify:
+
+- audience;
+- purpose;
+- central argument;
+- desired audience response;
+- current voice;
+- facts, examples, stories, or phrases that should be preserved.
+
+Do not rewrite yet.
+
+---
+
+# 3. Map the Draft Structure
+
+Divide the draft into rhetorical sections.
+
+For each section identify:
+
+- paragraph range;
+- rhetorical function;
+- main idea.
+
+Use existing Speech Brain section functions where appropriate.
+
+Do not force a section into an existing tag if none fits.
+
+---
+
+# 4. Diagnose Weaknesses
+
+Ask:
+
+1. What job is this section trying to perform?
+2. Does it perform that job effectively?
+3. Is an important function missing?
+4. Is the sequence effective?
+5. Is the problem structural or sentence-level?
+6. Would fixing it materially improve the speech?
+
+Prioritize only high-value problems.
+
+---
+
+# 5. Retrieve Analogous Corpus Passages
+
+Retrieve a small number of passages performing a similar rhetorical job.
+
+Prefer:
+
+> **functional similarity**
+
+over:
+
+> topic similarity.
+
+Useful retrieval dimensions:
+
+- section function;
+- writing pattern;
+- rhetorical device;
+- position within the speech.
+
+---
+
+# 6. Abstract the Technique
+
+For each useful example identify:
 
 ```text
 What the speaker does
         ↓
 Why it works
         ↓
-What principle is transferable
+Transferable principle
         ↓
 What should not be copied
 ```
 
-### Output Template
-
-```text
-Reference:
-Corpus location:
-
-Rhetorical move:
-
-Mechanism:
-
-Effect on audience:
-
-Transferable principle:
-
-Do not imitate:
-- distinctive wording
-- historical phrasing
-- speaker-specific voice
-- unnecessary stylistic mannerisms
-```
-
-The goal is to extract a reusable writing principle.
+Do not copy distinctive wording, historical phrasing, cadence, or speaker-specific voice.
 
 ---
 
-# Step 6 — Propose Revision Strategies
+# 7. Choose a Revision Strategy
 
-Before rewriting, generate 2–3 possible rhetorical strategies derived from the corpus analysis.
+Before rewriting, consider 2–3 possible rhetorical moves.
 
-Do not immediately produce revised prose.
+For each strategy ask:
 
-Example:
+- Why does it fit?
+- Which corpus principle supports it?
+- Does it match the requested voice fidelity?
+- Does it match the requested rhetorical intensity?
+- Is it appropriate for this genre?
 
-```text
-Strategy A — Transfer Responsibility
-
-external problem
-→ audience choice
-→ consequence
-→ action
-```
-
-```text
-Strategy B — Contrast Alternatives
-
-future A
-vs
-future B
-→ audience decides
-```
-
-Each strategy should explain:
-
-- the rhetorical move
-- why it fits the current speech
-- which corpus principle inspired it
-- any risks or trade-offs
-
-The writer chooses the strategy.
+Do not automatically choose the most dramatic technique.
 
 ---
 
-# Step 7 — Revise the Target Section
+# 8. Revise Selected Material
 
-Revise only the selected section.
+Revise according to the chosen controls.
 
-Preserve:
-
-- argument
-- facts
-- examples
-- terminology
-- personality
-- level of formality
-- writer-specific phrasing where possible
-
-Change only what is necessary:
-
-- rhetorical structure
-- sequencing
-- transitions
-- emphasis
-- sentence rhythm
-- selected rhetorical devices
-
-### Output
+A useful output format is:
 
 ```text
 Original:
@@ -271,87 +254,103 @@ Why:
 Corpus principle used:
 ```
 
-Avoid introducing rhetorical devices simply because they appear in the corpus.
+For high voice fidelity, prefer the smallest useful change.
 
-Every device should serve a clear purpose.
-
----
-
-# Step 8 — Whole-Speech Review
-
-After targeted revisions, inspect the entire speech.
-
-## Structure Check
-
-Ask:
-
-- Does every section have a clear purpose?
-- Does the sequence of sections make sense?
-- Is there unnecessary repetition?
-- Does rhetorical pressure build?
-- Does the conclusion feel earned?
-
-## Voice Check
-
-Ask:
-
-- Does this still sound like the original writer?
-- Did vocabulary become unnaturally polished?
-- Were AI clichés introduced?
-- Did sentence rhythms become too uniform?
-- Were personal quirks unnecessarily removed?
-
-## Corpus Contamination Check
-
-Ask:
-
-- Did any distinctive wording from the corpus leak into the revision?
-- Does the writer suddenly sound like JFK, Churchill, Reagan, Thatcher, or another corpus speaker?
-- Was a technique transferred, or was a style imitated?
-
-If imitation occurred, revise again.
+High structural intervention may still substantially reorganize the speech while preserving the speaker’s natural language.
 
 ---
 
-# Revision Philosophy
+# 9. Whole-Speech Review
 
-Speech Brain should behave primarily as a **speechwriting coach and analytical editor**, not a ghostwriter.
+## Structure
 
-The corpus should help answer:
+Check:
 
-> What is this part of the speech trying to accomplish?
+- clear purpose for each section;
+- logical progression;
+- unnecessary repetition;
+- appropriate momentum;
+- earned conclusion.
 
-> Why is it not working well enough?
+## Voice
 
-> How have strong speakers solved similar rhetorical problems?
+Check whether the amount of voice change matches the selected setting.
 
-> What underlying technique can be transferred?
+Watch for:
 
-> How can that technique strengthen this speech while preserving the writer’s voice?
+- unnecessarily sophisticated vocabulary;
+- overly uniform sentence rhythm;
+- loss of personality;
+- excessive polish.
 
-The system should prefer **diagnosis and explanation before rewriting**.
+## Rhetoric
+
+Check whether devices:
+
+- serve a purpose;
+- match the requested intensity;
+- fit the audience and genre;
+- avoid making the speech feel over-written.
+
+## Corpus Contamination
+
+Check that techniques were transferred without making the speaker sound like a specific corpus speaker.
 
 ---
 
-# Scope for Version 0.1
+# Genre Appropriateness
 
-This workflow is intentionally manual.
+A technique that works in a political speech may be inappropriate in a union update, product launch, weekly report, or company presentation.
 
-Do not add:
+Always distinguish between:
 
-- new validators
-- new schemas
-- retrieval infrastructure
-- automation scripts
-- new skills
-- prompt libraries
+> **effective in the source speech**
 
-until the workflow has been tested on a real first draft.
+and:
 
-The immediate objective is to determine whether the tagged Speech Brain corpus produces meaningfully better revisions than:
+> **appropriate for the target speech.**
 
-1. generic AI revision
-2. raw-speech RAG revision
-3. tagged-corpus revision
+---
 
-Only after this is demonstrated should the workflow be automated or expanded.
+# Current Findings
+
+Initial testing suggests:
+
+**Section functions — KEEP**
+Strong value for structural diagnosis and intervention.
+
+**Writing patterns — KEEP**
+Strong value for selecting rhetorical strategies.
+
+**Rhetorical devices — KEEP, but use selectively**
+Useful for intensity and memorability, but can cause over-polishing.
+
+**Purpose / theme / tone — RETAIN**
+Current revision value is less clear, but changing the existing tagging infrastructure is not justified.
+
+---
+
+# Scope Discipline
+
+Keep this workflow lightweight.
+
+Do not create new schemas, validators, scripts, benchmark systems, retrieval infrastructure, or skills unless repeated manual use proves they are necessary.
+
+> **Every new piece of infrastructure must earn its maintenance cost.**
+
+Prefer stable and good-enough over theoretically cleaner but substantially more complex.
+
+---
+
+# Current Objective
+
+Continue testing Speech Brain on different rhetorical situations, especially more everyday genres such as:
+
+- product launches;
+- company updates;
+- stakeholder reports;
+- leadership communications;
+- presentations;
+- crisis announcements.
+
+The goal is to determine whether Speech Brain can become a general speechwriting system rather than only a political-speech analysis system.
