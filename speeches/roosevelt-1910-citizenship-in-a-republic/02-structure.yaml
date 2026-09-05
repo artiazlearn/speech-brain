@@ -1,0 +1,195 @@
+speech_id: roosevelt-1910-citizenship-in-a-republic
+schema_version: 0.2.0
+vocabulary_version: 0.3.0
+
+sections:
+  - id: s01
+    paragraphs:
+      - p001
+      - p002
+      - p003
+      - p004
+    functions:
+      - opening
+      - reframe_occasion
+    rationale: >
+      The opening uses the Sorbonne and the contrasting histories of the Old
+      and New Worlds to establish the speaker-audience relationship. It then
+      broadens the occasion into an exchange in which a materially successful
+      young republic must recover learning and ideals from older civilization
+      without merely copying it.
+
+  - id: s02
+    paragraphs:
+      - p005
+      - p006
+    functions:
+      - define_stakes
+      - personalize_responsibility
+    rationale: >
+      These paragraphs state the governing thesis: democratic government is a
+      consequential social experiment whose success depends not chiefly on a
+      few rulers but on the conduct of ordinary citizens and the higher
+      standard expected of their leaders.
+
+  - id: s03
+    paragraphs:
+      - p007
+      - p008
+      - p009
+    functions:
+      - address_audience_group
+      - establish_values
+    rationale: >
+      Roosevelt turns specifically to the educated and privileged audience,
+      making its advantages the basis for greater obligations. The rejection
+      of cynical spectatorship and the praise of strenuous, imperfect action
+      develop one continuous standard of useful service; the arena passage is
+      therefore part of this argument rather than an independent unit.
+
+  - id: s04
+    paragraphs:
+      - p010
+      - p011
+    functions:
+      - establish_values
+    rationale: >
+      France supplies a positive example of intellectual and artistic
+      cultivation joined to military and civic strength. From that example the
+      speech establishes character, self-mastery, courage, cooperation, and
+      ordinary virtues as standards higher than learning or refinement alone.
+
+  - id: s05
+    paragraphs:
+      - p012
+      - p013
+      - p014
+    functions:
+      - establish_values
+      - define_stakes
+    rationale: >
+      This sequence develops the commonplace duties named in the preceding
+      section: productive work, courage to defend what is right, and family
+      continuity. Each is presented as necessary to individual worth and to a
+      civilization's ability to endure.
+
+  - id: s06
+    paragraphs:
+      - p015
+      - p016
+      - p017
+      - p018
+    functions:
+      - establish_values
+      - reframe_problem
+    rationale: >
+      The speech first affirms material self-support, then recasts wealth as a
+      foundation whose value depends on service beyond the self. The resulting
+      standard judges accumulation by public benefit and ultimately
+      subordinates property rights to human rights when the two truly conflict.
+
+  - id: s07
+    paragraphs:
+      - p019
+      - p020
+      - p021
+      - p022
+    functions:
+      - establish_values
+      - define_stakes
+    rationale: >
+      Money-making, oratory, journalism, and personal efficiency are assessed
+      together as powers that have no independent moral worth. The section
+      culminates in the paired requirement of effectiveness and moral control,
+      warning that able citizens become more dangerous when their capacities
+      serve evil or merely private advancement.
+
+  - id: s08
+    paragraphs:
+      - p023
+      - p024
+      - p025
+    functions:
+      - establish_values
+      - reframe_problem
+    rationale: >
+      Moving from household virtue to political conduct, Roosevelt rejects
+      both impracticable idealism and morality-free practicality. He reframes
+      reform as the disciplined realization of high ideals through experience,
+      including a flexible balance between individual initiative and common
+      action rather than allegiance to doctrinaire labels.
+
+  - id: s09
+    paragraphs:
+      - p026
+      - p027
+      - p028
+      - p029
+      - p030
+    functions:
+      - establish_values
+      - reframe_problem
+      - call_to_action
+    rationale: >
+      The Lincoln quotation anchors a distinction between equal rights and
+      opportunity on one hand and identical capacities or rewards on the
+      other. From that distinction the section urges listeners to pursue
+      justice by leveling up and to test reforms incrementally on their merits
+      instead of accepting or rejecting them by formula.
+
+  - id: s10
+    paragraphs:
+      - p031
+      - p032
+      - p033
+    functions:
+      - establish_values
+      - define_stakes
+    rationale: >
+      Liberty is defined through reciprocal rights, protection of minorities,
+      and tolerance across genuine disagreement. The argument then identifies
+      class loyalty, persecution, and fanaticism as symmetrical violations of
+      that democratic standard and as recurrent causes of republican collapse.
+
+  - id: s11
+    paragraphs:
+      - p034
+      - p035
+    functions:
+      - personalize_responsibility
+    rationale: >
+      A warning about leaders who profit from division is made personal through
+      the ranch-hand anecdote and its explicit political application. The
+      listener is given a direct rule for civic judgment: a politician willing
+      to act wrongly for a voter's benefit will also act wrongly against that
+      voter when self-interest changes.
+
+  - id: s12
+    paragraphs:
+      - p036
+      - p037
+      - p038
+      - p039
+    functions:
+      - establish_values
+      - explain_problem
+      - define_stakes
+    rationale: >
+      The argument expands from individual and domestic citizenship to duties
+      among nations, grounding international responsibility in a patriotism
+      governed by the same morality as private conduct. It then explains the
+      weakness of international law without an external sanction and defines
+      the resulting obligation to build peaceful means of settlement while
+      retaining the capacity to resist injustice.
+
+  - id: s13
+    paragraphs:
+      - p040
+    functions:
+      - address_audience_group
+      - closing
+    rationale: >
+      The explicit parting returns to the French hosts, joining the two
+      republics through friendship and shared consequence. A final tribute to
+      France's historic courage and civilizing influence completes the speech
+      with confidence in its future.
