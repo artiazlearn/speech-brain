@@ -17,13 +17,13 @@ speech_level:
           to win assent to a demanding account of effective and morally guided
           citizenship rather than merely describing that account.
         confidence: high
+    secondary:
       - tag: call_to_action
         rationale: >
           Across the speech listeners are urged to work, act despite possible
           failure, defend justice, test reforms practically, protect reciprocal
           liberty, and exercise responsible civic judgment (p007-p035).
-        confidence: high
-    secondary:
+        confidence: high    
       - tag: inspire
         rationale: >
           Praise of courageous effort, disciplined character, and France's
@@ -112,12 +112,6 @@ speech_level:
         practical reform, and resistance to international wrongdoing sustain a
         determined commitment even where action entails cost or failure.
       confidence: high
-    - tag: conciliatory
-      rationale: >
-        Meaningful portions seek workable common ground across ideological and
-        religious differences, permit cooperation on partial reforms, and
-        encourage peaceful settlement among nations (p025, p030-p033, p039).
-      confidence: medium
 
 passage_annotations:
   - id: a001
@@ -228,19 +222,6 @@ passage_annotations:
     rationale: >
       The reversed grammatical relationship contrasts the proper authority of
       human rights with the improper domination of people by property.
-    confidence: high
-
-  - id: a010
-    category: rhetorical_devices
-    tag: antithesis
-    section: s07
-    paragraphs:
-      - p021
-      - p022
-    evidence: "He is useless if he is inefficient ... the more efficient he is the worse he is"
-    rationale: >
-      The adjoining claims oppose ineffectual goodness to effective wickedness,
-      demonstrating why both capacity and moral direction are required.
     confidence: high
 
   - id: a011
